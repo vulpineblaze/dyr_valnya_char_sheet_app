@@ -38,7 +38,7 @@ export default class Create extends Component {
       business_name: this.state.business_name,
       business_gst_number: this.state.business_gst_number
     };
-    axios.post('/business/add', obj)
+    axios.post('business/add', obj)
         .then(res => console.log(res.data));
     
     this.setState({

@@ -140,7 +140,7 @@ cd ..
 npm install axios --save
 npm install react-google-login 
 
-
+npm i path babel-preset-react # added to try and fix conx to 4003
 
 
 
