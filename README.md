@@ -111,6 +111,45 @@ ng serve --disable-host-check
 
 Ctrl-A then Ctrl-D
 
+#########################################################
+    RESTART IN REACTJS
+#########################################################
+
+# tut ###   https://appdividend.com/2018/11/11/react-crud-example-mern-stack-tutorial/
+
+# sudo service nginx restart
+
+sudo mkdir valnya
+sudo chown ubuntu valnya
+sudo chmod 2777 valnya
+
+npx create-react-app valnya
+cd valnya
+npm start
+
+npm install bootstrap react-router-dom  --save
+
+mkdir api ; cd api
+npm init -y
+
+npm install express body-parser cors mongoose --save
+npm install nodemon --save-dev
+#npx nodemon server # added to package.json under 'npm start'
+
+cd ..
+npm install axios --save
+npm install react-google-login 
+
+
+
+
+
+
+
+
+
+
+
 ```
 ____
 

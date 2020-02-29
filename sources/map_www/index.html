@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html> 
+  
+<head> 
+    <title> 
+      dyr-valnya Overlay Map Demo for Anamsis (Ch5) 
+    </title> 
+    <script src= 
+"https://code.jquery.com/jquery-1.12.4.min.js"></script> 
+    <style type="text/css">  
+        label { 
+            margin-right: 20px; 
+        } 
+        .container{
+            position: relative;
+            display: inline;
+            
+        }
+        .imtip {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+    </style> 
+</head> 
+  
+<body> 
+    <center> 
+        
+        <div class="container">
+          <img src="white_bg.png" /> 
+          <img src="geology.png" class="geology imtip" /> 
+          <img src="terrain.png" class="terrain imtip" /> 
+          <img src="country_lines.png" class="country_lines imtip" /> 
+          <img src="country_colors.png" class="country_colors imtip" /> 
+          <img src="gate_dots.png" class="gate_dots imtip" /> 
+          <img src="gate_names.png" class="gate_names imtip" /> 
+          <img src="city_dots.png" class="city_dots imtip" /> 
+          <img src="city_names.png" class="city_names imtip" /> 
+        </div>
+<P> This is the legit map for Ch5, Planet <a href="https://valnya.fandom.com/wiki/Places/Anamsis">Anamsis</a>. </P>
+
+<p>  Not to scale, but roughly 1px = 5mi, 5px = a days march.</P>
+        <div> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="geology" checked> Geology</label>  
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="terrain" checked> Terrain</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="country_lines" checked> Country Lines</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="country_colors" checked> Country Colors</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="gate_dots" checked> Gate Dots</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="gate_names" checked> Gate Names</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="city_dots" checked> City Dots</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="city_names" checked> City Names</label> 
+
+        </div> 
+
+
+        <script type="text/javascript"> 
+            $(document).ready(function() { 
+                $('input[type="checkbox"]').click(function() { 
+                    var inputValue = $(this).attr("value"); 
+                    $("." + inputValue).toggle(); 
+                }); 
+            }); 
+        </script> 
+    </center> 
+</body> 
+  
+</html>             
