@@ -17,7 +17,7 @@ export default class Edit extends Component {
   }
 
   componentDidMount() {
-      axios.get('business/edit/'+this.props.match.params.id)
+      axios.get('/business/edit/'+this.props.match.params.id)
           .then(response => {
               this.setState({ 
                 person_name: response.data.person_name, 
@@ -52,7 +52,7 @@ export default class Edit extends Component {
       business_name: this.state.business_name,
       business_gst_number: this.state.business_gst_number
     };
-    axios.post('http://localhost:4000/business/update/'+this.props.match.params.id, obj)
+    axios.post('/business/update/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
     this.props.history.push('/index');
@@ -81,10 +81,11 @@ export default class Edit extends Component {
                       />
                 </div>
                 <div className="form-group">
-                    <label>GST Number: </label>
-                    <input type="text" 
+                    <label>GST Number: {this.state.business_gst_number}</label>
+                    <input type="range" 
                       className="form-control"
                       value={this.state.business_gst_number}
+                      min="0" max="5"
                       onChange={this.onChangeGstNumber}
                       />
                 </div>

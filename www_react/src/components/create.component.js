@@ -71,10 +71,11 @@ export default class Create extends Component {
                       />
                 </div>
                 <div className="form-group">
-                    <label>GST Number: </label>
-                    <input type="text" 
+                    <label>GST Number: {this.state.business_gst_number}</label>
+                    <input type="range" 
                       className="form-control"
                       value={this.state.business_gst_number}
+                      min="0" max="5"
                       onChange={this.onChangeGstNumber}
                       />
                 </div>
