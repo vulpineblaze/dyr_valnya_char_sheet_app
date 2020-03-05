@@ -55,7 +55,8 @@ class App extends Component {
       <Router>
         <div style={this.state.loadState ? { display: 'none' } : {}}>
           <GoogleLogin
-            clientId="662678115576-0o3gbqcmlu0fejmn3dkfte0g9evoqe5l.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+            clientId="662678115576-2aot69uthdfcqs6m7k6n9dr5v03glb09.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+            // clientId="662678115576-0o3gbqcmlu0fejmn3dkfte0g9evoqe5l.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
             buttonText="LOGIN WITH GOOGLE"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
@@ -83,8 +84,14 @@ class App extends Component {
             </div>
           </nav>
           <Switch>
-              <Route exact path='/create' component={ Create } />
-              <Route path='/edit/:id' component={ Edit } />
+              <Route
+                exact path='/create'
+                render={(props) => <Create {...props} user={this.state.user} />}
+              />
+              <Route
+                exact path='/edit/:id'
+                render={(props) => <Edit {...props} user={this.state.user} />}
+              />
               <Route path='/index' component={ Index } />
           </Switch>
         </div>

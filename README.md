@@ -140,7 +140,23 @@ cd ..
 npm install axios --save
 npm install react-google-login 
 
-npm i path babel-preset-react # added to try and fix conx to 4003
+# npm i path babel-preset-react # added to try and fix conx to 4003
+# didnt fix ^^
+
+# https://letsencrypt.org/getting-started/ ### get SSL cert
+
+sudo apt-get update
+sudo apt-get -y install software-properties-common
+sudo add-apt-repository universe
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+
+sudo apt-get -y install certbot python-certbot-nginx
+
+sudo certbot --nginx
+
+
+
 
 
 
