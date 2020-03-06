@@ -431,6 +431,31 @@ export default class Create extends Component {
 		temp_text_box: ''
     })
   }
+
+
+  componentDidMount() {
+    var coll = document.getElementsByClassName("collapsible");
+    var active = document.getElementsByClassName("active");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.maxHeight){
+	      content.style.maxHeight = null;
+	    } else {
+	      content.style.maxHeight = content.scrollHeight + "px";
+	    } 
+	  });
+	}
+	for(i = 0; i < active.length; i++){
+		var content = active[i].nextElementSibling;
+		content.style.maxHeight = content.scrollHeight + "px";
+	}
+  }
+
+
  
   render() {
     return (
@@ -735,12 +760,17 @@ export default class Create extends Component {
                 <div className="form-group">
                     <label>Subterfuge: {this.state.subterfuge}</label>
                     <input type="range" 
-                      className="form-control"
+                      className={["tenner","form-control"].join(' ')}
                       value={this.state.subterfuge}
                       min="0" max="5"
                       onChange={this.onChangeSubterfuge}
                       />
                 </div>
+
+                <button class="collapsible active">Test Collapsible</button>
+                <div class="content">
+
+
                 <div className="form-group">
                     <label>Survival: {this.state.survival}</label>
                     <input type="range" 
@@ -760,7 +790,7 @@ export default class Create extends Component {
                       />
                 </div>
 
-
+                </div>
 
 
 
