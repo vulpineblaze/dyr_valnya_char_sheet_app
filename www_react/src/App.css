@@ -45,15 +45,20 @@ input[type="range"] {
     position: relative;
     overflow: hidden;
     height: 40px;
-    width: 240px;
+    width: 410px;
     cursor: pointer;
     border-radius: 80px; /* iOS */
 }
 
+
+
 ::-webkit-slider-runnable-track {
-    background-image: url('6bars.png');
+    background-image: url('10bars.png');
 }
 
+/*[class^="test"]::-webkit-slider-runnable-track {
+    background-image: url('6bars.png');
+}*/
 /*
  * 1. Set to 0 width and remove border for a slider without a thumb
  */
@@ -113,4 +118,10 @@ input[type="range"] {
 
 ::-ms-tooltip { 
     display: none;
+}
+
+
+
+input[class^="tenner"] { 
+    width: 755px;
 }

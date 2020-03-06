@@ -753,9 +753,9 @@ export default class Create extends Component {
                 <div className="form-group">
                     <label>Technika: {this.state.technika}</label>
                     <input type="range" 
-                      className="form-control"
+                      className={["tenner","form-control"].join(' ')}
                       value={this.state.technika}
-                      min="0" max="5"
+                      min="0" max="10"
                       onChange={this.onChangeTechnika}
                       />
                 </div>
