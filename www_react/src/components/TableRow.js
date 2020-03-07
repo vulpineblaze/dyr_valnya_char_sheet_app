@@ -11,7 +11,9 @@ class TableRow extends Component {
     delete() {
         axios.get('/sheet/delete/'+this.props.obj._id)
             .then(console.log('Deleted'))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+        // window.open("/");
+        window.location = '/';
     }
   render() {
     return (

@@ -1,3 +1,8 @@
+
+html, body, #app, #app>div , #root, #root>div {
+  height: 100%
+}
+
 .App {
   text-align: center;
 }
@@ -135,7 +140,7 @@ input[class^="tenner"] {
 
 
 
-
+/*
 
 .collapsible {
   background-color: #777;
@@ -172,3 +177,153 @@ input[class^="tenner"] {
   transition: max-height 0.2s ease-out;
   background-color: #f1f1f1;
 }
+
+
+
+
+
+
+
+
+.tab-folder > .tab-content:target ~ .tab-content:last-child, .tab-folder > .tab-content {
+    display: none;
+}
+.tab-folder > :last-child, .tab-folder > .tab-content:target {
+    display: block;
+}*/
+
+
+
+
+
+
+
+article.tabs
+{
+  position: relative;
+  display: block;
+  width: 40em;
+  height: 15em;
+  margin: 2em auto;
+}
+
+article.tabs section
+{
+  position: absolute;
+  display: block;
+  top: 1.8em;
+  left: 0;
+  height: 115em;
+  width: 50em;
+  padding: 10px 20px;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 0 3px 3px rgba(0,0,0,0.1);
+  z-index: 0;
+}
+
+
+article.tabs section:first-child
+{
+  z-index: 1;
+}
+
+article.tabs section h2
+{
+  position: absolute;
+  font-size: 1em;
+  font-weight: normal;
+  width: 120px;
+  height: 1.8em;
+  top: -1.8em;
+  left: 10px;
+  padding: 0;
+  margin: 0;
+  color: #999;
+  background-color: #ddd;
+  border-radius: 5px 5px 0 0;
+}
+
+article.tabs section:nth-child(2) h2
+{
+  left: 132px;
+  background-color: #fdd;
+}
+
+article.tabs section:nth-child(3) h2
+{
+  left: 254px;
+  background-color: #ddf;
+}
+article.tabs section:nth-child(4) h2
+{
+  left: 376px;
+  background-color: #fdf;
+  width: 140px;
+}
+article.tabs section:nth-child(5) h2
+{
+  left: 518px;
+  background-color: #dfd;
+}
+article.tabs section:nth-child(6) h2
+{
+  left: 640px;
+  background-color: #dff;
+  width: 180px;
+}
+
+article.tabs section h2 a
+{
+  display: block;
+  width: 100%;
+  line-height: 1.8em;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  outline: 0 none;
+  padding: 0 0 -2em 0;
+}
+
+article.tabs section:target,
+article.tabs section:target h2
+{
+  color: #333;
+  /*background-color: #eee;*/
+  font-weight: bold;
+  z-index: 2;
+}
+
+article.tabs section,
+article.tabs section h2
+{
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+
+p.tabnav
+{
+  font-size: 1.1em;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+p.tabnav a
+{
+  text-decoration: none;
+  color: #999;
+}
+
+
+
+
+
+
+
+
+
+
+

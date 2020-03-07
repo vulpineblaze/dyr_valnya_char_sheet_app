@@ -462,360 +462,345 @@ export default class Edit extends Component {
             <form onSubmit={this.onSubmit}>
 
 
-                <div className="form-group">
-                    <label>Name:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.name}
-                      onChange={this.onChangeName}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Concept:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.concept}
-                      onChange={this.onChangeConcept}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Virtue:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.virtue}
-                      onChange={this.onChangeVirtue}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Vice:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.vice}
-                      onChange={this.onChangeVice}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Racial:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.racial}
-                      onChange={this.onChangeRacial}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Description:  </label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={this.state.description}
-                      onChange={this.onChangeDescription}
-                      />
-                </div>
+                <article class="tabs">
+
+          <section id="tab1">
+            <h2><a href="#tab1">Character Desc</a></h2>
+            <p> Name and description of your character - No rules are tied to this section, so it's up to you what you make!</p>
+            <div className="form-group">
+                        <label>Name:  </label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          value={this.state.name}
+                          onChange={this.onChangeName}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Concept:  </label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          value={this.state.concept}
+                          onChange={this.onChangeConcept}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Virtue:  </label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          value={this.state.virtue}
+                          onChange={this.onChangeVirtue}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Vice:  </label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          value={this.state.vice}
+                          onChange={this.onChangeVice}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Racial:  </label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          value={this.state.racial}
+                          onChange={this.onChangeRacial}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Description: </label>
+                        <textarea className="form-control" 
+                        rows = "5" cols = "60" name = "description"
+                        value={this.state.description}
+                          onChange={this.onChangeDescription}
+                          />
+                    </div>
+                    
+                    <p className="tabnav"><a href="#tab2">next &#10151;</a></p>
+          </section>
 
 
 
-                <div className="form-group">
-                    <label>Intelligence: {this.state.intelligence}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.intelligence}
-                      min="0" max="5"
-                      onChange={this.onChangeIntelligence}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Wits: {this.state.wits}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.wits}
-                      min="0" max="5"
-                      onChange={this.onChangeWits}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Resolve: {this.state.resolve}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.resolve}
-                      min="0" max="5"
-                      onChange={this.onChangeResolve}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Strength: {this.state.strength}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.strength}
-                      min="0" max="5"
-                      onChange={this.onChangeStrength}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Dexterity: {this.state.dexterity}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.dexterity}
-                      min="0" max="5"
-                      onChange={this.onChangeDexterity}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Stamina: {this.state.stamina}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.stamina}
-                      min="0" max="5"
-                      onChange={this.onChangeStamina}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Presence: {this.state.presence}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.presence}
-                      min="0" max="5"
-                      onChange={this.onChangePresence}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Manipulation: {this.state.manipulation}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.manipulation}
-                      min="0" max="5"
-                      onChange={this.onChangeManipulation}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Composure: {this.state.composure}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.composure}
-                      min="0" max="5"
-                      onChange={this.onChangeComposure}
-                      />
-                </div>
-
-
-
-
-                <div className="form-group">
-                    <label>Athletics: {this.state.athletics}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.athletics}
-                      min="0" max="5"
-                      onChange={this.onChangeAthletics}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Crafts: {this.state.crafts}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.crafts}
-                      min="0" max="5"
-                      onChange={this.onChangeCrafts}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Culture: {this.state.culture}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.culture}
-                      min="0" max="5"
-                      onChange={this.onChangeCulture}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Empathy: {this.state.empathy}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.empathy}
-                      min="0" max="5"
-                      onChange={this.onChangeEmpathy}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Expression: {this.state.expression}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.expression}
-                      min="0" max="5"
-                      onChange={this.onChangeExpression}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Intimidation: {this.state.intimidation}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.intimidation}
-                      min="0" max="5"
-                      onChange={this.onChangeIntimidation}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Investigation: {this.state.investigation}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.investigation}
-                      min="0" max="5"
-                      onChange={this.onChangeInvestigation}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Larceny: {this.state.larceny}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.larceny}
-                      min="0" max="5"
-                      onChange={this.onChangeLarceny}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Luck: {this.state.luck}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.luck}
-                      min="0" max="5"
-                      onChange={this.onChangeLuck}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Magicka: {this.state.magicka}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.magicka}
-                      min="0" max="5"
-                      onChange={this.onChangeMagicka}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Medicine: {this.state.medicine}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.medicine}
-                      min="0" max="5"
-                      onChange={this.onChangeMedicine}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Observation: {this.state.observation}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.observation}
-                      min="0" max="5"
-                      onChange={this.onChangeObservation}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Persuasion: {this.state.persuasion}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.persuasion}
-                      min="0" max="5"
-                      onChange={this.onChangePersuasion}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Portaelogy: {this.state.portaelogy}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.portaelogy}
-                      min="0" max="5"
-                      onChange={this.onChangePortaelogy}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Riding: {this.state.riding}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.riding}
-                      min="0" max="5"
-                      onChange={this.onChangeRiding}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Stealth: {this.state.stealth}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.stealth}
-                      min="0" max="5"
-                      onChange={this.onChangeStealth}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Streetwise: {this.state.streetwise}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.streetwise}
-                      min="0" max="5"
-                      onChange={this.onChangeStreetwise}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Subterfuge: {this.state.subterfuge}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.subterfuge}
-                      min="0" max="5"
-                      onChange={this.onChangeSubterfuge}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Survival: {this.state.survival}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.survival}
-                      min="0" max="5"
-                      onChange={this.onChangeSurvival}
-                      />
-                </div>
-                <div className="form-group">
-                    <label>Technika: {this.state.technika}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.technika}
-                      min="0" max="5"
-                      onChange={this.onChangeTechnika}
-                      />
-                </div>
+                <section id="tab2">
+            <h2><a href="#tab2">Aspects</a></h2>
+            <p> Use 5|4|3 rule in the coda to select your Aspects.</p>
+            <div className="form-group">
+                        <label>Intelligence: {this.state.intelligence}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.intelligence}
+                          min="0" max="5"
+                          onChange={this.onChangeIntelligence}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Wits: {this.state.wits}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.wits}
+                          min="0" max="5"
+                          onChange={this.onChangeWits}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Resolve: {this.state.resolve}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.resolve}
+                          min="0" max="5"
+                          onChange={this.onChangeResolve}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Strength: {this.state.strength}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.strength}
+                          min="0" max="5"
+                          onChange={this.onChangeStrength}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Dexterity: {this.state.dexterity}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.dexterity}
+                          min="0" max="5"
+                          onChange={this.onChangeDexterity}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Stamina: {this.state.stamina}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.stamina}
+                          min="0" max="5"
+                          onChange={this.onChangeStamina}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Presence: {this.state.presence}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.presence}
+                          min="0" max="5"
+                          onChange={this.onChangePresence}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Manipulation: {this.state.manipulation}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.manipulation}
+                          min="0" max="5"
+                          onChange={this.onChangeManipulation}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Composure: {this.state.composure}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.composure}
+                          min="0" max="5"
+                          onChange={this.onChangeComposure}
+                          />
+                    </div>
+            <p class="tabnav"><a href="#tab3">next &#10151;</a></p>
+          </section>
 
 
 
 
-
-
-
-                <div className="form-group">
-                    <label>Size: {this.state.size}</label>
-                    <input type="range" 
-                      className="form-control"
-                      value={this.state.size}
-                      min="1" max="6"
-                      onChange={this.onChangeSize}
-                      />
-                </div>
-
-
-
-
-
-
-
-
-                <div className="form-group">
-                    <label>temp_text_box: </label>
-                    <textarea className="form-control" 
-                    rows = "10" cols = "60" name = "description"
-                    value={this.state.temp_text_box}
-                      onChange={this.onChangetemp_text_box}
-                      />
-                </div>
+                <section id="tab3">
+            <h2><a href="#tab3">Aptitudes</a></h2>
+            <p> You get 20 points to spend here, on top of the items already at +1. </p>
+            <div className="form-group">
+                        <label>Athletics: {this.state.athletics}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.athletics}
+                          min="0" max="5"
+                          onChange={this.onChangeAthletics}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Crafts: {this.state.crafts}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.crafts}
+                          min="0" max="5"
+                          onChange={this.onChangeCrafts}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Culture: {this.state.culture}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.culture}
+                          min="0" max="5"
+                          onChange={this.onChangeCulture}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Empathy: {this.state.empathy}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.empathy}
+                          min="0" max="5"
+                          onChange={this.onChangeEmpathy}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Expression: {this.state.expression}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.expression}
+                          min="0" max="5"
+                          onChange={this.onChangeExpression}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Intimidation: {this.state.intimidation}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.intimidation}
+                          min="0" max="5"
+                          onChange={this.onChangeIntimidation}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Investigation: {this.state.investigation}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.investigation}
+                          min="0" max="5"
+                          onChange={this.onChangeInvestigation}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Larceny: {this.state.larceny}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.larceny}
+                          min="0" max="5"
+                          onChange={this.onChangeLarceny}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Luck: {this.state.luck}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.luck}
+                          min="0" max="5"
+                          onChange={this.onChangeLuck}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Magicka: {this.state.magicka}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.magicka}
+                          min="0" max="5"
+                          onChange={this.onChangeMagicka}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Medicine: {this.state.medicine}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.medicine}
+                          min="0" max="5"
+                          onChange={this.onChangeMedicine}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Observation: {this.state.observation}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.observation}
+                          min="0" max="5"
+                          onChange={this.onChangeObservation}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Persuasion: {this.state.persuasion}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.persuasion}
+                          min="0" max="5"
+                          onChange={this.onChangePersuasion}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Portaelogy: {this.state.portaelogy}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.portaelogy}
+                          min="0" max="5"
+                          onChange={this.onChangePortaelogy}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Riding: {this.state.riding}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.riding}
+                          min="0" max="5"
+                          onChange={this.onChangeRiding}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Stealth: {this.state.stealth}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.stealth}
+                          min="0" max="5"
+                          onChange={this.onChangeStealth}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Streetwise: {this.state.streetwise}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.streetwise}
+                          min="0" max="5"
+                          onChange={this.onChangeStreetwise}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Subterfuge: {this.state.subterfuge}</label>
+                        <input type="range" 
+                          className={["tenner","form-control"].join(' ')}
+                          value={this.state.subterfuge}
+                          min="0" max="5"
+                          onChange={this.onChangeSubterfuge}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Survival: {this.state.survival}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.survival}
+                          min="0" max="5"
+                          onChange={this.onChangeSurvival}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <label>Technika: {this.state.technika}</label>
+                        <input type="range" 
+                          className={["tenner","form-control"].join(' ')}
+                          value={this.state.technika}
+                          min="0" max="10"
+                          onChange={this.onChangeTechnika}
+                          />
+                    </div>
+                    <p class="tabnav"><a href="#tab4">next &#10151;</a></p>
+          </section>
 
 
 
@@ -823,11 +808,61 @@ export default class Edit extends Component {
 
 
 
-                <div className="form-group">
-                    <input type="submit" 
-                      value="Update Character" 
-                      className="btn btn-primary"/>
-                </div>
+                <section id="tab4">
+            <h2><a href="#tab4">Composite Stats</a></h2>
+            <p> Mostly for after Character Creation, but some stats don't fit elsewhere. </p>
+            <div className="form-group">
+                        <label>Size: {this.state.size}</label>
+                        <input type="range" 
+                          className="form-control"
+                          value={this.state.size}
+                          min="1" max="6"
+                          onChange={this.onChangeSize}
+                          />
+                    </div>
+                    <p class="tabnav"><a href="#tab5">next &#10151;</a></p>
+          </section>
+
+
+
+
+
+
+
+
+               <section id="tab5">
+            <h2><a href="#tab5">Specialties</a></h2>
+            <p>The feature is Coming SOON(tm)!</p>
+            <p class="tabnav"><a href="#tab6">next &#10151;</a></p>
+          </section>
+
+
+          
+          <section id="tab6">
+            <h2><a href="#tab6">Quirks|Magicka|Technika</a></h2>
+            <p> Right now this is a big empty text box with only 10 lines. The full feature is Coming SOON(tm)!</p>
+            <div className="form-group">
+                        <label>temp_text_box: </label>
+                        <textarea className="form-control" 
+                        rows = "10" cols = "60" name = "description"
+                        value={this.state.temp_text_box}
+                          onChange={this.onChangetemp_text_box}
+                          />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" 
+                          value="Save Character" 
+                          className="btn btn-primary"/>
+                    </div>
+          </section>
+
+
+
+
+        </article>
+
+
+        
             </form>
         </div>
     )

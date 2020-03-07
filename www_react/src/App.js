@@ -32,6 +32,9 @@ class App extends Component {
 
   }
 
+
+
+
   render() {
     const responseGoogle = (response) => {
       console.log("response",response);
@@ -68,7 +71,7 @@ class App extends Component {
         <div className="container" style={this.state.loadState ? {} : { display: 'none' }}>
           <div> Hey, {this.state.name} </div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to={'/'} className="navbar-brand">React CRUD Example: Valnya Character Sheet App</Link>
+            <Link to={'/'} className="navbar-brand">Dyr Valnya Character Sheet App</Link>
             <div className=" navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
               <li className="nav-item">
