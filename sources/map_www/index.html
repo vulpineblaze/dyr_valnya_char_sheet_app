@@ -5,8 +5,12 @@
     <title> 
       dyr-valnya Overlay Map Demo for Anamsis (Ch5) 
     </title> 
-    <script src= 
-"https://code.jquery.com/jquery-1.12.4.min.js"></script> 
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="js/jquery.ruler.js"></script>
     <style type="text/css">  
         label { 
             margin-right: 20px; 
@@ -33,19 +37,23 @@
     <center> 
         
         <div class="container">
-          <img src="white_bg.png" /> 
+          <img src="white_bg.png" id="white_bg" /> 
           <img src="geology.png" class="geology imtip" /> 
           <img src="terrain.png" class="terrain imtip" /> 
-          <img src="country_lines.png" class="country_lines imtip" /> 
-          <img src="country_colors.png" class="country_colors imtip" /> 
+          <img src="country_lines.png" class="country_lines imtip" style="display: none;"/> 
+          <img src="country_colors.png" class="country_colors imtip" style="display: none;"/> 
+          <img src="country_lines_new.png" class="country_lines_new imtip" /> 
+          <img src="country_colors_new.png" class="country_colors_new imtip" /> 
+          <img src="country_names_new.png" class="country_names_new imtip" /> 
           <img src="gate_dots.png" class="gate_dots imtip" /> 
           <img src="gate_names.png" class="gate_names imtip" /> 
           <img src="city_dots.png" class="city_dots imtip" /> 
           <img src="city_names.png" class="city_names imtip" /> 
         </div>
+
 <P> This is the legit map for Ch5, Planet <a href="https://valnya.fandom.com/wiki/Places/Anamsis">Anamsis</a>. </P>
 
-<p>  Not to scale, but roughly 1px = 5mi, 5px = a days march.</P>
+<p class="target">  Not to scale, but roughly 1px = 5mi, 5px = a days march.</P>
         <div> 
             <label> 
                 <input type="checkbox" name="colorCheckbox" 
@@ -55,10 +63,19 @@
                        value="terrain" checked> Terrain</label> 
             <label> 
                 <input type="checkbox" name="colorCheckbox" 
-                       value="country_lines" checked> Country Lines</label> 
+                       value="country_lines" > Country Lines (Historical)</label> 
             <label> 
                 <input type="checkbox" name="colorCheckbox" 
-                       value="country_colors" checked> Country Colors</label> 
+                       value="country_colors" > Country Colors (Historical)</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="country_lines_new" checked> Country Lines (Current)</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="country_colors_new" checked> Country Colors (Current)</label> 
+            <label> 
+                <input type="checkbox" name="colorCheckbox" 
+                       value="country_names_new" checked> Country Names (Current)</label> 
             <label> 
                 <input type="checkbox" name="colorCheckbox" 
                        value="gate_dots" checked> Gate Dots</label> 
@@ -73,6 +90,7 @@
                        value="city_names" checked> City Names</label> 
 
         </div> 
+        <!-- <div class="test">test</div> -->
 
 
         <script type="text/javascript"> 
@@ -81,7 +99,16 @@
                     var inputValue = $(this).attr("value"); 
                     $("." + inputValue).toggle(); 
                 }); 
+                $(function() {
+                    $('body').ruler({
+                        vRuleSize: 8,
+                        hRuleSize: 8,
+                        showCrosshair : true,
+                        showMousePos: true
+                    });    
+                });
             }); 
+            
         </script> 
     </center> 
 </body> 

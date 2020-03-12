@@ -42,7 +42,9 @@ html, body, #app, #app>div , #root, #root>div {
   }
 }
 
-
+label {
+  font-size: 1.5em;
+}
 
 input[type="range"] { 
     margin: auto;
@@ -291,6 +293,7 @@ article.tabs section:target h2
   color: #333;
   /*background-color: #eee;*/
   font-weight: bold;
+
   z-index: 2;
 }
 
