@@ -147,27 +147,35 @@ export default class Create extends Component {
   }
   onChangeWits(e) {
     this.setState({
-      wits: e.target.value
+      wits: e.target.value,
+      defense: Math.min(e.target.value , this.state.dexterity)
     });
   }
   onChangeResolve(e) {
     this.setState({
-      resolve: e.target.value
+      resolve: e.target.value,
+      astrylose: parseInt(e.target.value) + parseInt(this.state.size),
+      willpower: parseInt(e.target.value) + parseInt(this.state.composure)
     });
   }
   onChangeStrength(e) {
     this.setState({
-      strength: e.target.value
+      strength: e.target.value,
+      speed: parseInt(e.target.value) + parseInt(this.state.dexterity) + parseInt(this.state.size)
     });
   }
   onChangeDexterity(e) {
     this.setState({
-      dexterity: e.target.value
+      dexterity: e.target.value,
+      speed: parseInt(e.target.value) + parseInt(this.state.strength) + parseInt(this.state.size),
+      initiative: parseInt(e.target.value) + parseInt(this.state.composure),
+      defense: Math.min(e.target.value , this.state.wits)
     });
   }
   onChangeStamina(e) {
     this.setState({
-      stamina: e.target.value
+      stamina: e.target.value,
+      vitality: parseInt(e.target.value) + parseInt(this.state.size)
     });
   }
   onChangePresence(e) {
@@ -182,7 +190,9 @@ export default class Create extends Component {
   }
   onChangeComposure(e) {
     this.setState({
-      composure: e.target.value
+      composure: e.target.value,
+      willpower: parseInt(e.target.value) + parseInt(this.state.resolve),
+      initiative: parseInt(e.target.value) + parseInt(this.state.dexterity)
     });
   }
   onChangeAthletics(e) {
@@ -286,39 +296,41 @@ export default class Create extends Component {
     });
   }
   onChangeAstrylose(e) {
-    this.setState({
-      astrylose: e.target.value
-    });
+    // this.setState({
+    //   astrylose: e.target.value
+    // });
   }
   onChangeWillpower(e) {
-    this.setState({
-      willpower: e.target.value
-    });
+    // this.setState({
+    //   willpower: e.target.value
+    // });
   }
   onChangeVitality(e) {
-    this.setState({
-      vitality: e.target.value
-    });
+    // this.setState({
+    //   vitality: e.target.value
+    // });
   }
   onChangeSize(e) {
     this.setState({
-      size: e.target.value
+      size: e.target.value,
+      astrylose: parseInt(e.target.value) + parseInt(this.state.resolve),
+      speed: parseInt(e.target.value) + parseInt(this.state.dexterity) + parseInt(this.state.strength)
     });
   }
   onChangeSpeed(e) {
-    this.setState({
-      speed: e.target.value
-    });
+    // this.setState({
+    //   speed: e.target.value
+    // });
   }
   onChangeInitiative(e) {
-    this.setState({
-      initiative: e.target.value
-    });
+    // this.setState({
+    //   initiative: e.target.value
+    // });
   }
   onChangeDefense(e) {
-    this.setState({
-      defense: e.target.value
-    });
+    // this.setState({
+    //   defense: e.target.value
+    // });
   }
   onChangetemp_text_box(e) {
     this.setState({
@@ -773,7 +785,7 @@ export default class Create extends Component {
 		                <div className="form-group">
 		                    <label>Subterfuge: {this.state.subterfuge}</label>
 		                    <input type="range" 
-		                      className={["tenner","form-control"].join(' ')}
+		                      className="form-control"
 		                      value={this.state.subterfuge}
 		                      min="0" max="5"
 		                      onChange={this.onChangeSubterfuge}
@@ -791,9 +803,9 @@ export default class Create extends Component {
 		                <div className="form-group">
 		                    <label>Technika: {this.state.technika}</label>
 		                    <input type="range" 
-		                      className={["tenner","form-control"].join(' ')}
+		                      className="form-control"
 		                      value={this.state.technika}
-		                      min="0" max="10"
+		                      min="0" max="5"
 		                      onChange={this.onChangeTechnika}
 		                      />
 		                </div>
@@ -805,6 +817,7 @@ export default class Create extends Component {
 					<section id="tab4">
 						<h2><a href="#tab4">Composite Stats</a></h2>
 						<p> Mostly for after Character Creation, but some stats don't fit elsewhere. </p>
+						<p> These stats are editable. </p>
 						<div className="form-group">
 		                    <label>Size: {this.state.size}</label>
 		                    <input type="range" 
@@ -814,6 +827,62 @@ export default class Create extends Component {
 		                      onChange={this.onChangeSize}
 		                      />
 		                </div>
+						<p> These stats are not editable. </p>
+						<div className="form-group">
+		                    <label>Astrylose: {this.state.astrylose}</label>
+		                    <input type="range" 
+		                      className={["tennerRed","form-control","noedit"].join(' ')}
+		                      value={this.state.astrylose}
+		                      min="0" max="10"
+		                      onChange={this.onChangeAstrylose}
+		                      />
+		                </div>
+						<div className="form-group">
+		                    <label>Willpower: {this.state.willpower}</label>
+		                    <input type="range" 
+		                      className={["tennerBlue","form-control","noedit"].join(' ')}
+		                      value={this.state.willpower}
+		                      min="0" max="10"
+		                      onChange={this.onChangeWillpower}
+		                      />
+		                </div>
+						<div className="form-group">
+		                    <label>Vitality: {this.state.vitality}</label>
+		                    <input type="range" 
+		                      className={["tennerGreen","form-control","noedit"].join(' ')}
+		                      value={this.state.vitality}
+		                      min="0" max="10"
+		                      onChange={this.onChangeVitality}
+		                      />
+		                </div>
+						<div className="form-group">
+		                    <label>Speed: {this.state.speed}</label>
+		                    <input type="range" 
+		                      className={["tennerCyan","form-control","noedit"].join(' ')}
+		                      value={this.state.speed}
+		                      min="0" max="10"
+		                      onChange={this.onChangeSpeed}
+		                      />
+		                </div>
+						<div className="form-group">
+		                    <label>Initiative: {this.state.initiative}</label>
+		                    <input type="range" 
+		                      className={["tennerYellow","form-control","noedit"].join(' ')}
+		                      value={this.state.initiative}
+		                      min="0" max="10"
+		                      onChange={this.onChangeInitiative}
+		                      />
+		                </div>
+						<div className="form-group">
+		                    <label>Defense: {this.state.defense}</label>
+		                    <input type="range" 
+		                      className={["noedit","form-control"].join(' ')}
+		                      value={this.state.defense}
+		                      min="0" max="10"
+		                      onChange={this.onChangeDefense}
+		                      />
+		                </div>
+						
 		                <p class="tabnav"><a href="#tab5">next &#10151;</a></p>
 					</section>
 

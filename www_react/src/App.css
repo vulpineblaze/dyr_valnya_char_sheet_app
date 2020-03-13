@@ -129,14 +129,49 @@ input[type="range"] {
 
 
 
-input[class^="tenner"] { 
+input[class^="noedit"] { 
+    pointer-events: none;
+}
+
+input[class^="tenner"], input[class^="tennerRed"] { 
     width: 755px;
 }
 
-[class^="tenner"]::-webkit-slider-thumb {
-    background: red;
-    box-shadow: -100vw 0 0 98vw rgba(255, 0, 0, 0.7)   ;
+[class^="tennerRed"]::-webkit-slider-thumb {
+    background: #AA2222;
+    box-shadow: -100vw 0 0 98vw rgba(170, 34, 34, 0.7)   ;
 }
+
+[class^="tennerBlue"]::-webkit-slider-thumb {
+    background: #2222AA;
+    box-shadow: -100vw 0 0 98vw rgba(34, 34, 170, 0.7)   ;
+}
+
+[class^="tennerGreen"]::-webkit-slider-thumb {
+    background: #22AA22;
+    box-shadow: -100vw 0 0 98vw rgba(34, 170, 34, 0.7)   ;
+}
+
+[class^="tennerPurple"]::-webkit-slider-thumb {
+    background: #AA22AA;
+    box-shadow: -100vw 0 0 98vw rgba(170, 34, 170, 0.7)   ;
+}
+
+[class^="tennerYellow"]::-webkit-slider-thumb {
+    background: #AAAA22;
+    box-shadow: -100vw 0 0 98vw rgba(170, 170, 34, 0.7)   ;
+}
+
+[class^="tennerCyan"]::-webkit-slider-thumb {
+    background: #22AAAA;
+    box-shadow: -100vw 0 0 98vw rgba(34, 170, 170, 0.7)   ;
+}
+
+[class^="tennerOrange"]::-webkit-slider-thumb {
+    background: #AA7722;
+    box-shadow: -100vw 0 0 98vw rgba(170, 119, 34, 0.7)   ;
+}
+
 
 
 
@@ -215,7 +250,7 @@ article.tabs section
   display: block;
   top: 1.8em;
   left: 0;
-  height: 115em;
+  height: 130em;
   width: 50em;
   padding: 10px 20px;
   background-color: #eee;
