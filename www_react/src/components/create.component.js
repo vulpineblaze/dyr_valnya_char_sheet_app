@@ -111,8 +111,64 @@ export default class Create extends Component {
     }
   }
 
-  checkXP(){
+  checkXP(array){
+  	var availableXP = this.state.starting_xp;
 
+  	var array = [{key: 'physical', value: this.state.physical}, 
+    			{key: 'mental', value: this.state.mental}, 
+    			{key: 'social', value: this.state.social} 
+    			];
+    array.sort(function(obj1, obj2) {
+	   return obj1.value - obj2.value;
+	});
+  	var arrayPhysical = [{key: 'strength', value: this.state.strength}, 
+    			{key: 'dexterity', value: this.state.mental}, 
+    			{key: 'social', value: this.state.social} 
+    			];
+    arrayPhysical.sort(function(obj1, obj2) {
+	   return obj1.value - obj2.value;
+	});
+	var lowestPhysical = arrayPhysical[0].value;
+  	var arrayMental = [{key: 'strength', value: this.state.strength}, 
+    			{key: 'dexterity', value: this.state.mental}, 
+    			{key: 'social', value: this.state.social} 
+    			];
+    arrayMental.sort(function(obj1, obj2) {
+	   return obj1.value - obj2.value;
+	});
+	var lowestMental = arrayMental[0].value;
+  	var arraySocial = [{key: 'strength', value: this.state.strength}, 
+    			{key: 'dexterity', value: this.state.mental}, 
+    			{key: 'social', value: this.state.social} 
+    			];
+    arraySocial.sort(function(obj1, obj2) {
+	   return obj1.value - obj2.value;
+	});
+	var lowestSocial = arraySocial[0].value;
+
+	if(array[2].value > 5){
+		var diff = array[2].value - 5;
+		if(array[2].key === "physical"){availableXP -= lowestPhysical*5*diff}
+		if(array[2].key === "mental"){availableXP -= lowestMental*5*diff}
+		if(array[2].key === "social"){availableXP -= lowestSocial*5*diff}
+	}
+	if(array[1].value > 4){
+		if(array[1].key === "physical"){availableXP -= lowestPhysical*5*diff}
+		if(array[1].key === "mental"){availableXP -= lowestMental*5*diff}
+		if(array[1].key === "social"){availableXP -= lowestSocial*5*diff}
+	}
+	if(array[0].value > 3){
+		if(array[0].key === "physical"){availableXP -= lowestPhysical*5*diff}
+		if(array[0].key === "mental"){availableXP -= lowestMental*5*diff}
+		if(array[0].key === "social"){availableXP -= lowestSocial*5*diff}
+	}
+
+	var aptitudeOverage = 0;
+	if(this.state.aptitude_total < 0){aptitudeOverage = 3 * this.state.aptitude_total}
+	availableXP += aptitudeOverage;
+
+	// last line
+	this.setState({available_xp: availableXP});
   }
 
   checkAspects(){
@@ -159,6 +215,8 @@ export default class Create extends Component {
 			this.setState({[smallest]: "Smallest is "+array[0].key+" and the allowed amount (3). Feel free to add "+(3-array[0].value)+" more dots!"});
 		}
 
+		this.checkXP();
+
 	});
   }
 
@@ -187,7 +245,9 @@ export default class Create extends Component {
       				- parseInt(this.state.subterfuge)
       				- parseInt(this.state.survival)
       				- parseInt(this.state.technika)
-    });
+    }, () => {
+	    this.checkXP();
+	});
   }
 
   onChangeName(e) {
@@ -629,6 +689,7 @@ export default class Create extends Component {
 
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Add New Character Sheet</h3>
+            <p>Starting XP: {this.state.available_xp}</p>
             <form onSubmit={this.onSubmit}>
 
             	<article className="tabs">
