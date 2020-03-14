@@ -105,6 +105,7 @@ export default class Create extends Component {
 		speed: 0,
 		initiative: 0,
 		defense: 0,
+		starting_xp: 15,
 		available_xp: 15,
 		temp_text_box: ''
     }
@@ -621,6 +622,7 @@ export default class Create extends Component {
  
   render() {
     return (
+    	
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Add New Character Sheet</h3>
             <form onSubmit={this.onSubmit}>

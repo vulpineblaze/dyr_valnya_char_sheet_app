@@ -42,6 +42,10 @@ html, body, #app, #app>div , #root, #root>div {
   }
 }
 
+.container {
+  margin: 0;
+}
+
 label {
   font-size: 1.5em;
 }
@@ -239,9 +243,9 @@ article.tabs
 {
   position: relative;
   display: block;
-  width: 40em;
+  /*width: 40em;*/
   height: 15em;
-  margin: 2em auto;
+  /*margin: 2em auto;*/
 }
 
 article.tabs section

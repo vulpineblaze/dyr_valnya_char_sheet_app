@@ -27,11 +27,23 @@ class App extends Component {
       rest: 5,
       isTicking: true,
       isSession: true,
-      timeSwitch: false
+      timeSwitch: false,
+      screenWidth: null
      }
-
+     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener("resize", this.updateWindowDimensions());
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener("resize", this.updateWindowDimensions)
+  }
+
+  updateWindowDimensions() {
+     this.setState({ screenWidth: window.innerWidth });
+  }
 
 
 
@@ -64,7 +76,6 @@ class App extends Component {
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             onRequest={responseGoogle}
-            autoLoad="true"
             isSignedIn="true"
           />
         </div>
