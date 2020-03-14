@@ -65,9 +65,9 @@ export default class Create extends Component {
 		physical: 0,
 		mental: 0,
 		social: 0,
-		aspect_largest_msg: '',
-		aspect_mid_msg: '',
-		aspect_smallest_msg: '',
+		aspect_physical_msg: '',
+		aspect_mental_msg: '',
+		aspect_social_msg: '',
 		aptitude_total: 20,
 		intelligence: 1,
 		wits: 1,
@@ -128,31 +128,35 @@ export default class Create extends Component {
 	    array.sort(function(obj1, obj2) {
 		   return obj1.value - obj2.value;
 		});
-		console.log("smallest element? ", array[0].key, array[0].value, );
-		console.log("mid element? ", array[1].key, array[1].value, );
-		console.log("largest element? ", array[2].key, array[2].value, );
+		// console.log("smallest element? ", array[0].key, array[0].value, );
+		// console.log("mid element? ", array[1].key, array[1].value, );
+		// console.log("largest element? ", array[2].key, array[2].value, );
+		var largest = "aspect_"+array[2].key+"_msg";
+		var mid = "aspect_"+array[1].key+"_msg";
+		var smallest = "aspect_"+array[0].key+"_msg";
+
 		if(array[2].value == 5){
-			this.setState({aspect_largest_msg: "Largest is "+array[2].key+" and at 5."});
+			this.setState({[largest]: "Largest is "+array[2].key+" and at 5."});
 		}else if (array[2].value > 5){
-			this.setState({aspect_largest_msg: "Largest is "+array[2].key+" and is above 5. This will incur XP cost or maybe need reworking."});
+			this.setState({[largest]: "Largest is "+array[2].key+" and is above 5. This will incur XP cost or maybe need reworking."});
 		}else{ // less than 5
-			this.setState({aspect_largest_msg: "Largest is "+array[2].key+" and the allowed amount (5). Feel free to add "+(5-array[2].value)+" more dots!"});
+			this.setState({[largest]: "Largest is "+array[2].key+" and the allowed amount (5). Feel free to add "+(5-array[2].value)+" more dots!"});
 		}
 
 		if(array[1].value == 4){
-			this.setState({aspect_mid_msg: "Mid is "+array[1].key+" and at 4."});
+			this.setState({[mid]: "Mid is "+array[1].key+" and at 4."});
 		}else if (array[1].value > 4){
-			this.setState({aspect_mid_msg: "Mid is "+array[1].key+" and is above 4. This will incur XP cost or maybe need reworking."});
+			this.setState({[mid]: "Mid is "+array[1].key+" and is above 4. This will incur XP cost or maybe need reworking."});
 		}else{ // less than 4
-			this.setState({aspect_mid_msg: "Mid is "+array[1].key+" and the allowed amount (4). Feel free to add "+(4-array[1].value)+" more dots!"});
+			this.setState({[mid]: "Mid is "+array[1].key+" and the allowed amount (4). Feel free to add "+(4-array[1].value)+" more dots!"});
 		}
 
 		if(array[0].value == 3){
-			this.setState({aspect_smallest_msg: "Smallest is "+array[0].key+" and at 3."});
+			this.setState({[smallest]: "Smallest is "+array[0].key+" and at 3."});
 		}else if (array[0].value > 3){
-			this.setState({aspect_smallest_msg: "Smallest is "+array[0].key+" and is above 3. This will incur XP cost or maybe need reworking."});
+			this.setState({[smallest]: "Smallest is "+array[0].key+" and is above 3. This will incur XP cost or maybe need reworking."});
 		}else{ // less than 3
-			this.setState({aspect_smallest_msg: "Smallest is "+array[0].key+" and the allowed amount (3). Feel free to add "+(3-array[0].value)+" more dots!"});
+			this.setState({[smallest]: "Smallest is "+array[0].key+" and the allowed amount (3). Feel free to add "+(3-array[0].value)+" more dots!"});
 		}
 
 	});
@@ -622,7 +626,7 @@ export default class Create extends Component {
  
   render() {
     return (
-    	
+
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Add New Character Sheet</h3>
             <form onSubmit={this.onSubmit}>
@@ -693,16 +697,21 @@ export default class Create extends Component {
 					<section id="tab2">
 						<h2><a href="#tab2">Aspects</a></h2>
 						<p> Use 5|4|3 rule in the coda to select your Aspects.</p>
-						<p> Currently spent: Physical: {this.state.physical} Mental: {this.state.mental} Social: {this.state.social} </p>
-						<p>{this.state.aspect_largest_msg}</p>
-						<p>{this.state.aspect_mid_msg}</p>
-						<p>{this.state.aspect_smallest_msg}</p>
+
+						
+						
+
+						<div className="aspect">
+						<h3 align="center">Mental: {this.state.mental}</h3>						
+						<p>{this.state.aspect_mental_msg}</p>
 						<div className="form-group">
 		                    <label>Intelligence: {this.state.intelligence}</label>
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.intelligence}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
+		                      onChange={this.onChangeIntelligence}
+		                      onChange={this.onChangeIntelligence}
 		                      onChange={this.onChangeIntelligence}
 		                      />
 		                </div>
@@ -711,7 +720,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.wits}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeWits}
 		                      />
 		                </div>
@@ -720,16 +729,21 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.resolve}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeResolve}
 		                      />
 		                </div>
+		                </div>
+
+		                <div className="aspect">
+						<h3 align="center">Physical: {this.state.physical}</h3>
+						<p>{this.state.aspect_physical_msg}</p>
 		                <div className="form-group">
 		                    <label>Strength: {this.state.strength}</label>
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.strength}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeStrength}
 		                      />
 		                </div>
@@ -738,7 +752,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.dexterity}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeDexterity}
 		                      />
 		                </div>
@@ -747,16 +761,22 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.stamina}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeStamina}
 		                      />
 		                </div>
+		                </div>
+
+
+		                <div className="aspect">
+						<h3 align="center">Social: {this.state.social}</h3>
+						<p>{this.state.aspect_social_msg}</p>
 		                <div className="form-group">
 		                    <label>Presence: {this.state.presence}</label>
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.presence}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangePresence}
 		                      />
 		                </div>
@@ -765,7 +785,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.manipulation}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeManipulation}
 		                      />
 		                </div>
@@ -774,12 +794,15 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.composure}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeComposure}
 		                      />
 		                </div>
+		                </div>
 						<p className="tabnav"><a href="#tab3">next &#10151;</a></p>
 					</section>
+
+
 					
 					<section id="tab3">
 						<h2><a href="#tab3">Aptitudes</a></h2>
@@ -789,7 +812,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.athletics}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeAthletics}
 		                      />
 		                </div>
@@ -798,7 +821,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.crafts}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeCrafts}
 		                      />
 		                </div>
@@ -807,7 +830,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.culture}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeCulture}
 		                      />
 		                </div>
@@ -816,7 +839,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.empathy}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeEmpathy}
 		                      />
 		                </div>
@@ -825,7 +848,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.expression}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeExpression}
 		                      />
 		                </div>
@@ -834,7 +857,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.intimidation}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeIntimidation}
 		                      />
 		                </div>
@@ -843,7 +866,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.investigation}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeInvestigation}
 		                      />
 		                </div>
@@ -852,7 +875,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.larceny}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeLarceny}
 		                      />
 		                </div>
@@ -861,7 +884,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.luck}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeLuck}
 		                      />
 		                </div>
@@ -870,7 +893,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.magicka}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeMagicka}
 		                      />
 		                </div>
@@ -879,7 +902,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.medicine}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeMedicine}
 		                      />
 		                </div>
@@ -888,7 +911,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.observation}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeObservation}
 		                      />
 		                </div>
@@ -897,7 +920,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.persuasion}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangePersuasion}
 		                      />
 		                </div>
@@ -906,7 +929,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.portaelogy}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangePortaelogy}
 		                      />
 		                </div>
@@ -915,7 +938,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.riding}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeRiding}
 		                      />
 		                </div>
@@ -924,7 +947,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.stealth}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeStealth}
 		                      />
 		                </div>
@@ -933,7 +956,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.streetwise}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeStreetwise}
 		                      />
 		                </div>
@@ -942,7 +965,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.subterfuge}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeSubterfuge}
 		                      />
 		                </div>
@@ -951,7 +974,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.survival}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeSurvival}
 		                      />
 		                </div>
@@ -960,7 +983,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.technika}
-		                      min="0" max="5"
+		                      min="0" max="5" step="1"
 		                      onChange={this.onChangeTechnika}
 		                      />
 		                </div>
@@ -978,7 +1001,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className="form-control"
 		                      value={this.state.size}
-		                      min="1" max="6"
+		                      min="1" max="6" step="1"
 		                      onChange={this.onChangeSize}
 		                      />
 		                </div>
@@ -988,7 +1011,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className={["tennerRed","form-control","noedit"].join(' ')}
 		                      value={this.state.astrylose}
-		                      min="0" max="10"
+		                      min="0" max="10" step="1"
 		                      onChange={this.onChangeAstrylose}
 		                      />
 		                </div>
@@ -997,7 +1020,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className={["tennerBlue","form-control","noedit"].join(' ')}
 		                      value={this.state.willpower}
-		                      min="0" max="10"
+		                      min="0" max="10" step="1"
 		                      onChange={this.onChangeWillpower}
 		                      />
 		                </div>
@@ -1006,7 +1029,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className={["tennerGreen","form-control","noedit"].join(' ')}
 		                      value={this.state.vitality}
-		                      min="0" max="10"
+		                      min="0" max="10" step="1"
 		                      onChange={this.onChangeVitality}
 		                      />
 		                </div>
@@ -1015,7 +1038,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className={["tennerCyan","form-control","noedit"].join(' ')}
 		                      value={this.state.speed}
-		                      min="0" max="10"
+		                      min="0" max="10" step="1"
 		                      onChange={this.onChangeSpeed}
 		                      />
 		                </div>
@@ -1024,7 +1047,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className={["tennerYellow","form-control","noedit"].join(' ')}
 		                      value={this.state.initiative}
-		                      min="0" max="10"
+		                      min="0" max="10" step="1"
 		                      onChange={this.onChangeInitiative}
 		                      />
 		                </div>
@@ -1033,7 +1056,7 @@ export default class Create extends Component {
 		                    <input type="range" 
 		                      className={["noedit","form-control"].join(' ')}
 		                      value={this.state.defense}
-		                      min="0" max="10"
+		                      min="0" max="10" step="1"
 		                      onChange={this.onChangeDefense}
 		                      />
 		                </div>

@@ -59,8 +59,12 @@ input[type="range"] {
     width: 410px;
     cursor: pointer;
     border-radius: 80px; /* iOS */
+    /*iOS mobile fixes*/
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
+    -webkit-box-shadow: inset 0 1px 0 0 #0d0e0f, inset 0 -1px 0 0 #3a3d42;
+    outline: none; /* no focus outline */
 }
-
 
 
 ::-webkit-slider-runnable-track {
@@ -360,7 +364,12 @@ p.tabnav a
 }
 
 
-
+.aspect {
+  border: 2px solid #bbb;
+  border-radius: 0.5em;
+  padding: 0.8em;
+  margin-bottom: 0.5em;
+}
 
 
 
