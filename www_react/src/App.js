@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import axios from 'axios';
+import HttpsRedirect from 'react-https-redirect';
+
 
 import Create from './components/create.component';
 import Edit from './components/edit.component';
@@ -67,6 +69,7 @@ class App extends Component {
     }
 
     return (
+      <HttpsRedirect>
       <Router>
         <div style={this.state.loadState ? { display: 'none' } : {}}>
           <GoogleLogin
@@ -109,7 +112,9 @@ class App extends Component {
               <Route path='/index' component={ Index } />
           </Switch>
         </div>
-      </Router>
+      </Router>        
+      </HttpsRedirect>
+
     );
   }
 }

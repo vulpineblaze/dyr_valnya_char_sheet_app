@@ -155,7 +155,7 @@ sudo apt-get -y install certbot python-certbot-nginx
 
 sudo certbot --nginx
 
-
+npm install --save react-https-redirect  #redirect HTTP to HTTPS
 
 
 
