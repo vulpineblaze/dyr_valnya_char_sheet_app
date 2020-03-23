@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
 const sheetRoute = require('./sheet.route');
+const quirkRoute = require('./quirk.route');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use('/sheet', sheetRoute);
+app.use('/quirk', quirkRoute);
 
 app.listen(PORT, function(){
   console.log('Server is running on Port:',PORT);

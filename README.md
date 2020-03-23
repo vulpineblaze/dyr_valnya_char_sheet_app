@@ -157,7 +157,7 @@ sudo certbot --nginx
 
 npm install --save react-https-redirect  #redirect HTTP to HTTPS
 
-
+npm install crypto-js --save  #for hash, to make GUIDs
 
 
 

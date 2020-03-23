@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import md5 from 'crypto-js/md5';
+import QuirkTableRow from './QuirkTableRow';
+
 
 export default class Create extends Component {
   constructor(props) {
     super(props);
+    this.makeID = this.makeID.bind(this);
     this.checkXP = this.checkXP.bind(this);
     this.checkAspects = this.checkAspects.bind(this);
     this.checkAptitudes = this.checkAptitudes.bind(this);
@@ -51,12 +55,15 @@ export default class Create extends Component {
     this.onChangeInitiative = this.onChangeInitiative.bind(this);
     this.onChangeDefense = this.onChangeDefense.bind(this);
     this.onChangetemp_text_box = this.onChangetemp_text_box.bind(this);
+    this.onChangeQuirk = this.onChangeQuirk.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.onQuirkSubmit = this.onQuirkSubmit.bind(this);
 
     this.state = {
         name: '',
 		owner: '',
+		id: this.makeID(),
 		concept: '',
 		virtue: '',
 		vice: '',
@@ -107,8 +114,20 @@ export default class Create extends Component {
 		defense: 0,
 		starting_xp: 15,
 		available_xp: 15,
+		quirk: '',
+		hasQuirks: [],
 		temp_text_box: ''
     }
+  }
+
+  makeID(){
+  	// var hash = md5(new Date().valueOf() + Math.random()).toString();
+  	var date = new Date().valueOf();
+  	var rnd = Math.random();
+  	var hash = md5((date + rnd).toString());
+  	var hashStr = hash.toString();
+  	console.log("md5 hash:", hash, hashStr, rnd, date);
+  	return hashStr.substr(-8);
   }
 
   checkXP(array){
@@ -153,11 +172,13 @@ export default class Create extends Component {
 		if(array[2].key === "social"){availableXP -= lowestSocial*5*diff}
 	}
 	if(array[1].value > 4){
+		var diff = array[2].value - 5;
 		if(array[1].key === "physical"){availableXP -= lowestPhysical*5*diff}
 		if(array[1].key === "mental"){availableXP -= lowestMental*5*diff}
 		if(array[1].key === "social"){availableXP -= lowestSocial*5*diff}
 	}
 	if(array[0].value > 3){
+		var diff = array[2].value - 5;
 		if(array[0].key === "physical"){availableXP -= lowestPhysical*5*diff}
 		if(array[0].key === "mental"){availableXP -= lowestMental*5*diff}
 		if(array[0].key === "social"){availableXP -= lowestSocial*5*diff}
@@ -541,6 +562,12 @@ export default class Create extends Component {
     //   defense: e.target.value
     // });
   }
+  onChangeQuirk(e) {
+ //    var joined = this.state.quirks.concat(e.target.value);
+	// this.setState({ quirks: joined });
+	this.setState({ quirk: e.target.value });
+
+  }
   onChangetemp_text_box(e) {
     this.setState({
       temp_text_box: e.target.value
@@ -559,6 +586,7 @@ export default class Create extends Component {
     const obj = {
       	name: this.state.name,
 		owner: val,
+		id: this.state.id,
 		concept: this.state.concept,
 		virtue: this.state.virtue,
 		vice: this.state.vice,
@@ -608,6 +636,7 @@ export default class Create extends Component {
     this.setState({
       	name: '',
 		owner: '',
+		id: this.makeID(),
 		concept: '',
 		virtue: '',
 		vice: '',
@@ -653,8 +682,42 @@ export default class Create extends Component {
 		speed: 0,
 		initiative: 0,
 		defense: 0,
+		quirk: '',
+		hasQuirks: [],
 		temp_text_box: ''
     })
+  }
+
+  onQuirkSubmit(e) {
+    e.preventDefault();
+    var val="";
+    try {
+	  val = this.props.user.getEmail();
+	}
+	catch(err) {
+		console.log(err);
+	}
+    const obj = {
+      	quirk: this.state.quirk,
+      	sheet: this.state.id
+    };
+    axios.post('quirk/add', obj)
+        .then(res => console.log(res.data))
+        .then(res => {
+        	axios.get('quirk/'+this.state.id)
+		        .then(response => {
+		          this.setState({ hasQuirks: response.data });
+		        })
+		        .catch(function (error) {
+		          console.log(error);
+		        })
+		    });
+    
+    this.setState({
+      	quirk: '',
+    });
+
+
   }
 
 
@@ -680,9 +743,14 @@ export default class Create extends Component {
 		console.log("content: ",content);
 		content.style.maxHeight = content.scrollHeight + "px";
 	}
+
+	
   }
-
-
+  tabRow(){
+      return this.state.hasQuirks.map(function(object, i){
+          return <QuirkTableRow obj={object} key={i} />;
+      });
+    }
  
   render() {
     return (
@@ -1138,6 +1206,46 @@ export default class Create extends Component {
 					<section id="tab6">
 						<h2><a href="#tab6">Quirks|Magicka|Technika</a></h2>
 						<p> Right now this is a big empty text box with only 10 lines. The full feature is Coming SOON(tm)!</p>
+
+						<div>
+				          <h3 align="center">Quirk List</h3>
+				          <table className="table table-striped" style={{ marginTop: 20 }}>
+				            <thead>
+				              <tr>
+				                <th>Quirk</th>
+				                <th>Sheet</th>
+				                <th colSpan="1">Action</th>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              { this.tabRow() }
+				            </tbody>
+				          </table>
+				        </div>
+
+							<select id="lang" onChange={this.onChangeQuirk} value={this.state.quirk}>
+			                  <option value="Darkvision">Darkvision</option>
+			                  <option value="Reload">Reload</option>
+			                  <option value="Lorg">Lorg</option>
+			                  <option value="Unconventional">Unconventional</option>
+			                  <option value="Some other shit">Some other shit</option>
+			                  <option value="Magic Butt">Magic Butt</option>
+			                  <option value="Doof">Doof</option>
+			                  <option value="Degenerate">Degenerate</option>
+			                  <option value="Extra butt">Extra butt</option>
+			                </select>
+			                <p></p>
+			                <p>{this.state.quirk}</p>
+
+			                <div className="form-group">
+			                    <input type="submit" 
+			                      value="Add Quirk" 
+			                      className="btn btn-primary"
+			                      onClick={this.onQuirkSubmit}/>
+			                </div>
+
+
+
 						<div className="form-group">
 		                    <label>temp_text_box: </label>
 		                    <textarea className="form-control" 
