@@ -56,6 +56,7 @@ export default class Create extends Component {
     this.onChangeDefense = this.onChangeDefense.bind(this);
     this.onChangetemp_text_box = this.onChangetemp_text_box.bind(this);
     this.onChangeQuirk = this.onChangeQuirk.bind(this);
+    this.quirkSetter = this.quirkSetter.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onQuirkSubmit = this.onQuirkSubmit.bind(this);
@@ -747,10 +748,16 @@ export default class Create extends Component {
 	
   }
   tabRow(){
+  	const theSheet = this.state.id;
+  	const theQS = this.quirkSetter;
       return this.state.hasQuirks.map(function(object, i){
-          return <QuirkTableRow obj={object} key={i} />;
+          return <QuirkTableRow obj={object} key={i} sheet={theSheet} quirkSetter={theQS}/>;
       });
     }
+
+  quirkSetter(res){
+  	this.setState({ hasQuirks: res });
+  }
  
   render() {
     return (

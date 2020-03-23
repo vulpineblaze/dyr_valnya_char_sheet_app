@@ -8,12 +8,24 @@ class QuirkTableRow extends Component {
         super(props);
         this.delete = this.delete.bind(this);
     }
-    delete() {
+    delete(e) {
+        e.preventDefault();
+
         axios.get('/quirk/delete/'+this.props.obj._id)
-            .then(console.log('Deleted'))
+            .then(console.log('Deleted for:', this.props.sheet))
+            .then(res => {
+                axios.get('quirk/'+this.props.sheet)
+                  .then(response => {
+                    this.props.quirkSetter(response.data);
+                    // this.setState({ hasQuirks: response.data });
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  })
+              })
             .catch(err => console.log(err));
         // window.open("/");
-        window.location = '/';
+        // window.location = '/';
     }
   render() {
     return (
