@@ -12,14 +12,18 @@ import Index from './components/index.component';
 import './App.css';
 
 import GoogleLogin from 'react-google-login';
+import Coda from 'coda-js';
 
 
 class App extends Component {
 
   constructor(props) {
     super(props);
+    this.compare = this.compare.bind(this);
+
     this.state = {
       user: {},
+      quirkArray: [],
       name: "",
       owner: "",
       loadState: false,
@@ -47,9 +51,56 @@ class App extends Component {
      this.setState({ screenWidth: window.innerWidth });
   }
 
+  compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const bandA = a.cost;
+    const bandB = b.cost;
 
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
 
   render() {
+
+    if (this.state.quirkArray 
+          && this.state.quirkArray.length == 0
+        ) {
+      const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
+      const quirkTablelistRows = coda.listRows('55_RuUt6nh', 'grid-sFVbFfjLoX');
+      console.log("quirkTablelistRows:", quirkTablelistRows);
+      const scopedThis = this;
+
+      quirkTablelistRows.then(function(value) {
+        const quirkList = value;
+        var i;
+        var joined = [];
+        for (i = 0; i < quirkList.length; i++) {
+          var item = quirkList[i].values;
+          var obj = {};
+          obj.name = item["c-DwoFJQd3dl"];
+          obj.cost = item["c-y_V5aAOe6T"];
+          obj.desc  = item["c-lNP3U8OyOI"];
+          obj.prereq  = item["c--ZouJOAvPm"];
+          obj.benefit   = item["c-l4Bk_6P6LS"];
+          obj.aspects  = item["c-vFII4sqtOl"];
+          obj.aptitudes  = item["c-4QuheStMsP"];
+
+          joined.push(obj);
+          
+        }
+        joined.sort(scopedThis.compare);
+        console.log("joined",joined);
+        scopedThis.setState({ quirkArray: joined });
+        console.log("scopedThis.state.quirkArray",scopedThis.state.quirkArray);
+      });
+    }
+    
+
     const responseGoogle = (response) => {
       console.log("response",response);
       // this.user = auth2.currentUser.get().getBasicProfile();
@@ -101,13 +152,16 @@ class App extends Component {
             </div>
           </nav>
           <Switch>
+            {this.state.quirkArray.length > 0 ?
               <Route
                 exact path='/create'
-                render={(props) => <Create {...props} user={this.state.user} />}
+                render={(props) => <Create {...props} user={this.state.user} quirkArray={this.state.quirkArray} />}
               />
+            : ""}
+
               <Route
                 exact path='/edit/:id'
-                render={(props) => <Edit {...props} user={this.state.user} />}
+                render={(props) => <Edit {...props} user={this.state.user} quirkArray={this.state.quirkArray} />}
               />
               <Route path='/index' component={ Index } />
           </Switch>

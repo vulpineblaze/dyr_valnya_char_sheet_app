@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
 import QuirkTableRow from './QuirkTableRow';
-
+import Select from 'react-select';
 
 export default class Create extends Component {
   constructor(props) {
@@ -117,6 +117,7 @@ export default class Create extends Component {
 		available_xp: 15,
 		quirk: '',
 		hasQuirks: [],
+		quirkArray: [],
 		temp_text_box: ''
     }
   }
@@ -566,7 +567,8 @@ export default class Create extends Component {
   onChangeQuirk(e) {
  //    var joined = this.state.quirks.concat(e.target.value);
 	// this.setState({ quirks: joined });
-	this.setState({ quirk: e.target.value });
+	console.log("onChangeQuirk:", e);
+	this.setState({ quirk: e.value });
 
   }
   onChangetemp_text_box(e) {
@@ -702,7 +704,8 @@ export default class Create extends Component {
       	quirk: this.state.quirk,
       	sheet: this.state.id
     };
-    axios.post('quirk/add', obj)
+    axios.defaults.baseURL = '';
+    axios.post('quirk/add', obj, { baseUrl: "" })
         .then(res => console.log(res.data))
         .then(res => {
         	axios.get('quirk/'+this.state.id)
@@ -723,6 +726,7 @@ export default class Create extends Component {
 
 
   componentDidMount() {
+
     var coll = document.getElementsByClassName("collapsible");
     var active = document.getElementsByClassName("active");
 	var i;
@@ -746,6 +750,28 @@ export default class Create extends Component {
 	}
 
 	
+	var i;
+    var joined = [];
+    for (i = 0; i < this.props.quirkArray.length; i++) {
+      var item = this.props.quirkArray[i];
+      var optionInner = item.name + " - (" + item.cost + ")";
+	  // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+	    // { label: "Snakes", value: 6 },
+	  var optionString = {label: optionInner, value: optionInner }
+	  joined.push(optionString);
+	  console.log("inside props quirks array:", optionString);
+      
+    }
+	this.setState({
+      quirkArray: joined
+    }, () => {
+	    console.log("this.props.quirkArray",this.props.quirkArray);
+		console.log("this.state.quirkArray",this.state.quirkArray);
+	});
+
+	
+
+	
   }
   tabRow(){
   	const theSheet = this.state.id;
@@ -758,8 +784,16 @@ export default class Create extends Component {
   quirkSetter(res){
   	this.setState({ hasQuirks: res });
   }
+
+
  
   render() {
+
+  	
+
+
+
+
     return (
 
         <div style={{ marginTop: 10 }}>
@@ -846,8 +880,6 @@ export default class Create extends Component {
 		                      className="form-control"
 		                      value={this.state.intelligence}
 		                      min="0" max="5" step="1"
-		                      onChange={this.onChangeIntelligence}
-		                      onChange={this.onChangeIntelligence}
 		                      onChange={this.onChangeIntelligence}
 		                      />
 		                </div>
@@ -1230,17 +1262,12 @@ export default class Create extends Component {
 				          </table>
 				        </div>
 
-							<select id="lang" onChange={this.onChangeQuirk} value={this.state.quirk}>
-			                  <option value="Darkvision">Darkvision</option>
-			                  <option value="Reload">Reload</option>
-			                  <option value="Lorg">Lorg</option>
-			                  <option value="Unconventional">Unconventional</option>
-			                  <option value="Some other shit">Some other shit</option>
-			                  <option value="Magic Butt">Magic Butt</option>
-			                  <option value="Doof">Doof</option>
-			                  <option value="Degenerate">Degenerate</option>
-			                  <option value="Extra butt">Extra butt</option>
-			                </select>
+						<Select options={this.state.quirkArray} 
+								onChange={this.onChangeQuirk} 
+								placeholder="Pick one"
+						/>
+
+							
 			                <p></p>
 			                <p>{this.state.quirk}</p>
 

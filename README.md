@@ -159,7 +159,9 @@ npm install --save react-https-redirect  #redirect HTTP to HTTPS
 
 npm install crypto-js --save  #for hash, to make GUIDs
 
+npm install --save coda-js   #to get coda table data
 
+npm install react-select --save    #fancy Select options
 
 
 
