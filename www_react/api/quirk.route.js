@@ -6,7 +6,7 @@ let Quirk = require('./quirk.model');
 
 // Defined store route
 quirkRoutes.route('/add').post(function (req, res) {
-  console.log("in add");
+  console.log("in quirk add");
   let quirk = new Quirk(req.body);
   quirk.save()
     .then(quirk => {
@@ -19,7 +19,7 @@ quirkRoutes.route('/add').post(function (req, res) {
 
 // Defined get data(index or listing) route
 quirkRoutes.route('/').get(function (req, res) {
-  console.log("in index");
+  console.log("in quirk index");
     Quirk.find(function(err, quirkes){
     if(err){
       console.log(err);
@@ -32,7 +32,7 @@ quirkRoutes.route('/').get(function (req, res) {
 
 // Defined get data(index or listing) route
 quirkRoutes.route('/:guid').get(function (req, res) {
-  console.log("in index for: ",req.params.id);
+  console.log("in quirk index for: ",req.params.id);
     Quirk.find({sheet: req.params.guid},function(err, quirkes){
     if(err){
       console.log(err);
@@ -45,7 +45,7 @@ quirkRoutes.route('/:guid').get(function (req, res) {
 
 // Defined edit route
 quirkRoutes.route('/edit/:id').get(function (req, res) {
-  console.log("in edit");
+  console.log("in quirk edit for:",req.params.id);
   let id = req.params.id;
   Quirk.findById(id, function (err, quirk){
       res.json(quirk);
@@ -54,7 +54,7 @@ quirkRoutes.route('/edit/:id').get(function (req, res) {
 
 //  Defined update route
 quirkRoutes.route('/update/:id').post(function (req, res) {
-  console.log("in update");
+  console.log("in quirk update for:",req.params.id);
     Quirk.findById(req.params.id, function(err, quirk) {
     if (!quirk)
       res.status(404).send("data is not found");
@@ -115,7 +115,7 @@ quirkRoutes.route('/update/:id').post(function (req, res) {
 
 // Defined delete | remove | destroy route
 quirkRoutes.route('/delete/:id').get(function (req, res) {
-  console.log("in delete");
+  console.log("in quirk delete for:",req.params.id);
     Quirk.findByIdAndRemove({_id: req.params.id}, function(err, quirk){
         if(err) res.json(err);
         else res.json('Successfully removed');

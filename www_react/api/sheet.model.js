@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema for Sheet
 let Sheet = new Schema({
+  id: {
+    type: String
+  },
   name: {
     type: String
   },
@@ -134,6 +137,12 @@ let Sheet = new Schema({
     type: Number
   },
   defense: {
+    type: Number
+  },
+  starting_xp: {
+    type: Number
+  },
+  available_xp: {
     type: Number
   },
   ///  TEMP TEXT BOX ////

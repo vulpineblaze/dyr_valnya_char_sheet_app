@@ -9,7 +9,8 @@ class TableRow extends Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        axios.get('/sheet/delete/'+this.props.obj._id)
+      axios.defaults.baseURL = '';
+      axios.get('/sheet/delete/'+this.props.obj._id,{ baseUrl: "" })
             .then(console.log('Deleted'))
             .catch(err => console.log(err));
         // window.open("/");

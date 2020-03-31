@@ -163,6 +163,8 @@ npm install --save coda-js   #to get coda table data
 
 npm install react-select --save    #fancy Select options
 
+##npm install react-native --save    #for the Platform.isPad , wanna do iUser stuff ##didnt work, used other method
+
 
 
 

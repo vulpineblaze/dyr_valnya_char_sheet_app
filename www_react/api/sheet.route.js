@@ -88,6 +88,8 @@ sheetRoutes.route('/update/:id').post(function (req, res) {
         sheet.speed = req.body.speed;
         sheet.init = req.body.init;
         sheet.defense = req.body.defense;
+        sheet.starting_xp = req.body.starting_xp;
+        sheet.available_xp = req.body.available_xp;
         sheet.temp_text_box = req.body.temp_text_box;
         
         sheet.save().then(sheet => {

@@ -9,7 +9,8 @@ export default class Index extends Component {
       this.state = {sheet: []};
     }
     componentDidMount(){
-      axios.get('sheet')
+      axios.defaults.baseURL = '';
+      axios.get('/sheet',{ baseUrl: "" })
         .then(response => {
           this.setState({ sheet: response.data });
         })
@@ -17,6 +18,18 @@ export default class Index extends Component {
           console.log(error);
         })
     }
+    componentDidUpdate(prevProps, prevState) {
+      if (prevState.sheet !== this.state.sheet) {
+        console.log("index; does not equal:", prevState.sheet,this.state.sheet);
+        if(prevState.sheet.name !== this.state.sheet.name){
+          console.log("index; name not equal:", prevState.sheet.name , this.state.sheet.name);
+        }
+      }else{
+        console.log("index; sheets are equal:", prevState.sheet,this.state.sheet);
+
+      }
+    }
+
     tabRow(){
       return this.state.sheet.map(function(object, i){
           return <TableRow obj={object} key={i} />;

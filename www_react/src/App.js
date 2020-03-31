@@ -20,10 +20,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.compare = this.compare.bind(this);
+    this.loadQuirkArray = this.loadQuirkArray.bind(this);
 
     this.state = {
       user: {},
       quirkArray: [],
+      quirkSelectArray: [],
+      loadQuirkArray: true,
       name: "",
       owner: "",
       loadState: false,
@@ -65,41 +68,70 @@ class App extends Component {
     return comparison;
   }
 
-  render() {
-
+  loadQuirkArray(){
     if (this.state.quirkArray 
           && this.state.quirkArray.length == 0
+          && this.state.loadQuirkArray
         ) {
-      const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
-      const quirkTablelistRows = coda.listRows('55_RuUt6nh', 'grid-sFVbFfjLoX');
-      console.log("quirkTablelistRows:", quirkTablelistRows);
-      const scopedThis = this;
+      this.setState({
+      loadQuirkArray: false
+        }, () => {
+          const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
+          const quirkTablelistRows = coda.listRows('55_RuUt6nh', 'grid-sFVbFfjLoX');
+          // console.log("quirkTablelistRows:", quirkTablelistRows);
+          const scopedThis = this;
 
-      quirkTablelistRows.then(function(value) {
-        const quirkList = value;
-        var i;
-        var joined = [];
-        for (i = 0; i < quirkList.length; i++) {
-          var item = quirkList[i].values;
-          var obj = {};
-          obj.name = item["c-DwoFJQd3dl"];
-          obj.cost = item["c-y_V5aAOe6T"];
-          obj.desc  = item["c-lNP3U8OyOI"];
-          obj.prereq  = item["c--ZouJOAvPm"];
-          obj.benefit   = item["c-l4Bk_6P6LS"];
-          obj.aspects  = item["c-vFII4sqtOl"];
-          obj.aptitudes  = item["c-4QuheStMsP"];
+          quirkTablelistRows.then(function(value) {
+            const quirkList = value;
+            var i;
+            var joined = [];
+            for (i = 0; i < quirkList.length; i++) {
+              var item = quirkList[i].values;
+              var obj = {};
+              obj.name = item["c-DwoFJQd3dl"];
+              obj.cost = item["c-y_V5aAOe6T"];
+              obj.desc  = item["c-lNP3U8OyOI"];
+              obj.prereq  = item["c--ZouJOAvPm"];
+              obj.benefit   = item["c-l4Bk_6P6LS"];
+              obj.aspects  = item["c-vFII4sqtOl"];
+              obj.aptitudes  = item["c-4QuheStMsP"];
 
-          joined.push(obj);
-          
-        }
-        joined.sort(scopedThis.compare);
-        console.log("joined",joined);
-        scopedThis.setState({ quirkArray: joined });
-        console.log("scopedThis.state.quirkArray",scopedThis.state.quirkArray);
+              joined.push(obj);
+              
+            }
+            joined.sort(scopedThis.compare);
+            // console.log("joined",joined);
+            scopedThis.setState({ quirkArray: joined });
+            // console.log("scopedThis.state.quirkArray",scopedThis.state.quirkArray);
+
+            //  now to build the select friendly array
+
+
+            var joinedSel = [];
+            var arr = scopedThis.state.quirkArray;
+            for (i = 0; i < arr.length; i++) {
+              var item = arr[i];
+              var optionInner = item.name + " - (" + item.cost + ")";
+              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+                // { label: "Snakes", value: 6 },
+              var optionString = {label: optionInner, value: i }
+              joinedSel.push(optionString);
+              // console.log("inside props quirks array:", optionString);
+              
+            }
+            scopedThis.setState({
+                quirkSelectArray: joinedSel
+              }, () => {
+                // console.log("this.props.quirkArray",this.props.quirkArray);
+                console.log("this.state.quirkSelectArray",scopedThis.state.quirkSelectArray);
+            });  
+          });
       });
+      
     }
-    
+  }
+
+  render() {
 
     const responseGoogle = (response) => {
       console.log("response",response);
@@ -116,6 +148,7 @@ class App extends Component {
         this.setState({loadState: true});
 
         // this.freshGummi(this.state.user.getEmail(), this.state.gummi);
+        this.loadQuirkArray();
       }
     }
 
@@ -133,7 +166,7 @@ class App extends Component {
             isSignedIn="true"
           />
         </div>
-        <div className="container" style={this.state.loadState ? {} : { display: 'none' }}>
+        <div className="container" style={this.state.loadState && this.state.quirkArray.length > 0 ? {} : { display: 'none' }}>
           <div> Hey, {this.state.name} </div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to={'/'} className="navbar-brand">Dyr Valnya Character Sheet App</Link>
@@ -151,20 +184,28 @@ class App extends Component {
               </ul>
             </div>
           </nav>
-          <Switch>
-            {this.state.quirkArray.length > 0 ?
+            <Switch>
               <Route
                 exact path='/create'
-                render={(props) => <Create {...props} user={this.state.user} quirkArray={this.state.quirkArray} />}
+                render={(props) => 
+                    <Create {...props} 
+                      user={this.state.user} 
+                      quirkArray={this.state.quirkArray} 
+                      quirkSelectArray={this.state.quirkSelectArray} 
+                    />}
               />
-            : ""}
 
               <Route
                 exact path='/edit/:id'
-                render={(props) => <Edit {...props} user={this.state.user} quirkArray={this.state.quirkArray} />}
+                render={(props) => 
+                    <Create {...props} 
+                      user={this.state.user} 
+                      quirkArray={this.state.quirkArray} 
+                      quirkSelectArray={this.state.quirkSelectArray} 
+                    />}
               />
               <Route path='/index' component={ Index } />
-          </Switch>
+            </Switch>
         </div>
       </Router>        
       </HttpsRedirect>

@@ -102,67 +102,7 @@ export default class Edit extends Component {
     }
   }
 
-  componentDidMount() {
-  	var val="";
-  	try {
-		  val = this.props.user.getEmail();
-		}
-		catch(err) {
-			console.log(err);
-		}
-      axios.get('/sheet/edit/'+this.props.match.params.id)
-          .then(response => {
-              this.setState({ 
-		      	name: response.data.name,
-				owner: val,
-				concept: response.data.concept,
-				virtue: response.data.virtue,
-				vice: response.data.vice,
-				racial: response.data.racial,
-				description: response.data.description,
-				intelligence: response.data.intelligence,
-				wits: response.data.wits,
-				resolve: response.data.resolve,
-				strength: response.data.strength,
-				dexterity: response.data.dexterity,
-				stamina: response.data.stamina,
-				presence: response.data.presence,
-				manipulation: response.data.manipulation,
-				composure: response.data.composure,
-				athletics: response.data.athletics,
-				crafts: response.data.crafts,
-				culture: response.data.culture,
-				empathy: response.data.empathy,
-				expression: response.data.expression,
-				intimidation: response.data.intimidation,
-				investigation: response.data.investigation,
-				larceny: response.data.larceny,
-				luck: response.data.luck,
-				magicka: response.data.magicka,
-				medicine: response.data.medicine,
-				observation: response.data.observation,
-				persuasion: response.data.persuasion,
-				portaelogy: response.data.portaelogy,
-				riding: response.data.riding,
-				stealth: response.data.stealth,
-				streetwise: response.data.streetwise,
-				subterfuge: response.data.subterfuge,
-				survival: response.data.survival,
-				technika: response.data.technika,
-				astrylose: response.data.astrylose,
-				willpower: response.data.willpower,
-				vitality: response.data.vitality,
-				size: response.data.size,
-				speed: response.data.speed,
-				initiative: response.data.initiative,
-				defense: response.data.defense,
-				temp_text_box: response.data.temp_text_box
-            });
-          })
-          .catch(function (error) {
-              console.log(error);
-          })
-    }
+  
 
   onChangeName(e) {
     this.setState({
@@ -466,6 +406,69 @@ export default class Edit extends Component {
     
     this.props.history.push('/index');
   }
+
+
+  componentDidMount() {
+    var val="";
+    try {
+      val = this.props.user.getEmail();
+    }
+    catch(err) {
+      console.log(err);
+    }
+      axios.get('/sheet/edit/'+this.props.match.params.id)
+          .then(response => {
+              this.setState({ 
+            name: response.data.name,
+        owner: val,
+        concept: response.data.concept,
+        virtue: response.data.virtue,
+        vice: response.data.vice,
+        racial: response.data.racial,
+        description: response.data.description,
+        intelligence: response.data.intelligence,
+        wits: response.data.wits,
+        resolve: response.data.resolve,
+        strength: response.data.strength,
+        dexterity: response.data.dexterity,
+        stamina: response.data.stamina,
+        presence: response.data.presence,
+        manipulation: response.data.manipulation,
+        composure: response.data.composure,
+        athletics: response.data.athletics,
+        crafts: response.data.crafts,
+        culture: response.data.culture,
+        empathy: response.data.empathy,
+        expression: response.data.expression,
+        intimidation: response.data.intimidation,
+        investigation: response.data.investigation,
+        larceny: response.data.larceny,
+        luck: response.data.luck,
+        magicka: response.data.magicka,
+        medicine: response.data.medicine,
+        observation: response.data.observation,
+        persuasion: response.data.persuasion,
+        portaelogy: response.data.portaelogy,
+        riding: response.data.riding,
+        stealth: response.data.stealth,
+        streetwise: response.data.streetwise,
+        subterfuge: response.data.subterfuge,
+        survival: response.data.survival,
+        technika: response.data.technika,
+        astrylose: response.data.astrylose,
+        willpower: response.data.willpower,
+        vitality: response.data.vitality,
+        size: response.data.size,
+        speed: response.data.speed,
+        initiative: response.data.initiative,
+        defense: response.data.defense,
+        temp_text_box: response.data.temp_text_box
+            });
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+    }
  
   render() {
     return (
@@ -894,7 +897,7 @@ export default class Edit extends Component {
 
           
           <section id="tab6">
-            <h2><a href="#tab6">Quirks|Magicka|Technika</a></h2>
+            <h2><a href="#tab6">Quirks and More..</a></h2>
             <p> Right now this is a big empty text box with only 10 lines. The full feature is Coming SOON(tm)!</p>
             <div className="form-group">
                         <label>temp_text_box: </label>
