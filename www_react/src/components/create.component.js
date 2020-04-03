@@ -30,6 +30,10 @@ const initialState = {
   presence: 1,
   manipulation: 1,
   composure: 1,
+  fisticuffs: 0,
+  melee: 0,
+  ranged: 0,
+  thaumatism: 0,
   athletics: 0,
   crafts: 0,
   culture: 0,
@@ -64,6 +68,17 @@ const initialState = {
   hasQuirks: [],
   temp_text_box: ''
 };
+
+const physicalAspects = ["strength", "dexterity", "stamina"];
+const mentalAspects = ["intelligence", "wits", "resolve"];
+const socialAspects = ["presence", "manipulation", "composure"];
+const allAspects = [...physicalAspects, ...mentalAspects, ...socialAspects]
+
+const combatAptitudes = ["fisticuffs", "melee", "ranged", "thaumatism"]
+const nonCombatAptitudes = ["athletics","crafts","culture","empathy","expression","intimidation","investigation","larceny","luck","magicka","medicine","observation","persuasion","portaelogy","riding","stealth","streetwise","subterfuge","survival","technika"];
+const allAptitudes = [...combatAptitudes, ...nonCombatAptitudes]
+
+const allStats = [...allAspects, ...allAptitudes]
 
 
 
@@ -102,6 +117,8 @@ export default class Create extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onQuirkSubmit = this.onQuirkSubmit.bind(this);
     this.onRefreshFromDB = this.onRefreshFromDB.bind(this);
+    this.mainStat = this.mainStat.bind(this);
+    this.displayStatArray = this.displayStatArray.bind(this);
 
     this.state = initialState;
     Object.assign(this.state, {
@@ -279,28 +296,12 @@ export default class Create extends Component {
   }
 
   checkAptitudes(){
+    var aptitudeTally = 0;
+    allAptitudes.forEach(aptitude => {
+      aptitudeTally += parseInt(this.state[aptitude]);
+    });
     this.setState({
-      aptitude_total: 23 
-              - parseInt(this.state.athletics)
-              - parseInt(this.state.crafts)
-              - parseInt(this.state.culture)
-              - parseInt(this.state.empathy)
-              - parseInt(this.state.expression)
-              - parseInt(this.state.intimidation)
-              - parseInt(this.state.investigation)
-              - parseInt(this.state.larceny)
-              - parseInt(this.state.luck)
-              - parseInt(this.state.magicka)
-              - parseInt(this.state.medicine)
-              - parseInt(this.state.observation)
-              - parseInt(this.state.persuasion)
-              - parseInt(this.state.portaelogy)
-              - parseInt(this.state.riding)
-              - parseInt(this.state.stealth)
-              - parseInt(this.state.streetwise)
-              - parseInt(this.state.subterfuge)
-              - parseInt(this.state.survival)
-              - parseInt(this.state.technika)
+      aptitude_total: 23 + aptitudeTally
     }, () => {
       this.checkXP();
   });
@@ -428,6 +429,7 @@ export default class Create extends Component {
   onChangeAspectAndAptitude(changed, e, isAspect=false) {
     const theVal = parseInt(e.target.value);
     console.log("onChangeAspectAndAptitude", changed, e.target.value, theVal, isAspect);
+    if(changed.stat){changed = changed.stat;}
     if(this.checkIfComponent("Edit")){
       this.checkEditAspectAndAptitude(changed, theVal, isAspect);
     }else{// its Create
@@ -507,7 +509,7 @@ export default class Create extends Component {
     catch(err) {
       console.log(err);
     }
-    const obj = {
+    var obj = {
       id: this.state.id,
       name: this.state.name,
       owner: val,
@@ -516,35 +518,6 @@ export default class Create extends Component {
       vice: this.state.vice,
       racial: this.state.racial,
       description: this.state.description,
-      intelligence: this.state.intelligence,
-      wits: this.state.wits,
-      resolve: this.state.resolve,
-      strength: this.state.strength,
-      dexterity: this.state.dexterity,
-      stamina: this.state.stamina,
-      presence: this.state.presence,
-      manipulation: this.state.manipulation,
-      composure: this.state.composure,
-      athletics: this.state.athletics,
-      crafts: this.state.crafts,
-      culture: this.state.culture,
-      empathy: this.state.empathy,
-      expression: this.state.expression,
-      intimidation: this.state.intimidation,
-      investigation: this.state.investigation,
-      larceny: this.state.larceny,
-      luck: this.state.luck,
-      magicka: this.state.magicka,
-      medicine: this.state.medicine,
-      observation: this.state.observation,
-      persuasion: this.state.persuasion,
-      portaelogy: this.state.portaelogy,
-      riding: this.state.riding,
-      stealth: this.state.stealth,
-      streetwise: this.state.streetwise,
-      subterfuge: this.state.subterfuge,
-      survival: this.state.survival,
-      technika: this.state.technika,
       astrylose: this.state.astrylose,
       willpower: this.state.willpower,
       vitality: this.state.vitality,
@@ -556,6 +529,9 @@ export default class Create extends Component {
       available_xp: this.state.available_xp,
       temp_text_box: this.state.temp_text_box
     };
+    allStats.forEach(val => {
+      obj[val] = this.state[val];
+    });
 
     var editID = this.props.match.params.id;
     axios.defaults.baseURL = '';
@@ -641,7 +617,7 @@ export default class Create extends Component {
     var editID = this.props.match.params.id;
     if(editID && editID.length){
       console.log("In Edit (componentDidMount), editID:",editID);
-      this.onRefreshFromDB();
+      this.onRefreshFromDB(editID);
     }else{
       console.log("In Create (componentDidMount), no editID found", editID);
     }
@@ -650,10 +626,11 @@ export default class Create extends Component {
   }
 
   onRefreshFromDB(){
+    const scopedThis = this;
     axios.defaults.baseURL = '';
     axios.get('/sheet/edit/'+this.props.match.params.id, { baseUrl: "" })
       .then(response => {
-
+        console.log("onRefreshFromDB, response.data:", response.data, this.props.match.params.id);
         this.setState(response.data, () => {
           console.log("this.state loaded from DB!", this.state);
           axios.get('/quirk/'+this.state.id,{ baseUrl: "" })
@@ -698,11 +675,36 @@ export default class Create extends Component {
   }
 
 
+  mainStat(stat, isAspect=false) {
+    var title = stat.charAt(0).toUpperCase() + stat.substring(1);
+    var val = this.state[stat].toString() ;
+    return (
+      <div className="form-group">
+          <label>{title}: {val}</label>
+          <input type="range" 
+            className="form-control"
+            value={val}
+            min="0" max="5" step="1"
+            onChange={(e) => this.onChangeAspectAndAptitude(stat, e, isAspect)}
+            />
+      </div>
+    );
+  }
+
+  displayStatArray(typeArray, isAspect=false){
+    console.log("displayStatArray:",typeArray, isAspect);
+    var scopedThis = this;
+    var statComponents = typeArray.map(function(stat) {
+      return <div> { scopedThis.mainStat(stat, isAspect) }</div>;
+    });
+    return <div>{statComponents}</div>;
+  }
+
+
+
+
  
   render() {
-
-    
-
 
 
 
@@ -802,98 +804,23 @@ export default class Create extends Component {
             <div className="aspect">
             <h3 align="center">Mental: {this.state.mental}</h3>           
             <p>{this.state.aspect_mental_msg}</p>
-            <div className="form-group">
-                        <label>Intelligence: {this.state.intelligence}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.intelligence}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("intelligence", e, true)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Wits: {this.state.wits}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.wits}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("wits", e, true)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Resolve: {this.state.resolve}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.resolve}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("resolve", e, true)}
-                          />
-                    </div>
+                    
+                    { this.displayStatArray(mentalAspects, true) }
                     </div>
 
                     <div className="aspect">
             <h3 align="center">Physical: {this.state.physical}</h3>
             <p>{this.state.aspect_physical_msg}</p>
-                    <div className="form-group">
-                        <label>Strength: {this.state.strength}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.strength}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("strength", e, true)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Dexterity: {this.state.dexterity}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.dexterity}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("dexterity", e, true)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Stamina: {this.state.stamina}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.stamina}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("stamina", e, true)}
-                          />
-                    </div>
+
+                    { this.displayStatArray(physicalAspects, true) }
+
                     </div>
 
 
                     <div className="aspect">
             <h3 align="center">Social: {this.state.social}</h3>
             <p>{this.state.aspect_social_msg}</p>
-                    <div className="form-group">
-                        <label>Presence: {this.state.presence}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.presence}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("presence", e, true)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Manipulation: {this.state.manipulation}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.manipulation}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("manipulation", e, true)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Composure: {this.state.composure}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.composure}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("composure", e, true)}
-                          />
-                    </div>
+                    { this.displayStatArray(socialAspects, true) }
                     </div>
             <p className="tabnav"><a href="#tab3">next &#10151;</a></p>
           </section>
@@ -903,186 +830,19 @@ export default class Create extends Component {
           <section id="tab3">
             <h2><a href="#tab3">Aptitudes</a></h2>
             <p> You get {this.state.aptitude_total} points to spend here, on top of the items already at +1. </p>
-            <div className="form-group">
-                        <label>Athletics: {this.state.athletics}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.athletics}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("athletics", e)}
-                          />
+                    
+
+                    <div className="aptitude">
+                      <h3 align="center">Combat Aptitudes:</h3>
+                      { this.displayStatArray(combatAptitudes) }
                     </div>
-                    <div className="form-group">
-                        <label>Crafts: {this.state.crafts}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.crafts}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("crafts", e)}
-                          />
+
+                    <div className="aptitude">
+                      <h3 align="center">Non-Combat Aptitudes:</h3>
+                      { this.displayStatArray(nonCombatAptitudes) }
                     </div>
-                    <div className="form-group">
-                        <label>Culture: {this.state.culture}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.culture}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("culture", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Empathy: {this.state.empathy}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.empathy}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("empathy", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Expression: {this.state.expression}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.expression}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("expression", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Intimidation: {this.state.intimidation}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.intimidation}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("intimidation", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Investigation: {this.state.investigation}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.investigation}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("investigation", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Larceny: {this.state.larceny}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.larceny}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("larceny", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Luck: {this.state.luck}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.luck}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("luck", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Magicka: {this.state.magicka}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.magicka}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("magicka", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Medicine: {this.state.medicine}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.medicine}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("medicine", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Observation: {this.state.observation}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.observation}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("observation", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Persuasion: {this.state.persuasion}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.persuasion}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("persuasion", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Portaelogy: {this.state.portaelogy}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.portaelogy}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("portaelogy", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Riding: {this.state.riding}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.riding}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("riding", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Stealth: {this.state.stealth}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.stealth}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("stealth", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Streetwise: {this.state.streetwise}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.streetwise}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("streetwise", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Subterfuge: {this.state.subterfuge}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.subterfuge}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("subterfuge", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Survival: {this.state.survival}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.survival}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("survival", e)}
-                          />
-                    </div>
-                    <div className="form-group">
-                        <label>Technika: {this.state.technika}</label>
-                        <input type="range" 
-                          className="form-control"
-                          value={this.state.technika}
-                          min="0" max="5" step="1"
-                          onChange={(e) => this.onChangeAspectAndAptitude("technika", e)}
-                          />
-                    </div>
+
+                    
                     <p className="tabnav"><a href="#tab4">next &#10151;</a></p>
           </section>
 
@@ -1231,36 +991,6 @@ export default class Create extends Component {
         </article>
 
 
-                
-                
-                
-
-
-
-                
-                
-
-
-
-
-                
-                
-
-
-
-
-
-
-                
-
-
-
-
-
-
-
-
-                
 
 
                 

@@ -79,6 +79,27 @@ class App extends Component {
           const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
           const quirkTablelistRows = coda.listRows('55_RuUt6nh', 'grid-sFVbFfjLoX');
           // console.log("quirkTablelistRows:", quirkTablelistRows);
+
+          // const sectionsList = coda.listSections('55_RuUt6nh');
+          // console.log("sectionsList", sectionsList);
+          
+          // sectionsList.then(function(value) {
+          //   console.log("sectionsList JSON", JSON.stringify(value));
+          // });
+
+
+          const sectionAspects = coda.getSection('55_RuUt6nh', 'canvas-SnxtTqKQVw');
+          console.log("sectionAspects", sectionAspects);
+          
+          sectionAspects.then(function(value) {
+            console.log("sectionAspects JSON", JSON.stringify(value));
+          });
+
+          
+
+
+
+
           const scopedThis = this;
 
           quirkTablelistRows.then(function(value) {

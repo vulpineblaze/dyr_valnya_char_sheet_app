@@ -401,6 +401,12 @@ p.tabnav a
 }
 
 
+.aptitude {
+  border: 2px solid #bbb;
+  border-radius: 0.5em;
+  padding: 0.8em;
+  margin-bottom: 0.5em;
+}
 
 
 
