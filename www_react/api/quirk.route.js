@@ -60,48 +60,8 @@ quirkRoutes.route('/update/:id').post(function (req, res) {
       res.status(404).send("data is not found");
     else {
         quirk.name = req.body.name;
-        quirk.concept = req.body.concept;
-        quirk.virtue = req.body.virtue;
-        quirk.vice = req.body.vice;
-        quirk.racial = req.body.racial;
-        quirk.description = req.body.description;
-        quirk.intelligence = req.body.intelligence;
-        quirk.wits = req.body.wits;
-        quirk.resolve = req.body.resolve;
-        quirk.strength = req.body.strength;
-        quirk.dexterity = req.body.dexterity;
-        quirk.stamina = req.body.stamina;
-        quirk.presence = req.body.presence;
-        quirk.manipulation = req.body.manipulation;
-        quirk.composure = req.body.composure;
-        quirk.athletics = req.body.athletics;
-        quirk.crafts = req.body.crafts;
-        quirk.culture = req.body.culture;
-        quirk.empathy = req.body.empathy;
-        quirk.expression = req.body.expression;
-        quirk.intimidation = req.body.intimidation;
-        quirk.investigation = req.body.investigation;
-        quirk.larceny = req.body.larceny;
-        quirk.luck = req.body.luck;
-        quirk.magicka = req.body.magicka;
-        quirk.medicine = req.body.medicine;
-        quirk.observation = req.body.observation;
-        quirk.persuasion = req.body.persuasion;
-        quirk.portaelogy = req.body.portaelogy;
-        quirk.riding = req.body.riding;
-        quirk.stealth = req.body.stealth;
-        quirk.streetwise = req.body.streetwise;
-        quirk.subterfuge = req.body.subterfuge;
-        quirk.survival = req.body.survival;
-        quirk.technika = req.body.technika;
-        quirk.astrylose = req.body.astrylose;
-        quirk.willpower = req.body.willpower;
-        quirk.vitality = req.body.vitality;
-        quirk.size = req.body.size;
-        quirk.speed = req.body.speed;
-        quirk.init = req.body.init;
-        quirk.defense = req.body.defense;
-        quirk.temp_text_box = req.body.temp_text_box;
+
+        //  FIX THIS 
         
         quirk.save().then(quirk => {
           res.json('Update complete');

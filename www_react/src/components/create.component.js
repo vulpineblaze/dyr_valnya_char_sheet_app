@@ -2,8 +2,21 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
 import QuirkTableRow from './QuirkTableRow';
+import FlawsTableRow from './FlawsTableRow';
+import MagickaTableRow from './MagickaTableRow';
+import WeaponTableRow from './WeaponTableRow';
+import ArmorTableRow from './ArmorTableRow';
+import HorseTableRow from './HorseTableRow';
+import EmptyTableRow from './EmptyTableRow';
+import SpecialtyTableRow from './SpecialtyTableRow';
 import Select from 'react-select';
 
+
+const sectionsHeight = 170; //em
+const emCalc = {
+  perLine: 45,
+  perProp: 4
+};
 
 const initialState = {
   name: '',
@@ -65,20 +78,51 @@ const initialState = {
   available_xp: 15,
   quirk: '',
   quirkTotalCost: "",
-  hasQuirks: [],
-  temp_text_box: ''
+  hasQuirk: [],
+  flaws: '',
+  flawsTotalCost: "",
+  hasFlaws: [],
+  magicka: '',
+  magickaTotalCost: "",
+  hasMagicka: [],
+  weapon: '',
+  weaponTotalCost: "",
+  hasWeapon: [],
+  armor: '',
+  armorTotalCost: "",
+  hasArmor: [],
+  horse: '',
+  horseTotalCost: "",
+  hasHorse: [],
+  empty: '',
+  hasEmpty: [],
+  specialtyFirst: '',
+  specialtySecond: '',
+  specialtyTotalCost: "",
+  hasSpecialty: [],
+  extrasOverflow: sectionsHeight,
+  quirkOverflow: 0,
+  flawsOverflow: 0,
+  magickaOverflow: 0,
+  weaponOverflow: 0,
+  armorOverflow: 0,
+  horseOverflow: 0,
+  specialtyOverflow: 0,
+  emptyOverflow: 0
 };
 
 const physicalAspects = ["strength", "dexterity", "stamina"];
 const mentalAspects = ["intelligence", "wits", "resolve"];
 const socialAspects = ["presence", "manipulation", "composure"];
-const allAspects = [...physicalAspects, ...mentalAspects, ...socialAspects]
+const allAspects = [...physicalAspects, ...mentalAspects, ...socialAspects];
 
-const combatAptitudes = ["fisticuffs", "melee", "ranged", "thaumatism"]
+const combatAptitudes = ["fisticuffs", "melee", "ranged", "thaumatism"];
 const nonCombatAptitudes = ["athletics","crafts","culture","empathy","expression","intimidation","investigation","larceny","luck","magicka","medicine","observation","persuasion","portaelogy","riding","stealth","streetwise","subterfuge","survival","technika"];
-const allAptitudes = [...combatAptitudes, ...nonCombatAptitudes]
+const allAptitudes = [...combatAptitudes, ...nonCombatAptitudes];
 
-const allStats = [...allAspects, ...allAptitudes]
+const allStats = [...allAspects, ...allAptitudes];
+
+const extrasList = [ "quirk", "flaws", "magicka", "weapon", "armor", "horse", "empty", "specialty"];
 
 
 
@@ -110,15 +154,48 @@ export default class Create extends Component {
     this.onChangeSpeed = this.onChangeSpeed.bind(this);
     this.onChangeInitiative = this.onChangeInitiative.bind(this);
     this.onChangeDefense = this.onChangeDefense.bind(this);
-    this.onChangetemp_text_box = this.onChangetemp_text_box.bind(this);
+
     this.onChangeQuirk = this.onChangeQuirk.bind(this);
+    this.onQuirkSubmit = this.onQuirkSubmit.bind(this);
     this.quirkSetter = this.quirkSetter.bind(this);
+    
+    this.onChangeFlaws = this.onChangeFlaws.bind(this);
+    this.flawsSetter = this.flawsSetter.bind(this);
+    this.onFlawsSubmit = this.onFlawsSubmit.bind(this);
+    
+    this.onChangeMagicka = this.onChangeMagicka.bind(this);
+    this.magickaSetter = this.magickaSetter.bind(this);
+    this.onMagickaSubmit = this.onMagickaSubmit.bind(this);
+    
+    this.onChangeWeapon = this.onChangeWeapon.bind(this);
+    this.weaponSetter = this.weaponSetter.bind(this);
+    this.onWeaponSubmit = this.onWeaponSubmit.bind(this);
+    
+    this.onChangeArmor = this.onChangeArmor.bind(this);
+    this.armorSetter = this.armorSetter.bind(this);
+    this.onArmorSubmit = this.onArmorSubmit.bind(this);
+    
+    this.onChangeHorse = this.onChangeHorse.bind(this);
+    this.horseSetter = this.horseSetter.bind(this);
+    this.onHorseSubmit = this.onHorseSubmit.bind(this);
+
+    this.onChangeEmpty = this.onChangeEmpty.bind(this);
+    this.emptySetter = this.emptySetter.bind(this);
+    this.onEmptySubmit = this.onEmptySubmit.bind(this);
+
+    this.onChangeFirstSpecialty = this.onChangeFirstSpecialty.bind(this);
+    this.onChangeSecondSpecialty = this.onChangeSecondSpecialty.bind(this);
+    this.specialtySetter = this.specialtySetter.bind(this);
+    this.onSpecialtySubmit = this.onSpecialtySubmit.bind(this);
+
 
     this.onSubmit = this.onSubmit.bind(this);
-    this.onQuirkSubmit = this.onQuirkSubmit.bind(this);
     this.onRefreshFromDB = this.onRefreshFromDB.bind(this);
     this.mainStat = this.mainStat.bind(this);
     this.displayStatArray = this.displayStatArray.bind(this);
+    this.codaDisplayAndSelect = this.codaDisplayAndSelect.bind(this);
+    this.arrayToSelectOptions = this.arrayToSelectOptions.bind(this);
+
 
     this.state = initialState;
     Object.assign(this.state, {
@@ -182,6 +259,23 @@ export default class Create extends Component {
     return hashStr.substr(-8);
   }
 
+  checkOverflow(){
+    var largest = 0;
+    extrasList.forEach(extra => {
+      if(extra.includes("quirk") || extra.includes("flaws")){
+        largest = Math.max( largest, sectionsHeight, 2 * parseInt(this.state[extra+"Overflow"]));
+      }else{
+        largest = Math.max( largest, sectionsHeight, parseInt(this.state[extra+"Overflow"]));
+      }
+    });
+    this.setState({
+        extrasOverflow: largest
+      }, () => {
+        console.log("setState extrasOverflow: overflow", this.state.extrasOverflow, sectionsHeight, largest);
+      });
+  }
+
+
   checkXP(array){
     var availableXP = this.state.starting_xp;
 
@@ -241,6 +335,12 @@ export default class Create extends Component {
   availableXP += aptitudeOverage;
 
   availableXP -= this.state.quirkTotalCost;
+  availableXP -= this.state.flawsTotalCost;
+  availableXP -= this.state.magickaTotalCost;
+  availableXP -= this.state.weaponTotalCost;
+  availableXP -= this.state.armorTotalCost;
+  availableXP -= this.state.horseTotalCost;
+  availableXP -= this.state.specialtyTotalCost;
 
   // last line
   this.setState({available_xp: availableXP});
@@ -494,10 +594,71 @@ export default class Create extends Component {
     this.setState({ quirk: e.value });
 
   }
-  onChangetemp_text_box(e) {
+  onChangeFlaws(e) {
+ //    var joined = this.state.quirks.concat(e.target.value);
+  // this.setState({ quirks: joined });
+    console.log("onChangeFlaws:", e);
+    this.setState({ flaws: e.value });
+
+  }
+  onChangeMagicka(e) {
+ //    var joined = this.state.quirks.concat(e.target.value);
+  // this.setState({ quirks: joined });
+    console.log("onChangeMagicka:", e);
+    this.setState({ magicka: e.value });
+
+  }
+  onChangeWeapon(e) {
+    console.log("onChangeWeapon:", e);
+    this.setState({ weapon: e.value });
+  }
+  onChangeArmor(e) {
+    console.log("onChangeArmor:", e);
+    this.setState({ armor: e.value });
+  }
+  onChangeHorse(e) {
+    console.log("onChangeHorse:", e);
+    this.setState({ horse: e.value });
+  }
+  onChangeFirstSpecialty(e) {
+    console.log("onChangeFirstSpecialty:", e);
+    this.setState({ specialtyFirst: e.value });
+  }
+  onChangeSecondSpecialty(e) {
+    console.log("onChangeSecondSpecialty:", e);
+    this.setState({ specialtySecond: e.value });
+  }
+
+  onChangeEmpty(e) {
     this.setState({
-      temp_text_box: e.target.value
+      empty: e.target.value
     });
+  }
+
+  onEmptySubmit(e) {
+    e.preventDefault();
+    var obj = {
+      sheet: this.state.id,
+      empty: this.state.empty
+    };
+
+    axios.defaults.baseURL = '';
+    axios.post('/empty/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added empty:",res.data))
+        .then(res => {
+          console.log("getting emptys for sheet:", this.state.id);
+          axios.get('/empty/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.emptySetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      empty: '',
+    });   
   }
 
   onSubmit(e) {
@@ -526,8 +687,7 @@ export default class Create extends Component {
       initiative: this.state.initiative,
       defense: this.state.defense,
       starting_xp: this.state.starting_xp,
-      available_xp: this.state.available_xp,
-      temp_text_box: this.state.temp_text_box
+      available_xp: this.state.available_xp
     };
     allStats.forEach(val => {
       obj[val] = this.state[val];
@@ -582,6 +742,214 @@ export default class Create extends Component {
       quirk: '',
     });
 
+  }
+
+  onFlawsSubmit(e) {
+    e.preventDefault();
+
+    const selectedFlaws = this.props.flawsArray[this.state.flaws];
+    if(!selectedFlaws){return 1;}
+    const obj = {
+      sheet: this.state.id,
+      name: selectedFlaws.name,
+      cost: selectedFlaws.cost,
+      desc: selectedFlaws.desc,
+      prereq: selectedFlaws.prereq,
+      benefit: selectedFlaws.benefit,
+      aspects: selectedFlaws.aspects,
+      aptitudes: selectedFlaws.aptitudes
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/flaws/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added flaws:",res.data))
+        .then(res => {
+          console.log("getting flawss for sheet:", this.state.id);
+          axios.get('/flaws/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.flawsSetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      flaws: '',
+    });
+
+  }
+
+  onMagickaSubmit(e) {
+    e.preventDefault();
+
+    const selectedMagicka = this.props.magickaArray[this.state.magicka];
+    if(!selectedMagicka){return 1;}
+    const obj = {
+      sheet: this.state.id,
+      name: selectedMagicka.name,
+      cost: selectedMagicka.cost,
+      desc: selectedMagicka.desc,
+      armor: selectedMagicka.armor,
+      penalty: selectedMagicka.penalty,
+      damage: selectedMagicka.damage,
+      ap: selectedMagicka.ap
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/magicka/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added magicka:",res.data))
+        .then(res => {
+          console.log("getting magickas for sheet:", this.state.id);
+          axios.get('/magicka/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.magickaSetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      magicka: '',
+    });
+
+  }
+
+  onWeaponSubmit(e) {
+    e.preventDefault();
+
+    const selectedWeapon = this.props.weaponArray[this.state.weapon];
+    if(!selectedWeapon){return 1;}
+    const obj = {
+      sheet: this.state.id,
+      name: selectedWeapon.name,
+      cost: selectedWeapon.cost,
+      damage: selectedWeapon.damage,
+      ap: selectedWeapon.ap,
+      range: selectedWeapon.range
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/weapon/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added weapon:",res.data))
+        .then(res => {
+          console.log("getting weapons for sheet:", this.state.id);
+          axios.get('/weapon/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.weaponSetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      weapon: '',
+    });
+
+  }
+
+  onArmorSubmit(e) {
+    e.preventDefault();
+
+    const selectedArmor = this.props.armorArray[this.state.armor];
+    if(!selectedArmor){return 1;}
+    const obj = {
+      sheet: this.state.id,
+      name: selectedArmor.name,
+      cost: selectedArmor.cost,
+      damage: selectedArmor.damage,
+      ap: selectedArmor.ap,
+      range: selectedArmor.range
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/armor/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added armor:",res.data))
+        .then(res => {
+          console.log("getting armors for sheet:", this.state.id);
+          axios.get('/armor/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.armorSetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      armor: '',
+    });
+
+  }
+
+  onHorseSubmit(e) {
+    e.preventDefault();
+
+    const selectedHorse = this.props.horseArray[this.state.horse];
+    if(!selectedHorse){return 1;}
+    const obj = {
+      sheet: this.state.id,
+      name: selectedHorse.name,
+      cost: selectedHorse.cost,
+      damage: selectedHorse.damage,
+      ap: selectedHorse.ap,
+      range: selectedHorse.range
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/horse/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added horse:",res.data))
+        .then(res => {
+          console.log("getting horses for sheet:", this.state.id);
+          axios.get('/horse/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.horseSetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      horse: '',
+    });
+
+  }
+
+  onSpecialtySubmit(e) {
+    e.preventDefault();
+
+    var hasBoth = true;
+    var first, second;
+    if(this.state.specialtyFirst){
+      first = this.state.specialtyFirst;
+    }else{hasBoth=false;}
+    if(this.state.specialtySecond){
+      second = this.state.specialtySecond;
+    }else{hasBoth=false;}
+    if(!hasBoth){return 1;}
+
+    var builtSpecialty = "[ " + first +" + "+ second +" ]";
+    const obj = {
+      sheet: this.state.id,
+      specialty: builtSpecialty,
+      cost: 4
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/specialty/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added specialty:",res.data))
+        .then(res => {
+          console.log("getting specialtys for sheet:", this.state.id);
+          axios.get('/specialty/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.specialtySetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      specialtyFirst: '',
+      specialtySecond: ''
+    });
 
   }
 
@@ -633,14 +1001,18 @@ export default class Create extends Component {
         console.log("onRefreshFromDB, response.data:", response.data, this.props.match.params.id);
         this.setState(response.data, () => {
           console.log("this.state loaded from DB!", this.state);
-          axios.get('/quirk/'+this.state.id,{ baseUrl: "" })
-            .then(response => {
-              this.quirkSetter(response.data);
-              // this.setState({ hasQuirks: response.data });
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
+          
+          extrasList.forEach(extra => {
+            axios.get('/'+extra+'/'+this.state.id,{ baseUrl: "" })
+              .then(response => {
+                this[extra+"Setter"](response.data);
+                // this.quirkSetter(response.data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+          });
+          
         });
         
       })
@@ -654,26 +1026,241 @@ export default class Create extends Component {
   tabRow(){
     const theSheet = this.state.id;
     const theQS = this.quirkSetter;
-      return this.state.hasQuirks.map(function(object, i){
+      return this.state.hasQuirk.map(function(object, i){
           return <QuirkTableRow obj={object} key={i} index={i} sheet={theSheet} quirkSetter={theQS}/>;
       });
     }
 
+
+
+  tabFlawsRow(){
+    const theSheet = this.state.id;
+    const theQS = this.flawsSetter;
+      return this.state.hasFlaws.map(function(object, i){
+          return <FlawsTableRow obj={object} key={i} index={i} sheet={theSheet} flawsSetter={theQS}/>;
+      });
+    }
+
+  tabMagickaRow(){
+    const theSheet = this.state.id;
+    const theQS = this.magickaSetter;
+      return this.state.hasMagicka.map(function(object, i){
+          return <MagickaTableRow obj={object} key={i} index={i} sheet={theSheet} magickaSetter={theQS}/>;
+      });
+    }
+
+  tabWeaponRow(){
+    const theSheet = this.state.id;
+    const theQS = this.weaponSetter;
+      return this.state.hasWeapon.map(function(object, i){
+          return <WeaponTableRow obj={object} key={i} index={i} sheet={theSheet} weaponSetter={theQS}/>;
+      });
+    }
+
+  tabArmorRow(){
+    const theSheet = this.state.id;
+    const theQS = this.armorSetter;
+      return this.state.hasArmor.map(function(object, i){
+          return <ArmorTableRow obj={object} key={i} index={i} sheet={theSheet} armorSetter={theQS}/>;
+      });
+    }
+
+  tabHorseRow(){
+    const theSheet = this.state.id;
+    const theQS = this.horseSetter;
+      return this.state.hasHorse.map(function(object, i){
+          return <HorseTableRow obj={object} key={i} index={i} sheet={theSheet} horseSetter={theQS}/>;
+      });
+    }
+
+  tabEmptyRow(){
+    const theSheet = this.state.id;
+    const theQS = this.emptySetter;
+      return this.state.hasEmpty.map(function(object, i){
+          return <EmptyTableRow obj={object} key={i} index={i} sheet={theSheet} emptySetter={theQS}/>;
+      });
+    }
+
+  tabSpecialtyRow(){
+    const theSheet = this.state.id;
+    const theQS = this.specialtySetter;
+      return this.state.hasSpecialty.map(function(object, i){
+          return <SpecialtyTableRow obj={object} key={i} index={i} sheet={theSheet} specialtySetter={theQS}/>;
+      });
+    }
+
   quirkSetter(res){
-    var i, tally=0;
+    var i, tally=0, overflow=0;
     for(i=0;i < res.length;i++){
       var item = res[i];
       tally += parseInt(item.cost);
+      if(item.name){overflow += item.name.length / emCalc.perLine }
+      if(item.desc){overflow += item.desc.length / emCalc.perLine }
+      if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
+      if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
+      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
+      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("quirkSetter",res, tally);
+    console.log("quirkSetter",res, tally, overflow);
     this.setState({
-       hasQuirks: res, 
-       quirkTotalCost: tally
+       hasQuirk: res, 
+       quirkTotalCost: tally,
+       quirkOverflow: overflow
     }, () => {
       this.checkXP();
+      this.checkOverflow();
     });
   }
 
+
+
+  flawsSetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      tally += parseInt(item.cost);
+      if(item.name){overflow += item.name.length / emCalc.perLine }
+      if(item.desc){overflow += item.desc.length / emCalc.perLine }
+      if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
+      if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
+      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
+      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
+    }
+    console.log("flawsSetter",res, tally, overflow);
+    this.setState({
+       hasFlaws: res, 
+       flawsTotalCost: tally,
+       flawsOverflow: overflow
+    }, () => {
+      this.checkXP();
+      this.checkOverflow();
+    });
+  }
+
+  magickaSetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      tally += parseInt(item.cost);
+      if(item.name){overflow += item.name.length / emCalc.perLine }
+      if(item.desc){overflow += item.desc.length / emCalc.perLine }
+      if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
+      if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
+      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
+      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
+    }
+    console.log("magickaSetter",res, tally, overflow);
+    this.setState({
+       hasMagicka: res, 
+       magickaTotalCost: tally,
+       magickaOverflow: overflow
+    }, () => {
+      this.checkXP();
+      this.checkOverflow();
+    });
+  }
+
+  weaponSetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      tally += parseInt(item.cost);
+      if(item.name){overflow += item.name.length / emCalc.perLine }
+      if(item.desc){overflow += item.desc.length / emCalc.perLine }
+      if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
+      if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
+      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
+      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
+    }
+    console.log("weaponSetter",res, tally, overflow);
+    this.setState({
+       hasWeapon: res, 
+       weaponTotalCost: tally,
+       weaponOverflow: overflow
+    }, () => {
+      this.checkXP();
+      this.checkOverflow();
+    });
+  }
+
+  armorSetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      tally += parseInt(item.cost);
+      if(item.name){overflow += item.name.length / emCalc.perLine }
+      if(item.desc){overflow += item.desc.length / emCalc.perLine }
+      if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
+      if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
+      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
+      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
+    }
+    console.log("armorSetter",res, tally, overflow);
+    this.setState({
+       hasArmor: res, 
+       armorTotalCost: tally,
+       armorOverflow: overflow
+    }, () => {
+      this.checkXP();
+      this.checkOverflow();
+    });
+  }
+
+  horseSetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      tally += parseInt(item.cost);
+      if(item.name){overflow += item.name.length / emCalc.perLine }
+      if(item.desc){overflow += item.desc.length / emCalc.perLine }
+      if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
+      if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
+      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
+      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
+    }
+    console.log("horseSetter",res, tally, overflow);
+    this.setState({
+       hasHorse: res, 
+       horseTotalCost: tally,
+       horseOverflow: overflow
+    }, () => {
+      this.checkXP();
+      this.checkOverflow();
+    });
+  }
+
+  emptySetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      if(item.empty){overflow += item.empty.length / emCalc.perLine }
+    }
+    console.log("emptySetter",res, tally, overflow);
+    this.setState({
+       hasEmpty: res, 
+       emptyOverflow: overflow
+    }, () => {
+      this.checkOverflow();
+    });
+  }
+
+  specialtySetter(res){
+    var i, tally=0, overflow=0;
+    for(i=0;i < res.length;i++){
+      var item = res[i];
+      tally += parseInt(item.cost);
+      if(item.specialty){overflow += item.specialty.length / emCalc.perLine }
+    }
+    console.log("specialtySetter",res, tally, overflow);
+    this.setState({
+       hasSpecialty: res, 
+       specialtyTotalCost: tally,
+       specialtyOverflow: overflow
+    }, () => {
+      this.checkXP();
+      this.checkOverflow();
+    });
+  }
 
   mainStat(stat, isAspect=false) {
     var title = stat.charAt(0).toUpperCase() + stat.substring(1);
@@ -692,7 +1279,7 @@ export default class Create extends Component {
   }
 
   displayStatArray(typeArray, isAspect=false){
-    console.log("displayStatArray:",typeArray, isAspect);
+    // console.log("displayStatArray:",typeArray, isAspect);
     var scopedThis = this;
     var statComponents = typeArray.map(function(stat) {
       return <div> { scopedThis.mainStat(stat, isAspect) }</div>;
@@ -700,9 +1287,71 @@ export default class Create extends Component {
     return <div>{statComponents}</div>;
   }
 
+  arrayToSelectOptions(array){
+    var newArray = [];
+    array.forEach(str => {
+      var obj = {  label: str.charAt(0).toUpperCase() + str.substring(1),
+                   value: str
+                }
+      newArray.push(obj);
+    });
+    return newArray;
+  }
 
+  codaDisplayAndSelect(extra, theRow, selectArray, onChange, totalCost, onSubmit, secondArray=null, secondChange=null) {
+    var title = extra.charAt(0).toUpperCase() + extra.substring(1);
+    var addBtnText = "Add " + title;
+    var hasArray = this.state["has"+title];
+    var showDesc = true;
+    // console.log("codaDisplayAndSelect secondArray:", extra, selectArray, secondArray);
+    if(extra.includes("specialty")){showDesc=false;}
+    // var val = this.state[stat].toString() ;
+    return (
+      <div className="codaDisplayAndSelect">
+        <div>
+          <h3 align="center">{title} List</h3>
+          <table className="table table-striped" style={{ marginTop: 20 }}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Cost</th>
+                { showDesc &&
+                  <th>Description</th>
+                }
+                <th colSpan="1">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              { this[theRow]() }
+            </tbody>
+          </table>
+        </div>
 
+        <Select options={selectArray} 
+            onChange={onChange} 
+            placeholder="Pick one"
+        />
 
+        { secondArray &&
+          <Select options={secondArray} 
+            onChange={secondChange} 
+            placeholder="Pick second"
+          />
+        }
+
+        <p></p>
+        <p>{this.state[extra]}</p>
+        <p>Tallied Cost: {totalCost}</p>
+
+        <div className="form-group">
+            <input type="submit" 
+              value={addBtnText}
+              className="btn btn-primary"
+              onClick={onSubmit}/>
+        </div>
+      </div>
+    );
+  }
  
   render() {
 
@@ -716,7 +1365,7 @@ export default class Create extends Component {
                   ? "Update Character Sheet" 
                   : "Add New Character Sheet"}
             </h3>
-            
+            <p>app height: {this.state.extrasOverflow}em</p>
               { this.props.match.params.id 
                   ? <div>
                       <h3 style={{display: 'inline-block'}}>Remaining XP: {this.state.available_xp}</h3>
@@ -730,7 +1379,8 @@ export default class Create extends Component {
 
               <article className="tabs">
 
-          <section id="tab1">
+          <section id="tab1"
+            style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab1">Character Desc</a></h2>
             <p> Name and description of your character - No rules are tied to this section, so it's up to you what you make!</p>
             <div className="form-group">
@@ -791,7 +1441,8 @@ export default class Create extends Component {
                     <p className="tabnav"><a href="#tab2">next &#10151;</a></p>
           </section>
           
-          <section id="tab2">
+          <section id="tab2"
+            style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab2">Aspects</a></h2>
             <p> Use 5|4|3 rule in the coda to select your Aspects.</p>
             { navigator.userAgent.match(/(iPhone|iPod|iPad)/)
@@ -827,7 +1478,8 @@ export default class Create extends Component {
 
 
           
-          <section id="tab3">
+          <section id="tab3"
+            style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab3">Aptitudes</a></h2>
             <p> You get {this.state.aptitude_total} points to spend here, on top of the items already at +1. </p>
                     
@@ -848,7 +1500,8 @@ export default class Create extends Component {
 
 
           
-          <section id="tab4">
+          <section id="tab4"
+            style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab4">Composite Stats</a></h2>
             <p> Mostly for after Character Creation, but some stats don't fit elsewhere. </p>
             <p> These stats are editable. </p>
@@ -922,67 +1575,208 @@ export default class Create extends Component {
 
 
           
-          <section id="tab5">
+          
+          <section id="tab5"
+            style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab5">Specialties</a></h2>
             <p>The feature is Coming SOON(tm)!</p>
+
+
+          { this.codaDisplayAndSelect("specialty", 
+                    "tabSpecialtyRow", 
+                    this.arrayToSelectOptions(allAspects), 
+                    this.onChangeFirstSpecialty, 
+                    this.state.specialtyTotalCost, 
+                    this.onSpecialtySubmit,
+                    this.arrayToSelectOptions(nonCombatAptitudes),
+                    this.onChangeSecondSpecialty ) }
+
+
             <p className="tabnav"><a href="#tab6">next &#10151;</a></p>
           </section>
 
 
           
-          <section id="tab6">
+          <section id="tab6"
+            style={{height: this.state.extrasOverflow+"em"}}>
+ 
             <h2><a href="#tab6">Quirks & More..</a></h2>
             <p> Right now this is a big empty text box with only 10 lines. The full feature is Coming SOON(tm)!</p>
 
-            <div>
-                  <h3 align="center">Quirk List</h3>
-                  <table className="table table-striped" style={{ marginTop: 20 }}>
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Cost</th>
-                        <th>Description</th>
-                        <th colSpan="1">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      { this.tabRow() }
-                    </tbody>
-                  </table>
-                </div>
-
-            <Select options={this.props.quirkSelectArray} 
-                onChange={this.onChangeQuirk} 
-                placeholder="Pick one"
-            />
-
+            
               
-                      <p></p>
-                      <p>{this.state.quirk}</p>
-                      <p>Tallied Cost: {this.state.quirkTotalCost}</p>
-
-                      <div className="form-group">
-                          <input type="submit" 
-                            value="Add Quirk" 
-                            className="btn btn-primary"
-                            onClick={this.onQuirkSubmit}/>
-                      </div>
+            
+              
+            
+              
+            
+              
 
 
 
-            <div className="form-group">
-                        <label>temp_text_box: </label>
-                        <textarea className="form-control" 
-                        rows = "10" cols = "60" name = "description"
-                        value={this.state.temp_text_box}
-                          onChange={this.onChangetemp_text_box}
-                          />
-                    </div>
+            <div className="codaDisplayAndSelect">
+              <div>
+                <h3 align="center">Text Extra List</h3>
+                <table className="table table-striped" style={{ marginTop: 20 }}>
+                  <thead>
+                    <tr>
+                      <th className="tdRightPad">Text</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    { this.tabEmptyRow() }
+                  </tbody>
+                </table>
+              </div>
+              <div className="form-group">
+                <label>Text: </label>
+                <textarea className="form-control" 
+                rows = "2" cols = "60" name = "description"
+                value={this.state.empty}
+                  onChange={this.onChangeEmpty}
+                  />
+              </div>
+              <div className="form-group">
+                  <input type="submit" 
+                    value="Add Text"
+                    className="btn btn-primary"
+                    onClick={this.onEmptySubmit}/>
+              </div>
+            </div>    
+
+
+
+          
+
                     <div className="form-group">
                         <input type="submit" 
-                          value="Save Character" 
+                          style={{float: 'right'}}
+                          value={ this.props.match.params.id 
+                            ? "Update Character" 
+                            : "Save Character"}
                           className="btn btn-primary"/>
                     </div>
+                      <button  onClick={this.onRefreshFromDB} className="btn btn-danger">Undo Changes</button>
+            <p className="tabnav"><a href="#tab7">next &#10151;</a></p>
+
+          </section>
+
+
+
+
+
+          
+          <section id="tab7"
+            style={{height: this.state.extrasOverflow+"em"}}>
+            <h2><a href="#tab7">Quirks & Flaws</a></h2>
+            <p>The feature is Coming SOON(tm)!</p>
+
+            { this.codaDisplayAndSelect("quirk", 
+                    "tabRow", 
+                    this.props.quirkSelectArray, 
+                    this.onChangeQuirk, 
+                    this.state.quirkTotalCost, 
+                    this.onQuirkSubmit) }
+            
+              { this.codaDisplayAndSelect("flaws", 
+                    "tabFlawsRow", 
+                    this.props.flawsSelectArray, 
+                    this.onChangeFlaws, 
+                    this.state.flawsTotalCost, 
+                    this.onFlawsSubmit) }
+          
+
+            <p className="tabnav"><a href="#tab8">next &#10151;</a></p>
+          </section>
+
+
+
+
+
+
+          
+          <section id="tab8"
+            style={{height: this.state.extrasOverflow+"em"}}>
+            <h2><a href="#tab8">Magicka</a></h2>
+            <p>The feature is Coming SOON(tm)!</p>
+
+            { this.codaDisplayAndSelect("magicka", 
+                    "tabMagickaRow", 
+                    this.props.magickaSelectArray, 
+                    this.onChangeMagicka, 
+                    this.state.magickaTotalCost, 
+                    this.onMagickaSubmit) }
+          
+
+            <p className="tabnav"><a href="#tab9">next &#10151;</a></p>
+          </section>
+
+
+
+
+
+
+          
+          <section id="tab9"
+            style={{height: this.state.extrasOverflow+"em"}}>
+            <h2><a href="#tab9">Weapons</a></h2>
+            <p>The feature is Coming SOON(tm)!</p>
+
+            { this.codaDisplayAndSelect("weapon", 
+                    "tabWeaponRow", 
+                    this.props.weaponSelectArray, 
+                    this.onChangeWeapon, 
+                    this.state.weaponTotalCost, 
+                    this.onWeaponSubmit) }
+          
+
+            <p className="tabnav"><a href="#tab10">next &#10151;</a></p>
+          </section>
+
+
+
+
+
+
+          
+          <section id="tab10"
+            style={{height: this.state.extrasOverflow+"em"}}>
+            <h2><a href="#tab10">Armor</a></h2>
+            <p>The feature is Coming SOON(tm)!</p>
+
+            { this.codaDisplayAndSelect("armor", 
+                    "tabArmorRow", 
+                    this.props.armorSelectArray, 
+                    this.onChangeArmor, 
+                    this.state.armorTotalCost, 
+                    this.onArmorSubmit) }
+
+
+            <p className="tabnav"><a href="#tab11">next &#10151;</a></p>
+          </section>
+
+
+
+
+
+
+          
+          <section id="tab11"
+            style={{height: this.state.extrasOverflow+"em"}}>
+            <h2><a href="#tab11">Horses</a></h2>
+            <p>The feature is Coming SOON(tm)!</p>
+
+            
+              { this.codaDisplayAndSelect("horse", 
+                    "tabHorseRow", 
+                    this.props.horseSelectArray, 
+                    this.onChangeHorse, 
+                    this.state.horseTotalCost, 
+                    this.onHorseSubmit) }
+          
+
+            <p className="tabnav"><a href="#tab1">next &#10151;</a></p>
           </section>
 
 

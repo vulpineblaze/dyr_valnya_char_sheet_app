@@ -2,28 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class QuirkTableRow extends Component {
+class FlawsTableRow extends Component {
 
   constructor(props) {
       super(props);
       this.delete = this.delete.bind(this);
       this.toggleRow = this.toggleRow.bind(this);
       this.state = {
-        showMore: false,
-        moreText: "More.."
+        showMore: false
       }
     }
     delete(e) {
         e.preventDefault();
 
         axios.defaults.baseURL = '';
-        axios.get('/quirk/delete/'+this.props.obj._id,{ baseUrl: "" })
+        axios.get('/flaws/delete/'+this.props.obj._id,{ baseUrl: "" })
             .then(console.log('Deleted for:', this.props.sheet))
             .then(res => {
-                axios.get('/quirk/'+this.props.sheet,{ baseUrl: "" })
+                axios.get('/flaws/'+this.props.sheet,{ baseUrl: "" })
                   .then(response => {
-                    this.props.quirkSetter(response.data);
-                    // this.setState({ hasQuirks: response.data });
+                    this.props.flawsSetter(response.data);
+                    // this.setState({ hasFlawss: response.data });
                   })
                   .catch(function (error) {
                     console.log(error);
@@ -46,9 +45,9 @@ class QuirkTableRow extends Component {
       //   style = "none";
       // }
       if(this.state.showMore){
-        this.setState({showMore: false, moreText:"More.."});
+        this.setState({showMore: false});
       }else{
-        this.setState({showMore: true, moreText:"..Less"});
+        this.setState({showMore: true});
       }
       
 
@@ -73,7 +72,7 @@ class QuirkTableRow extends Component {
             <button onClick={this.delete} className="btn btn-danger">Delete</button>
           </td>
           <td>
-            <button onClick={this.toggleRow} className="btn">{this.state.moreText}</button>
+            <button onClick={this.toggleRow} className="btn">More..</button>
           </td>
         </tr>
 
@@ -103,4 +102,4 @@ class QuirkTableRow extends Component {
   }
 }
 
-export default QuirkTableRow;
+export default FlawsTableRow;
