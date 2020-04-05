@@ -147,13 +147,7 @@ export default class Create extends Component {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeAspectAndAptitude = this.onChangeAspectAndAptitude.bind(this);
     
-    this.onChangeAstrylose = this.onChangeAstrylose.bind(this);
-    this.onChangeWillpower = this.onChangeWillpower.bind(this);
-    this.onChangeVitality = this.onChangeVitality.bind(this);
     this.onChangeSize = this.onChangeSize.bind(this);
-    this.onChangeSpeed = this.onChangeSpeed.bind(this);
-    this.onChangeInitiative = this.onChangeInitiative.bind(this);
-    this.onChangeDefense = this.onChangeDefense.bind(this);
 
     this.onChangeQuirk = this.onChangeQuirk.bind(this);
     this.onQuirkSubmit = this.onQuirkSubmit.bind(this);
@@ -335,7 +329,7 @@ export default class Create extends Component {
   availableXP += aptitudeOverage;
 
   availableXP -= this.state.quirkTotalCost;
-  availableXP -= this.state.flawsTotalCost;
+  availableXP -= Math.max(-15, this.state.flawsTotalCost);
   availableXP -= this.state.magickaTotalCost;
   availableXP -= this.state.weaponTotalCost;
   availableXP -= this.state.armorTotalCost;
@@ -421,8 +415,7 @@ export default class Create extends Component {
         [changed]: parseInt(val),
         available_xp: parseInt(cost) + parseInt(this.state.available_xp)
       }, () => {
-        // this.checkAspects();
-        console.log("updated changed state", cost, this.state.available_xp, preVal, val);
+        // console.log("updated changed state", cost, this.state.available_xp, preVal, val);
         if(isAspect){
           this.checkCompositeStats(changed, val);
         }
@@ -432,8 +425,7 @@ export default class Create extends Component {
       this.setState({
         [changed]: parseInt(this.state[changed])
       }, () => {
-        // this.checkAspects();
-        console.log("didnt update changed state", cost, this.state.available_xp, preVal, val);
+        // console.log("didnt update changed state", cost, this.state.available_xp, preVal, val);
       });
     }
   }
@@ -479,7 +471,7 @@ export default class Create extends Component {
 
     // finally
     this.setState(obj, () => {
-      console.log("updated composites for", obj, this.state);
+      // console.log("updated composites for", obj, this.state);
     });
   }
 
@@ -546,25 +538,8 @@ export default class Create extends Component {
       });
     }
     
-  }
-  
+  }  
 
-  
-  onChangeAstrylose(e) {
-    // this.setState({
-    //   astrylose: e.target.value
-    // });
-  }
-  onChangeWillpower(e) {
-    // this.setState({
-    //   willpower: e.target.value
-    // });
-  }
-  onChangeVitality(e) {
-    // this.setState({
-    //   vitality: e.target.value
-    // });
-  }
   onChangeSize(e) {
     this.setState({
       size: e.target.value,
@@ -572,41 +547,18 @@ export default class Create extends Component {
       speed: parseInt(e.target.value) + parseInt(this.state.dexterity) + parseInt(this.state.strength)
     });
   }
-  onChangeSpeed(e) {
-    // this.setState({
-    //   speed: e.target.value
-    // });
-  }
-  onChangeInitiative(e) {
-    // this.setState({
-    //   initiative: e.target.value
-    // });
-  }
-  onChangeDefense(e) {
-    // this.setState({
-    //   defense: e.target.value
-    // });
-  }
+
   onChangeQuirk(e) {
- //    var joined = this.state.quirks.concat(e.target.value);
-  // this.setState({ quirks: joined });
     console.log("onChangeQuirk:", e);
     this.setState({ quirk: e.value });
-
   }
   onChangeFlaws(e) {
- //    var joined = this.state.quirks.concat(e.target.value);
-  // this.setState({ quirks: joined });
     console.log("onChangeFlaws:", e);
     this.setState({ flaws: e.value });
-
   }
   onChangeMagicka(e) {
- //    var joined = this.state.quirks.concat(e.target.value);
-  // this.setState({ quirks: joined });
     console.log("onChangeMagicka:", e);
     this.setState({ magicka: e.value });
-
   }
   onChangeWeapon(e) {
     console.log("onChangeWeapon:", e);
@@ -990,7 +942,7 @@ export default class Create extends Component {
       console.log("In Create (componentDidMount), no editID found", editID);
     }
 
-    console.log("check if quirkSelectArray made it",this.props.quirkSelectArray);
+    // console.log("check if quirkSelectArray made it",this.props.quirkSelectArray);
   }
 
   onRefreshFromDB(){
@@ -1101,7 +1053,7 @@ export default class Create extends Component {
       if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
       if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("quirkSetter",res, tally, overflow);
+    // console.log("quirkSetter",res, tally, overflow);
     this.setState({
        hasQuirk: res, 
        quirkTotalCost: tally,
@@ -1126,7 +1078,7 @@ export default class Create extends Component {
       if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
       if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("flawsSetter",res, tally, overflow);
+    // console.log("flawsSetter",res, tally, overflow);
     this.setState({
        hasFlaws: res, 
        flawsTotalCost: tally,
@@ -1146,10 +1098,8 @@ export default class Create extends Component {
       if(item.desc){overflow += item.desc.length / emCalc.perLine }
       if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
       if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
-      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
-      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("magickaSetter",res, tally, overflow);
+    // console.log("magickaSetter",res, tally, overflow);
     this.setState({
        hasMagicka: res, 
        magickaTotalCost: tally,
@@ -1169,10 +1119,8 @@ export default class Create extends Component {
       if(item.desc){overflow += item.desc.length / emCalc.perLine }
       if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
       if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
-      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
-      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("weaponSetter",res, tally, overflow);
+    // console.log("weaponSetter",res, tally, overflow);
     this.setState({
        hasWeapon: res, 
        weaponTotalCost: tally,
@@ -1192,10 +1140,8 @@ export default class Create extends Component {
       if(item.desc){overflow += item.desc.length / emCalc.perLine }
       if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
       if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
-      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
-      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("armorSetter",res, tally, overflow);
+    // console.log("armorSetter",res, tally, overflow);
     this.setState({
        hasArmor: res, 
        armorTotalCost: tally,
@@ -1215,10 +1161,8 @@ export default class Create extends Component {
       if(item.desc){overflow += item.desc.length / emCalc.perLine }
       if(item.prereq){overflow += emCalc.perProp + item.prereq.length / emCalc.perLine }
       if(item.benefit){overflow += emCalc.perProp + item.benefit.length / emCalc.perLine }
-      if(item.aspects){overflow += emCalc.perProp + item.aspects.length / emCalc.perLine }
-      if(item.aptitudes){overflow += emCalc.perProp + item.aptitudes.length / emCalc.perLine }
     }
-    console.log("horseSetter",res, tally, overflow);
+    // console.log("horseSetter",res, tally, overflow);
     this.setState({
        hasHorse: res, 
        horseTotalCost: tally,
@@ -1235,7 +1179,7 @@ export default class Create extends Component {
       var item = res[i];
       if(item.empty){overflow += item.empty.length / emCalc.perLine }
     }
-    console.log("emptySetter",res, tally, overflow);
+    // console.log("emptySetter",res, tally, overflow);
     this.setState({
        hasEmpty: res, 
        emptyOverflow: overflow
@@ -1251,7 +1195,7 @@ export default class Create extends Component {
       tally += parseInt(item.cost);
       if(item.specialty){overflow += item.specialty.length / emCalc.perLine }
     }
-    console.log("specialtySetter",res, tally, overflow);
+    // console.log("specialtySetter",res, tally, overflow);
     this.setState({
        hasSpecialty: res, 
        specialtyTotalCost: tally,
@@ -1365,7 +1309,7 @@ export default class Create extends Component {
                   ? "Update Character Sheet" 
                   : "Add New Character Sheet"}
             </h3>
-            <p>app height: {this.state.extrasOverflow}em</p>
+           
               { this.props.match.params.id 
                   ? <div>
                       <h3 style={{display: 'inline-block'}}>Remaining XP: {this.state.available_xp}</h3>
@@ -1605,12 +1549,6 @@ export default class Create extends Component {
 
             
               
-            
-              
-            
-              
-            
-              
 
 
 
@@ -1678,14 +1616,24 @@ export default class Create extends Component {
                     this.onChangeQuirk, 
                     this.state.quirkTotalCost, 
                     this.onQuirkSubmit) }
-            
+
+
               { this.codaDisplayAndSelect("flaws", 
                     "tabFlawsRow", 
                     this.props.flawsSelectArray, 
                     this.onChangeFlaws, 
                     this.state.flawsTotalCost, 
                     this.onFlawsSubmit) }
-          
+
+              
+            
+              { this.state.flawsTotalCost < -14  &&
+                <h3 className="warning"> 
+                  You can take more than -15 points in Flaws, but you can only gain a maximum of 15 XP from them.
+                </h3> 
+              }
+            
+            
 
             <p className="tabnav"><a href="#tab8">next &#10151;</a></p>
           </section>
