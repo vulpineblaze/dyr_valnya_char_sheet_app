@@ -294,39 +294,48 @@ article.tabs section:nth-child(6) h2
 article.tabs section:nth-child(7) h2
 {
   left: 55px;
-  background-color: #ffd;
+  background-color: #fdb;
   width: 134px;
   top: -3.6em;
 }
 article.tabs section:nth-child(8) h2
 {
   left: 192px;
-  background-color: #ffd;
+  background-color: #fbd;
   /*width: 150px;*/
   top: -3.6em;
 }
 article.tabs section:nth-child(9) h2
 {
   left: 316px;
-  background-color: #ffd;
+  background-color: #bfd;
   /*width: 150px;*/
   top: -3.6em;
 }
 article.tabs section:nth-child(10) h2
 {
   left: 440px;
-  background-color: #ffd;
+  background-color: #bdf;
   /*width: 150px;*/
   top: -3.6em;
 }
 article.tabs section:nth-child(11) h2
 {
   left: 564px;
-  background-color: #ffd;
+  background-color: #fbb;
   /*width: 150px;*/
   top: -3.6em;
 }
+/*..
+fdd - fbd fdb
+dfd - bfd bfd
+ddf - bdf dbf
+ffd
+dff
+fdf
 
+
+*/
 article.tabs section h2 a
 {
   display: block;
@@ -400,11 +409,11 @@ p.tabnav a
 }
 
 .browserWarning {
-  border: 2px solid #FF0000;
+  /*border: 2px solid #FF0000;*/
   border-radius: 0.5em;
-  padding: 0.8em;
+  padding: 0.5em 0.3em 0.1em 0.3em;
   margin: 0.5em;
-  background: #FF8B00;
+  background:  #ffd199;
   text-align: center;
 }
 
@@ -420,5 +429,5 @@ h3.warning {
   padding: 0.8em;
   margin: 0.5em;
   text-align: center;
-
+  width: 80%;
 }

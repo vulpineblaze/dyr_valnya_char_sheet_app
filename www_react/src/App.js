@@ -11,7 +11,7 @@ import Index from './components/index.component';
 
 import './App.css';
 
-import GoogleLogin from 'react-google-login';
+import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import Coda from 'coda-js';
 
 
@@ -49,7 +49,9 @@ class App extends Component {
       isSession: true,
       timeSwitch: false,
       screenWidth: null,
-      isChrome: !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)
+      googleError: "",
+      isChrome: !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime),
+      isFirefox: typeof InstallTrigger !== 'undefined'
      }
      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
@@ -447,7 +449,7 @@ class App extends Component {
   }
 
   render() {
-    console.log("broswer found:", this.state.isChrome);
+    console.log("broswer found:", this.state.isChrome, this.state.isFirefox);
 
     const responseGoogle = (response) => {
       console.log("response",response);
@@ -468,27 +470,57 @@ class App extends Component {
       }
     }
 
+    const responseError = (response) => {
+      console.log("responseError",response);
+      // this.user = auth2.currentUser.get().getBasicProfile();
+      this.setState({googleError: response.error});
+      
+    }
+
+    const responseLogout = (response) => {
+      console.log("responseError",response);
+      alert('You have been logged out!');
+
+
+      window.location.reload();
+      
+    }
+
+
     return (
       <HttpsRedirect>
       <Router>
+
+        <p>This is the online character sheet for Dyr-Valnya, which can be found on  
+          <a href="https://coda.io/d/dyr-valnya_d55_RuUt6nh">  coda.io</a>
+        </p>
+
+        <div style={this.state.googleError ? {} : {display: 'none'}}>
+          <h3>Google has experienced the following error:</h3>
+          <h3 className="warning">{ this.state.googleError }</h3>
+        </div>
+
         <div style={this.state.loadState ? { display: 'none' } : {}}>
+          <div>
+            <h3>Please sign into Google to continue.</h3>
+          </div>
           <GoogleLogin
             clientId="662678115576-2aot69uthdfcqs6m7k6n9dr5v03glb09.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
             // clientId="662678115576-0o3gbqcmlu0fejmn3dkfte0g9evoqe5l.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
             buttonText="LOGIN WITH GOOGLE"
             onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onFailure={responseError}
             onRequest={responseGoogle}
-            isSignedIn="true"
+            autoLoad="true"
           />
+          
         </div>
-
         <div className="container" style={this.state.loadState && this.state.quirkArray.length > 0 ? {} : { display: 'none' }}>
           <div> Hey, {this.state.name} </div>
-          <div className="browserWarning" style={ !this.state.isChrome ? {} : { display: 'none' }}>
+          <div className="browserWarning" style={ !this.state.isChrome && !this.state.isFirefox ? {} : { display: 'none' }}>
             <h3 >This browser is not fully supported</h3>
-            <p>Site designed for Google Chrome:    
-              <a href="https://google.com">   www.google.com</a> 
+            <p>Site designed for      
+              <a href="https://www.google.com/chrome/">   Google Chrome</a>. 
             </p>
           </div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -503,6 +535,19 @@ class App extends Component {
                 </li>
                 <li className="nav-item">
                   <Link to={'/index'} className="nav-link">Index</Link>
+                </li>
+                <li className="nav-item">
+                  <GoogleLogout
+                    clientId="662678115576-2aot69uthdfcqs6m7k6n9dr5v03glb09.apps.googleusercontent.com"
+                    render={renderProps => (
+                      <Link to={'/'} className="nav-link" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                        Logout
+                      </Link>
+                    )}
+                    buttonText="Logout"
+                    onLogoutSuccess={responseLogout}
+                  >
+                  </GoogleLogout>
                 </li>
               </ul>
             </div>
@@ -549,6 +594,7 @@ class App extends Component {
               />
               <Route path='/index' component={ Index } />
             </Switch>
+            
         </div>
       </Router>        
       </HttpsRedirect>
@@ -558,3 +604,5 @@ class App extends Component {
 }
 
 export default App;
+
+//isSignedIn="true"

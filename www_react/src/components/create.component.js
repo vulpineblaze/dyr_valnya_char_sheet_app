@@ -56,7 +56,7 @@ const initialState = {
   investigation: 0,
   larceny: 0,
   luck: 1,
-  magicka: 0,
+  arcanaforn: 0,
   medicine: 0,
   observation: 1,
   persuasion: 0,
@@ -117,7 +117,7 @@ const socialAspects = ["presence", "manipulation", "composure"];
 const allAspects = [...physicalAspects, ...mentalAspects, ...socialAspects];
 
 const combatAptitudes = ["fisticuffs", "melee", "ranged", "thaumatism"];
-const nonCombatAptitudes = ["athletics","crafts","culture","empathy","expression","intimidation","investigation","larceny","luck","magicka","medicine","observation","persuasion","portaelogy","riding","stealth","streetwise","subterfuge","survival","technika"];
+const nonCombatAptitudes = ["arcanaforn","athletics","crafts","culture","empathy","expression","intimidation","investigation","larceny","luck","medicine","observation","persuasion","portaelogy","riding","stealth","streetwise","subterfuge","survival","technika"];
 const allAptitudes = [...combatAptitudes, ...nonCombatAptitudes];
 
 const allStats = [...allAspects, ...allAptitudes];
@@ -146,6 +146,7 @@ export default class Create extends Component {
     this.onChangeRacial = this.onChangeRacial.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeAspectAndAptitude = this.onChangeAspectAndAptitude.bind(this);
+    this.onChangeNothing = this.onChangeNothing.bind(this);
     
     this.onChangeSize = this.onChangeSize.bind(this);
 
@@ -188,6 +189,7 @@ export default class Create extends Component {
     this.mainStat = this.mainStat.bind(this);
     this.displayStatArray = this.displayStatArray.bind(this);
     this.codaDisplayAndSelect = this.codaDisplayAndSelect.bind(this);
+    this.displayUpdateSubmitButton = this.displayUpdateSubmitButton.bind(this);
     this.arrayToSelectOptions = this.arrayToSelectOptions.bind(this);
 
 
@@ -395,7 +397,7 @@ export default class Create extends Component {
       aptitudeTally += parseInt(this.state[aptitude]);
     });
     this.setState({
-      aptitude_total: 23 + aptitudeTally
+      aptitude_total: 23 - aptitudeTally
     }, () => {
       this.checkXP();
   });
@@ -475,6 +477,9 @@ export default class Create extends Component {
     });
   }
 
+  onChangeNothing(e) {
+    // do nothing
+  }
   onChangeName(e) {
     this.setState({
       name: e.target.value
@@ -1207,10 +1212,11 @@ export default class Create extends Component {
   }
 
   mainStat(stat, isAspect=false) {
+    // console.log("mainStat:", stat, isAspect);
     var title = stat.charAt(0).toUpperCase() + stat.substring(1);
     var val = this.state[stat].toString() ;
     return (
-      <div className="form-group">
+      <div className="form-group" key={title}>
           <label>{title}: {val}</label>
           <input type="range" 
             className="form-control"
@@ -1226,7 +1232,7 @@ export default class Create extends Component {
     // console.log("displayStatArray:",typeArray, isAspect);
     var scopedThis = this;
     var statComponents = typeArray.map(function(stat) {
-      return <div> { scopedThis.mainStat(stat, isAspect) }</div>;
+      return   scopedThis.mainStat(stat, isAspect) ;
     });
     return <div>{statComponents}</div>;
   }
@@ -1296,6 +1302,25 @@ export default class Create extends Component {
       </div>
     );
   }
+
+  displayUpdateSubmitButton(){
+    if(!this.props.match.params.id){return;}
+    return (
+      <div className="form-group">
+          <input type="submit" 
+            style={{float: 'right'}}
+            value="Update Character" 
+            className="btn btn-primary"/>
+      </div>
+    );
+    
+  }
+
+
+
+
+
+
  
   render() {
 
@@ -1383,6 +1408,7 @@ export default class Create extends Component {
                     </div>
                     
                     <p className="tabnav"><a href="#tab2">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
           
           <section id="tab2"
@@ -1418,6 +1444,7 @@ export default class Create extends Component {
                     { this.displayStatArray(socialAspects, true) }
                     </div>
             <p className="tabnav"><a href="#tab3">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1440,6 +1467,7 @@ export default class Create extends Component {
 
                     
                     <p className="tabnav"><a href="#tab4">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1465,7 +1493,7 @@ export default class Create extends Component {
                           className={["tennerRed","form-control","noedit"].join(' ')}
                           value={this.state.astrylose}
                           min="0" max="10" step="1"
-                          onChange={this.onChangeAstrylose}
+                          onChange={this.onChangeNothing}
                           />
                     </div>
             <div className="form-group">
@@ -1474,7 +1502,7 @@ export default class Create extends Component {
                           className={["tennerBlue","form-control","noedit"].join(' ')}
                           value={this.state.willpower}
                           min="0" max="10" step="1"
-                          onChange={this.onChangeWillpower}
+                          onChange={this.onChangeNothing}
                           />
                     </div>
             <div className="form-group">
@@ -1483,7 +1511,7 @@ export default class Create extends Component {
                           className={["tennerGreen","form-control","noedit"].join(' ')}
                           value={this.state.vitality}
                           min="0" max="10" step="1"
-                          onChange={this.onChangeVitality}
+                          onChange={this.onChangeNothing}
                           />
                     </div>
             <div className="form-group">
@@ -1492,7 +1520,7 @@ export default class Create extends Component {
                           className={["tennerCyan","form-control","noedit"].join(' ')}
                           value={this.state.speed}
                           min="0" max="10" step="1"
-                          onChange={this.onChangeSpeed}
+                          onChange={this.onChangeNothing}
                           />
                     </div>
             <div className="form-group">
@@ -1501,7 +1529,7 @@ export default class Create extends Component {
                           className={["tennerYellow","form-control","noedit"].join(' ')}
                           value={this.state.initiative}
                           min="0" max="10" step="1"
-                          onChange={this.onChangeInitiative}
+                          onChange={this.onChangeNothing}
                           />
                     </div>
             <div className="form-group">
@@ -1510,11 +1538,12 @@ export default class Create extends Component {
                           className={["noedit","form-control"].join(' ')}
                           value={this.state.defense}
                           min="0" max="10" step="1"
-                          onChange={this.onChangeDefense}
+                          onChange={this.onChangeNothing}
                           />
                     </div>
             
                     <p className="tabnav"><a href="#tab5">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1537,6 +1566,7 @@ export default class Create extends Component {
 
 
             <p className="tabnav"><a href="#tab6">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1544,7 +1574,7 @@ export default class Create extends Component {
           <section id="tab6"
             style={{height: this.state.extrasOverflow+"em"}}>
  
-            <h2><a href="#tab6">Quirks & More..</a></h2>
+            <h2><a href="#tab6">Finishing Touches</a></h2>
             <p> Right now this is a big empty text box with only 10 lines. The full feature is Coming SOON(tm)!</p>
 
             
@@ -1636,6 +1666,7 @@ export default class Create extends Component {
             
 
             <p className="tabnav"><a href="#tab8">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1658,6 +1689,7 @@ export default class Create extends Component {
           
 
             <p className="tabnav"><a href="#tab9">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1680,6 +1712,7 @@ export default class Create extends Component {
           
 
             <p className="tabnav"><a href="#tab10">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1702,6 +1735,7 @@ export default class Create extends Component {
 
 
             <p className="tabnav"><a href="#tab11">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
@@ -1725,6 +1759,7 @@ export default class Create extends Component {
           
 
             <p className="tabnav"><a href="#tab1">next &#10151;</a></p>
+                    {this.displayUpdateSubmitButton()}
           </section>
 
 
