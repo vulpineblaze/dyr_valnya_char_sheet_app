@@ -185,6 +185,7 @@ export default class Create extends Component {
 
 
     this.onSubmit = this.onSubmit.bind(this);
+    this.undoClearAndRefresh = this.undoClearAndRefresh.bind(this);
     this.onRefreshFromDB = this.onRefreshFromDB.bind(this);
     this.mainStat = this.mainStat.bind(this);
     this.displayStatArray = this.displayStatArray.bind(this);
@@ -950,6 +951,12 @@ export default class Create extends Component {
     // console.log("check if quirkSelectArray made it",this.props.quirkSelectArray);
   }
 
+  undoClearAndRefresh(){
+    this.setState(initialState, () => {
+      this.onRefreshFromDB();
+    });
+  }
+
   onRefreshFromDB(){
     const scopedThis = this;
     axios.defaults.baseURL = '';
@@ -1338,7 +1345,7 @@ export default class Create extends Component {
               { this.props.match.params.id 
                   ? <div>
                       <h3 style={{display: 'inline-block'}}>Remaining XP: {this.state.available_xp}</h3>
-                      <button style={{float: 'right'}} onClick={this.onRefreshFromDB} className="btn btn-danger">Undo Changes</button>
+                      <button style={{float: 'right'}} onClick={this.undoClearAndRefresh} className="btn btn-danger">Undo Changes</button>
 
                     </div>
                   : <h3>Starting XP: {this.state.available_xp}</h3>}
@@ -1452,8 +1459,16 @@ export default class Create extends Component {
           <section id="tab3"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab3">Aptitudes</a></h2>
-            <p> You get {this.state.aptitude_total} points to spend here, on top of the items already at +1. </p>
-                    
+            
+            { this.state.aptitude_total > 0 &&
+              <p> You get {this.state.aptitude_total} points to spend here, on top of the items already at +1. </p>
+            }
+            { this.state.aptitude_total == 0 &&
+              <p> You have spent all {this.state.aptitude_total} points, any additional aptitudes cost 3 XP per dot. </p>
+            }
+            { this.state.aptitude_total < 0 &&
+              <p> You have {20 - this.state.aptitude_total} total aptitudes selected. You have spent {-3 * this.state.aptitude_total} XP so far. </p>
+            }        
 
                     <div className="aptitude">
                       <h3 align="center">Combat Aptitudes:</h3>

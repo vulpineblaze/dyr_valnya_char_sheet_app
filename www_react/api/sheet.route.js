@@ -18,9 +18,12 @@ sheetRoutes.route('/add').post(function (req, res) {
 });
 
 // Defined get data(index or listing) route
-sheetRoutes.route('/').get(function (req, res) {
-  console.log("in index");
-    Sheet.find(function(err, sheetes){
+sheetRoutes.route('/:email').get(function (req, res) {
+  console.log("in sheet index");
+  var email = decodeURI(req.params.email);
+  var query = { owner: email };
+  console.log("sheet get query:", query, email, req.params.email);
+  Sheet.find(query, function(err, sheetes){
     if(err){
       console.log(err);
     }
@@ -30,9 +33,10 @@ sheetRoutes.route('/').get(function (req, res) {
   });
 });
 
+
 // Defined edit route
 sheetRoutes.route('/edit/:id').get(function (req, res) {
-  console.log("in edit");
+  console.log("in sheet edit");
   let id = req.params.id;
   Sheet.findById(id, function (err, sheet){
       res.json(sheet);
@@ -41,7 +45,7 @@ sheetRoutes.route('/edit/:id').get(function (req, res) {
 
 //  Defined update route
 sheetRoutes.route('/update/:id').post(function (req, res) {
-  console.log("in update");
+  console.log("in sheet update");
     Sheet.findById(req.params.id, function(err, sheet) {
     if (!sheet)
       res.status(404).send("data is not found");
@@ -104,7 +108,7 @@ sheetRoutes.route('/update/:id').post(function (req, res) {
 
 // Defined delete | remove | destroy route
 sheetRoutes.route('/delete/:id').get(function (req, res) {
-  console.log("in delete");
+  console.log("in sheet delete");
     Sheet.findByIdAndRemove({_id: req.params.id}, function(err, sheet){
         if(err) res.json(err);
         else res.json('Successfully removed');

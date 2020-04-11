@@ -14,6 +14,8 @@ const armorRoute = require('./armor.route');
 const horseRoute = require('./horse.route');
 const emptyRoute = require('./empty.route');
 const specialtyRoute = require('./specialty.route');
+const campaignRoute = require('./campaign.route');
+const playerRoute = require('./player.route');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -34,6 +36,8 @@ app.use('/armor', armorRoute);
 app.use('/horse', horseRoute);
 app.use('/empty', emptyRoute);
 app.use('/specialty', specialtyRoute);
+app.use('/campaign', campaignRoute);
+app.use('/player', playerRoute);
 
 app.listen(PORT, function(){
   console.log('Server is running on Port:',PORT);

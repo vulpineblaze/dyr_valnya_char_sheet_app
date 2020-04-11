@@ -8,6 +8,8 @@ import HttpsRedirect from 'react-https-redirect';
 import Create from './components/create.component';
 import Edit from './components/edit.component';
 import Index from './components/index.component';
+import AddCampaign from './components/addcampaign.component';
+import ListCampaign from './components/listcampaign.component';
 
 import './App.css';
 
@@ -25,6 +27,9 @@ class App extends Component {
 
     this.state = {
       user: {},
+      player: {},
+      sheets: [],
+      campaigns: [],
       quirkArray: [],
       quirkSelectArray: [],
       flawsArray: [],
@@ -456,14 +461,27 @@ class App extends Component {
       // this.user = auth2.currentUser.get().getBasicProfile();
 
       if(response){
-        this.setState({user: response.getBasicProfile()});
-        console.log("responseGoogle  this.state.user",
-                    this.state.user, 
-                    this.state.user.getEmail(),
-                    this.state.user.getGivenName());
-        this.setState({name: this.state.user.getGivenName()});
-        this.setState({owner: this.state.user.getEmail()});
-        this.setState({loadState: true});
+        const user = response.getBasicProfile();
+        const email = user.getEmail();
+
+        axios.defaults.baseURL = '';
+        axios.get('/player/'+ encodeURI(email) ,{ baseUrl: "" })
+          .then(response => {
+            this.setState({
+                user: user,
+                name: user.getGivenName(),
+                owner: email,
+                loadState: true,
+                player: response.data[0] 
+              }, () => {
+                console.log("response, user, and player state set",
+                    this.state.owner,
+                    this.state.player);
+            }); 
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
 
         // this.freshGummi(this.state.user.getEmail(), this.state.gummi);
         this.loadCodaArrays();
@@ -512,11 +530,12 @@ class App extends Component {
             onFailure={responseError}
             onRequest={responseGoogle}
             autoLoad="true"
+            cookiePolicy={'single_host_origin'}
+            isSignedIn={true}
           />
           
         </div>
         <div className="container" style={this.state.loadState && this.state.quirkArray.length > 0 ? {} : { display: 'none' }}>
-          <div> Hey, {this.state.name} </div>
           <div className="browserWarning" style={ !this.state.isChrome && !this.state.isFirefox ? {} : { display: 'none' }}>
             <h3 >This browser is not fully supported</h3>
             <p>Site designed for      
@@ -524,17 +543,26 @@ class App extends Component {
             </p>
           </div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to={'/'} className="navbar-brand">Dyr Valnya Character Sheet App</Link>
+            <Link to={'/'} className="navbar-brand"> Hey, {this.state.name}  </Link>
             <div className=" navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
+                <li className="nav-item">
                   <Link to={'/'} className="nav-link">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/create'} className="nav-link">Create</Link>
+                  <Link to={'/addcampaign'} className="nav-link">New Campaign</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/index'} className="nav-link">Index</Link>
+                  <Link to={'/listcampaign'} className="nav-link">My Campaigns</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/'} className="nav-link">*My Profile (WIP)</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/create'} className="nav-link">New Character</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/index'} className="nav-link">My Characters</Link>
                 </li>
                 <li className="nav-item">
                   <GoogleLogout
@@ -558,6 +586,7 @@ class App extends Component {
                 render={(props) => 
                     <Create {...props} 
                       user={this.state.user} 
+                      player={this.state.player} 
                       quirkArray={this.state.quirkArray} 
                       quirkSelectArray={this.state.quirkSelectArray} 
                       flawsArray={this.state.flawsArray} 
@@ -574,10 +603,28 @@ class App extends Component {
               />
 
               <Route
+                exact path='/addcampaign'
+                render={(props) => 
+                    <AddCampaign {...props} 
+                      user={this.state.user} 
+                      player={this.state.player} 
+                    />}
+              />
+              <Route
+                exact path='/editcampaign/:id'
+                render={(props) => 
+                    <AddCampaign {...props} 
+                      user={this.state.user} 
+                      player={this.state.player} 
+                    />}
+              />
+
+              <Route
                 exact path='/edit/:id'
                 render={(props) => 
                     <Create {...props} 
                       user={this.state.user} 
+                      player={this.state.player} 
                       quirkArray={this.state.quirkArray} 
                       quirkSelectArray={this.state.quirkSelectArray} 
                       flawsArray={this.state.flawsArray} 
@@ -592,7 +639,22 @@ class App extends Component {
                       horseSelectArray={this.state.horseSelectArray} 
                     />}
               />
-              <Route path='/index' component={ Index } />
+              <Route 
+                exact path='/index' 
+                render={(props) => 
+                    <Index {...props} 
+                      user={this.state.user} 
+                      player={this.state.player}  
+                    />}
+              />
+              <Route 
+                exact path='/listcampaign' 
+                render={(props) => 
+                    <ListCampaign {...props} 
+                      user={this.state.user} 
+                      player={this.state.player}  
+                    />}
+              />
             </Switch>
             
         </div>

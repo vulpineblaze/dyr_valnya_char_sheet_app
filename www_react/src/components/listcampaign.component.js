@@ -1,30 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TableRow from './TableRow';
+import CampaignTableRow from './CampaignTableRow';
 
-export default class Index extends Component {
+export default class ListCampaign extends Component {
 
   constructor(props) {
       super(props);
       this.state = {
         player: {},
-        sheet: []
+        campaign: []
       };
     }
     componentDidMount(){
       
-      
     }
     componentDidUpdate(prevProps, prevState) {
-      if (prevState.sheet !== this.state.sheet) {
-        console.log("index; does not equal:", prevState.sheet,this.state.sheet);
-        if(prevState.sheet.name !== this.state.sheet.name){
-          console.log("index; name not equal:", prevState.sheet.name , this.state.sheet.name);
-        }
-      }else{
-        console.log("index; sheets are equal:", prevState.sheet,this.state.sheet);
 
-      }
       // console.log("state n prop", this.state.player, this.props.player);
       if(!this.state.player.email){
         console.log("not player state", this.state.player);
@@ -36,10 +27,10 @@ export default class Index extends Component {
             var fixedEmail = encodeURI(this.state.player.email);
             console.log("index get email:", fixedEmail, this.props.player, this.props.user);
             axios.defaults.baseURL = '';
-            axios.get('/sheet/'+fixedEmail ,{ baseUrl: "" })
+            axios.get('/campaign/gp/'+fixedEmail ,{ baseUrl: "" })
               .then(response => {
-                console.log("finally, set sheets", response);
-                this.setState({ sheet: response.data });
+                console.log("finally, set campaigns", response);
+                this.setState({ campaign: response.data });
               })
               .catch(function (error) {
                 console.log(error);
@@ -50,8 +41,8 @@ export default class Index extends Component {
     }
 
     tabRow(){
-      return this.state.sheet.map(function(object, i){
-          return <TableRow obj={object} key={i} />;
+      return this.state.campaign.map(function(object, i){
+          return <CampaignTableRow obj={object} key={i} />;
       });
     }
 
@@ -59,13 +50,12 @@ export default class Index extends Component {
       if(!this.state.player.email) return null
       return (
         <div>
-          <h3 align="center">Character Sheet List</h3>
+          <h3 align="center">Campaign List</h3>
           <table className="table table-striped" style={{ marginTop: 20 }}>
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Owner</th>
-                <th>Concept</th>
+                <th>Description</th>
                 <th colSpan="2">Action</th>
               </tr>
             </thead>
