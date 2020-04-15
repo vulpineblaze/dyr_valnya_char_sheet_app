@@ -5,24 +5,30 @@ import md5 from 'crypto-js/md5';
 import Select from 'react-select';
 
 
-const makeID = () => {
-  // var hash = md5(new Date().valueOf() + Math.random()).toString();
-  var date = new Date().valueOf();
-  var rnd = Math.random();
-  var hash = md5((date + rnd).toString());
-  var hashStr = hash.toString();
-  console.log("md5 hash:", hash, hashStr, rnd, date);
-  return hashStr.substr(-7);
-}
+
 
 
 const initialState = {
-  id: makeID(),
+  id: '',
   name: '',
   desc: '',
+  player: '',
   players: [],
   gms: [],
-  sheets: []
+  sheets: [],
+  playerObjs: [],
+  gmObjs: [],
+  sheetObjs: [],
+  selectOptionsSheets: [],
+  selectOptionsSheetObjs: [],
+  addSheet: '',
+  newplayeremail: "",
+  newgmemail: "",
+  isGM: false,
+  xptoplayer: 0,
+  xptoplayertemail: '',
+  xptosheet: 0,
+  xptosheetid: ''
 };
 
 
@@ -34,15 +40,31 @@ export default class AddCampaign extends Component {
     
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDesc = this.onChangeDesc.bind(this);
+    this.onChangeNewPlayerEmail = this.onChangeNewPlayerEmail.bind(this);
+    this.onChangeNewGMEmail = this.onChangeNewGMEmail.bind(this);
 
     this.checkIfComponent = this.checkIfComponent.bind(this);
     this.checkComponent = this.checkComponent.bind(this);
     this.undoClearAndRefresh = this.undoClearAndRefresh.bind(this);
     this.clearState = this.clearState.bind(this);
     this.onRefreshFromDB = this.onRefreshFromDB.bind(this);
+    this.loadForSubmit = this.loadForSubmit.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmitNewPlayerEmail = this.onSubmitNewPlayerEmail.bind(this);
+    this.onSubmitNewGMEmail = this.onSubmitNewGMEmail.bind(this);
     this.displayPlayers = this.displayPlayers.bind(this);
     this.displayOnePlayer = this.displayOnePlayer.bind(this);
+
+    this.loadSelectArraySheets = this.loadSelectArraySheets.bind(this);
+    this.onChangeAddSheet = this.onChangeAddSheet.bind(this);
+    this.onSubmitAddSheet = this.onSubmitAddSheet.bind(this);
+    this.onSubmitDeleteSheet = this.onSubmitDeleteSheet.bind(this);
+
+    this.onChangeXPtoPlayer = this.onChangeXPtoPlayer.bind(this);
+    this.onSubmitXPtoPlayer = this.onSubmitXPtoPlayer.bind(this);
+
+    this.onChangeXPtoSheet = this.onChangeXPtoSheet.bind(this);
+    this.onSubmitXPtoSheet = this.onSubmitXPtoSheet.bind(this);
 
     this.state = initialState;
     Object.assign(this.state, {
@@ -60,17 +82,41 @@ export default class AddCampaign extends Component {
       name: e.target.value
     });
   }
+  onChangeNewPlayerEmail(e) {
+    this.setState({
+      newplayeremail: e.target.value
+    });
+  }
+  onChangeNewGMEmail(e) {
+    this.setState({
+      newgmemail: e.target.value
+    });
+  }
+  onChangeXPtoPlayer(e) {
+    this.setState({
+      xptoplayer: e.target.value,
+      xptoplayertemail: e.target.name
+    });
+  }
+  onChangeXPtoSheet(e) {
+    this.setState({
+      xptosheet: e.target.value,
+      xptosheetid: e.target.name
+    });
+  }
   onChangeDesc(e) {
     this.setState({
       desc: e.target.value
     });
   }
+  onChangeAddSheet(e) {
+    console.log("onChangeAddSheet:", e);
+    this.setState({ addSheet: e.value });
+  }
 
 
-  onSubmit(e) {
-    e.preventDefault();
-
-    var obj = {
+  loadForSubmit(){
+    return {
       id: this.state.id,
       name: this.state.name,
       desc: this.state.desc,
@@ -78,6 +124,12 @@ export default class AddCampaign extends Component {
       gms: this.state.gms,
       sheets: this.state.sheets
     };
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    var obj = this.loadForSubmit();
 
     var editID = this.props.match.params.id;
     axios.defaults.baseURL = '';
@@ -91,6 +143,7 @@ export default class AddCampaign extends Component {
       var array = [];
       array.push(this.props.player.email);
       obj.players = array;
+      obj.gms = array;
       axios.post('/campaign/add', obj, { baseUrl: "" })
             .then(res => console.log(res.data));
     }
@@ -98,6 +151,206 @@ export default class AddCampaign extends Component {
     this.props.history.push('/listcampaign');  // either way, bounce to ....
     
   }
+
+  onSubmitNewPlayerEmail(e) {
+    e.preventDefault();
+
+
+    var players = this.state.players;
+    players.push(this.state.newplayeremail);
+    console.log(" Before setState onSubmitNewPlayerEmail: ", this.state, players);
+    this.setState({
+      players: players,
+      newplayeremail: ""
+    }, () => {
+      console.log("setState onSubmitNewPlayerEmail: ", this.state, players);
+      var obj = this.loadForSubmit();
+      var editID = this.props.match.params.id;
+      axios.defaults.baseURL = '';
+      if(editID && editID.length){
+        console.log("In Edit, editID:",editID);
+        axios.post('/campaign/update/'+this.props.match.params.id, obj, { baseUrl: "" })
+            .then(res => {
+              console.log(res.data);
+              this.undoClearAndRefresh();
+            });
+      }else{
+        console.log("In Create, no editID found, do nothing", editID);
+      }
+    });
+  }
+
+  onSubmitNewGMEmail(e) {
+    e.preventDefault();
+
+
+    var gms = this.state.gms;
+    gms.push(this.state.newgmemail);
+    console.log(" Before setState onSubmitNewGMEmail: ", this.state, gms);
+    this.setState({
+      gms: gms,
+      newplayeremail: ""
+    }, () => {
+      console.log("setState onSubmitNewGMEmail: ", this.state, gms);
+      var obj = this.loadForSubmit();
+      var editID = this.props.match.params.id;
+      axios.defaults.baseURL = '';
+      if(editID && editID.length){
+        console.log("In Edit, editID:",editID);
+        axios.post('/campaign/update/'+this.props.match.params.id, obj, { baseUrl: "" })
+            .then(res => {
+              console.log(res.data);
+              this.undoClearAndRefresh();
+            });
+      }else{
+        console.log("In Create, no editID found, do nothing", editID);
+      }
+    });
+  }
+
+  onSubmitAddSheet(e) {
+    e.preventDefault();
+
+    const id = this.state.addSheet;
+    if(!id){return 1;}
+
+    var sheetArray = this.state.sheets;
+    sheetArray.push(id);
+
+    var obj = this.loadForSubmit();
+    obj.sheets = sheetArray;
+
+    axios.defaults.baseURL = '';
+    axios.post('/campaign/update/'+this.props.match.params.id, obj, { baseUrl: "" })
+        .then(res => {
+          console.log("onSubmitAddSheet ",res.data);
+          this.undoClearAndRefresh();
+        });
+
+  }
+
+
+
+  onSubmitDeleteSheet(id) {
+    return e => {
+      e.preventDefault()
+      console.log("onSubmitDeleteSheet id:", id, e);
+      var sheetArray = this.state.sheets;
+      var sheetArray = this.state.sheets.filter(function(value, index, arr){ 
+        return !value.includes(id);
+      });
+
+
+      var obj = this.loadForSubmit();
+      obj.sheets = sheetArray;
+
+      axios.defaults.baseURL = '';
+      axios.post('/campaign/update/'+this.props.match.params.id, obj, { baseUrl: "" })
+          .then(res => {
+            console.log("onSubmitDeleteSheet ",res.data);
+            this.undoClearAndRefresh();
+          });
+    }
+  }
+
+
+
+  onSubmitDeletePlayer(player) {
+    return e => {
+      e.preventDefault()
+      console.log("onSubmitDeletePlayer player:", player, e);
+      var array = this.state.players.filter(function(value, index, arr){ 
+        return !value.includes(player);
+      });
+
+
+      var obj = this.loadForSubmit();
+      obj.players = array;
+
+      axios.defaults.baseURL = '';
+      axios.post('/campaign/update/'+this.props.match.params.id, obj, { baseUrl: "" })
+          .then(res => {
+            console.log("onSubmitDeletePlayer ",res.data);
+            this.undoClearAndRefresh();
+          });
+    }
+  }
+
+
+  onSubmitXPtoPlayer(e) {
+    e.preventDefault();
+
+    var obj = {
+      gm: this.props.player.email,
+      target: this.state.xptoplayertemail,
+      qty: this.state.xptoplayer
+    };
+
+    
+    var editID = this.props.match.params.id;
+    axios.defaults.baseURL = '';
+    if(editID && editID.length){
+      console.log("In Edit, editID:",editID);
+      axios.post('/campaign/xp/', obj, { baseUrl: "" })
+          .then(res => {
+            console.log(res.data);
+            this.undoClearAndRefresh();
+          });
+    }else{
+      console.log("In Create, no editID found, do nothing", editID);
+    }
+
+  }
+
+
+
+  onSubmitXPtoSheet(e) {
+    e.preventDefault();
+
+    var obj = {
+      gm: this.state.id,
+      target: this.state.xptosheetid,
+      qty: this.state.xptosheet
+    };
+
+    
+    var editID = this.props.match.params.id;
+    axios.defaults.baseURL = '';
+    if(editID && editID.length){
+      console.log("In Edit, editID:",editID);
+      axios.post('/campaign/xp/', obj, { baseUrl: "" })
+          .then(res => {
+            console.log(res.data);
+            this.undoClearAndRefresh();
+          });
+    }else{
+      console.log("In Create, no editID found, do nothing", editID);
+    }
+
+  }
+
+
+  loadSelectArraySheets(selectObjs=this.state.selectOptionsSheetObjs){
+    console.log("loadSelectArraySheets selectObjs:", selectObjs);
+
+    var newArray = [];
+    selectObjs.forEach(obj => {
+      if(this.state.sheets.includes(obj.id)){return;} // skip what we have
+
+      var id = obj.id;
+      var name = obj.name;
+      var owner = obj.owner;
+      var xp = obj.available_xp;
+      var label = name + " (" + owner + ")" + " XP: " + xp
+      var obj = {  label: label,
+                   value: id
+                }
+      newArray.push(obj);
+    });
+    console.log("loadSelectArraySheets newArray:", newArray);
+    return newArray;
+  }
+
 
   checkIfComponent(tmp = ""){
     var editID = this.props.match.params.id;
@@ -172,6 +425,31 @@ export default class AddCampaign extends Component {
 
     // console.log("check if quirkSelectArray made it",this.props.quirkSelectArray);
   }
+  componentDidUpdate(prevProps, prevState) {
+
+    // console.log("state n prop", this.state.player, this.props.player);
+    if(!this.state.player.email){
+      // console.log("not player state", this.state.player);
+      if(this.props.player.email){
+        // console.log("player prop exists", this.props.player);
+        const email = this.props.player.email;
+        var findGM = this.state.isGM;
+        if(this.state.gms.includes(email)){
+          findGM = true;
+          console.log("found your email as GM");
+        }
+        this.setState({
+          player: this.props.player,
+          isGM: findGM
+        }, () => {
+          console.log("found if GM:", this.state.isGM, email);
+          
+        });  
+      }
+    }
+  }
+
+    
 
   undoClearAndRefresh(){
     this.setState(initialState, () => {
@@ -185,8 +463,32 @@ export default class AddCampaign extends Component {
     axios.get('/campaign/edit/'+this.props.match.params.id, { baseUrl: "" })
       .then(response => {
         console.log("onRefreshFromDB, response.data:", response.data, this.props.match.params.id);
-        this.setState(response.data, () => {
-          console.log("this.state loaded from DB!", this.state);
+        const res = response.data;
+        const campaign = res.campaign;
+        
+        this.setState({
+          id: campaign.id,
+          name: campaign.name,
+          desc: campaign.desc,
+          players: campaign.players,
+          gms: campaign.gms,
+          sheets: campaign.sheets,
+          playerObjs: res.playerObjs,
+          gmObjs: res.gmObjs,
+          sheetObjs: res.sheetObjs
+        }, () => {
+          console.log("ths.state loaded from DB!", this.state);
+          axios.defaults.baseURL = '';
+          axios.post('/sheet/getsheets', this.state.players, { baseUrl: "" })
+            .then(res => {
+              console.log(res.data);
+              this.setState({
+                selectOptionsSheetObjs: res.data
+              }, () => {
+                console.log("selectOptionsSheetObjs loaded from DB!", this.state.selectOptionsSheetObjs, res.data);
+                
+              });
+            });
         });
 
       })
@@ -199,72 +501,141 @@ export default class AddCampaign extends Component {
 
   clearState(){
     this.setState(initialState, () => {
-      this.setState({
-        id: this.makeID()
-      }, () => {
-        console.log("this.state cleared!", this.state, "new ID:", this.state.id);
-      });
+      console.log("this.state cleared!", this.state, "new ID:", this.state.id);
     });
   }
 
 
 
-
-
-
-
-
-// mainStat(stat, isAspect=false) {
-//     // console.log("mainStat:", stat, isAspect);
-//     var title = stat.charAt(0).toUpperCase() + stat.substring(1);
-//     var val = this.state[stat].toString() ;
-//     return (
-//       <div className="form-group" key={title}>
-//           <label>{title}: {val}</label>
-//           <input type="range" 
-//             className="form-control"
-//             value={val}
-//             min="0" max="5" step="1"
-//             onChange={(e) => this.onChangeAspectAndAptitude(stat, e, isAspect)}
-//             />
-//       </div>
-//     );
-//   }
-
-// displayStatArray(typeArray, isAspect=false){
-//     // console.log("displayStatArray:",typeArray, isAspect);
-//     var scopedThis = this;
-//     var statComponents = typeArray.map(function(stat) {
-//       return   scopedThis.mainStat(stat, isAspect) ;
-//     });
-//     return <div>{statComponents}</div>;
-//   }
-
-//   { this.displayStatArray(mentalAspects, true) }
-  displayOnePlayer(player){
-    var email = player.email;
-    return (
-      <li className="form-group" key={email}>
-        <ul>
-          <li>{player.email}</li>
-          <li>{player.discordname}</li>
-          <li>{player.xp}</li>
-          <li>{player}</li>
-        </ul>
-      </li>
-    );
+  displayOnePlayer(player, isObj=false){
+    if(isObj){
+      var email = player.email.toString();
+      var nick = player.nick.toString();
+      var discordname = player.discordname.toString();
+      if(discordname.length ==0){discordname = "Not Added";}
+      var xp = player.xp.toString();
+      return (
+        <div className="form-group playerObjs" key={email}>
+          <ul>
+            <li>Nickname:  {nick}</li>
+            <li>Email:  {email}</li>
+            <li>Discord:  {discordname}</li>
+            <li>XP:  {xp}</li>
+          </ul>
+          <button
+              onClick={this.onSubmitDeletePlayer(email) } 
+              className="btn btn-danger">
+              Remove
+          </button>
+          <form onSubmit={this.onSubmitXPtoPlayer}>
+            <div className="form-group">
+              <label>XP to Player:  </label>
+              <input 
+                type="number" 
+                className="form-control" 
+                name={email}
+                value={this.state.xptoplayer}
+                onChange={this.onChangeXPtoPlayer}
+                />
+            </div>
+            <div className="form-group">
+              <input type="submit" 
+                style={{float: 'right'}}
+                value="Add XP to Player"
+                className="btn btn-primary"/>
+            </div>
+          </form>
+        </div>
+      );
+    }else{
+      return (
+        <div className="playerObjs">{player}</div>
+      );
+    }
   }
 
-  displayPlayers(){
+  displayPlayers(showGM=false){
     var scopedThis = this;
-    var showPlayers = this.state.players.map(function(player) {
-      return  scopedThis.displayOnePlayer(player) ;
-    });
-    return <ul>{showPlayers}</ul>;
+    const editID = this.props.match.params.id;
+    var theArray = this.state.playerObjs;
+   
+
+    if(editID && editID.length){
+      if(showGM){
+        theArray = this.state.gmObjs;
+      }
+      var showPlayers = theArray.map(function(player) {
+        return  scopedThis.displayOnePlayer(player, true) ;
+      });
+    }else{
+      var showPlayers = this.state.players.map(function(player) {
+        return  scopedThis.displayOnePlayer(player) ;
+      });
+    }
+    return <div>{showPlayers}</div>;
   }
 
 
 
+
+  displayOneSheet(sheet, isObj=false){
+    if(isObj){
+      var name = sheet.name.toString();
+      var owner = sheet.owner.toString();
+      var id = sheet.id.toString();
+      var xp = sheet.available_xp.toString();
+
+      return (
+        <div className="form-group sheetObjs" key={id}>
+          <ul> 
+            <li>Name:  {name}</li>
+            <li>Owner:  {owner}</li>
+            <li>XP:  {xp}</li>
+          </ul>
+          <button
+              onClick={this.onSubmitDeleteSheet(id) } 
+              className="btn btn-danger">
+              Remove
+          </button>
+          <form onSubmit={this.onSubmitXPtoSheet}>
+            <div className="form-group">
+              <label>XP to Sheet:  </label>
+              <input 
+                type="number" 
+                className="form-control" 
+                name={id}
+                value={this.state.xptosheet}
+                onChange={this.onChangeXPtoSheet}
+                />
+            </div>
+            <div className="form-group">
+              <input type="submit" 
+                style={{float: 'right'}}
+                value="Add XP to Sheet"
+                className="btn btn-primary"/>
+            </div>
+          </form>
+        </div>
+      );
+    }else{
+      return (
+        <div className="sheetObjs">{sheet}</div>
+      );
+    }
+  }
+
+  displaySheets(){
+    var scopedThis = this;
+    const editID = this.props.match.params.id;
+    if(editID && editID.length){
+      var showSheets = this.state.sheetObjs.map(function(sheet) {
+        return  scopedThis.displayOneSheet(sheet, true) ;
+      });
+    }else{
+
+    }
+    return <div>{showSheets}</div>;
+  }
 
  
   render() {
@@ -279,9 +650,13 @@ export default class AddCampaign extends Component {
                   ? "Update Campaign" 
                   : "Add New Campaign"}
             </h3>
+
+            {this.state.isGM && <p>You are logged in as a GM.</p>}
            
 
-
+            { this.props.match.params.id 
+              ? <button style={{float: 'right'}} onClick={this.undoClearAndRefresh} className="btn btn-danger">Undo Changes</button>
+              : ""}
             
             <form onSubmit={this.onSubmit}>
 
@@ -309,7 +684,7 @@ export default class AddCampaign extends Component {
                 />
             </div>
 
-            { this.displayPlayers() }
+            
 
 
             <div className="form-group">
@@ -324,6 +699,126 @@ export default class AddCampaign extends Component {
 
                 
             </form>
+
+
+
+
+
+
+
+          { this.props.match.params.id && <div>
+
+            <div className="bufferDiv"></div>
+            <div className="clearfix"></div>
+            <p> Invite link to add players to this campaign: </p>
+            <h2> https://valnya.fusionbombsderp.com/invite/{this.state.id} </h2>
+            
+
+
+
+            <div className="bufferDiv"></div>
+            <div className="clearfix"></div>
+
+            <h2> GM List: </h2>
+            <p> Text descibing the page. </p>
+            { this.displayPlayers(true) }
+
+
+            <div className="bufferDiv"></div>
+            <div className="clearfix"></div>
+
+            <h2> Player List: </h2>
+            <p> Text descibing the page. </p>
+            { this.displayPlayers() }
+
+
+
+
+            <div className="bufferDiv"></div>
+
+            <div className="clearfix"></div>
+
+            <h2> Sheet List: </h2>
+            <p> Text descibing the page. </p>
+            { this.displaySheets() }
+            <div className="bufferDiv"></div>
+
+
+
+            <form onSubmit={this.onSubmitNewPlayerEmail}>
+
+            <h2>Add new player by Email:</h2>
+            <p> Text descibing the page. </p>
+
+            <div className="form-group">
+              <label>New Player Email:  </label>
+              <input 
+                type="text" 
+                className="form-control" 
+                value={this.state.newplayeremail}
+                onChange={this.onChangeNewPlayerEmail}
+                />
+            </div>
+
+            <div className="form-group">
+              <input type="submit" 
+                style={{float: 'right'}}
+                value="Add New Player"
+                className="btn btn-primary"/>
+            </div>
+            </form>
+
+
+
+            <form onSubmit={this.onSubmitNewGMEmail}>
+
+            <h2>Add new GM by Email:</h2>
+            <p> Text descibing the page. </p>
+
+            <div className="form-group">
+              <label>New GM Email:  </label>
+              <input 
+                type="text" 
+                className="form-control" 
+                value={this.state.newgmemail}
+                onChange={this.onChangeNewGMEmail}
+                />
+            </div>
+
+            <div className="form-group">
+              <input type="submit" 
+                style={{float: 'right'}}
+                value="Add New GM"
+                className="btn btn-primary"/>
+            </div>
+
+
+
+
+
+            <div className="bufferDiv"></div>
+            <h2> Add Player's sheet to this Campaign: </h2>
+            <p> Text descibing the page. </p>
+            <Select options={this.loadSelectArraySheets()} 
+              onChange={this.onChangeAddSheet} 
+              placeholder="Pick Sheet to Add.."
+            />
+
+            <div className="form-group">
+            <input type="submit" 
+              value="Add Sheet"
+              className="btn btn-primary"
+              onClick={this.onSubmitAddSheet}/>
+            </div>
+                    
+
+                
+            </form>
+
+          </div>} 
+
+
+
         </div>
     )
   }

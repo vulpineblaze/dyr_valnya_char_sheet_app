@@ -8,7 +8,8 @@ export default class ListCampaign extends Component {
       super(props);
       this.state = {
         player: {},
-        campaign: []
+        asPlayer: [],
+        asGM: []
       };
     }
     componentDidMount(){
@@ -30,7 +31,11 @@ export default class ListCampaign extends Component {
             axios.get('/campaign/gp/'+fixedEmail ,{ baseUrl: "" })
               .then(response => {
                 console.log("finally, set campaigns", response);
-                this.setState({ campaign: response.data });
+
+                this.setState({ 
+                  asPlayer: response.data.asPlayer,
+                  asGM: response.data.asGM
+                });
               })
               .catch(function (error) {
                 console.log(error);
@@ -40,8 +45,13 @@ export default class ListCampaign extends Component {
       }
     }
 
-    tabRow(){
-      return this.state.campaign.map(function(object, i){
+    tabRowP(){
+      return this.state.asPlayer.map(function(object, i){
+          return <CampaignTableRow obj={object} key={i} noDelete={true} />;
+      });
+    }
+    tabRowG(){
+      return this.state.asGM.map(function(object, i){
           return <CampaignTableRow obj={object} key={i} />;
       });
     }
@@ -50,7 +60,7 @@ export default class ListCampaign extends Component {
       if(!this.state.player.email) return null
       return (
         <div>
-          <h3 align="center">Campaign List</h3>
+          <h3 align="center">Campaign List As GM</h3>
           <table className="table table-striped" style={{ marginTop: 20 }}>
             <thead>
               <tr>
@@ -60,7 +70,19 @@ export default class ListCampaign extends Component {
               </tr>
             </thead>
             <tbody>
-              { this.tabRow() }
+              { this.tabRowG() }
+            </tbody>
+          </table><h3 align="center">Campaign List As Player</h3>
+          <table className="table table-striped" style={{ marginTop: 20 }}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th colSpan="2">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              { this.tabRowP() }
             </tbody>
           </table>
         </div>

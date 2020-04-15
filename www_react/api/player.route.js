@@ -28,13 +28,13 @@ playerRoutes.route('/:email').get(function (req, res) {
         });
     }
     else {
-      console.log("player no err:", result);
+      // console.log("player no err:", result);
       res.json(result);
     }
   });
 });
 
-
+// { <array field>: { <operator1>: <value1>, ... } }
 
 
 // Defined edit route
@@ -53,6 +53,7 @@ playerRoutes.route('/update/:id').post(function (req, res) {
     if (!player)
       res.status(404).send("data is not found");
     else {
+        player.nick = req.body.nick;
         player.discordname = req.body.discordname;
         
         player.save().then(player => {

@@ -1,8 +1,14 @@
+
 const express = require('express');
 const sheetRoutes = express.Router();
 
 // Require Sheet model in our routes module
 let Sheet = require('./sheet.model');
+let XP = require('./xp.model');
+
+
+
+
 
 // Defined store route
 sheetRoutes.route('/add').post(function (req, res) {
@@ -39,7 +45,28 @@ sheetRoutes.route('/edit/:id').get(function (req, res) {
   console.log("in sheet edit");
   let id = req.params.id;
   Sheet.findById(id, function (err, sheet){
-      res.json(sheet);
+    const email = sheet.owner;
+    const sheetID = sheet.id;
+    // find( { $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] } )
+    // var query = { $or: [ { target: email }, { target: sheetID } ] };
+    var query = { target: { $in: [email, sheetID]} };
+    // console.log("sheet XP query", email, sheetID, query);
+
+    XP.find(query, function(err, xps){
+      if(err){console.log(err);}
+      else {
+        // sheet.xps = xps;
+        // sheet.tester = "adding to res obj";
+        // const xpObj = {xps: xps};
+        // const retObj = Object.assign({}, sheet, xpObj);
+        const obj = {
+          sheet: sheet,
+          xps: xps
+        }
+        console.log("in sheeet xp found:", obj );
+        res.json(obj);
+      }
+    });
   });
 });
 
@@ -114,5 +141,22 @@ sheetRoutes.route('/delete/:id').get(function (req, res) {
         else res.json('Successfully removed');
     });
 });
+
+// Defined edit route
+sheetRoutes.route('/getsheets').post(function (req, res) {
+  console.log("in sheet getsheets");
+  // let sheet = new Sheet(req.body);
+  const emailArray = req.body;
+  const emailQuery = { owner: { $in: emailArray } };
+  Sheet.find(emailQuery, function(err, sheetResult){
+    if(err){console.log(err);}
+    else {
+      // console.log("emails:",emailArray,"| found:",sheetResult);
+      res.json(sheetResult);
+    }
+  });
+});
+
+
 
 module.exports = sheetRoutes;

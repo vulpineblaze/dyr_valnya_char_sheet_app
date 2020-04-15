@@ -11,6 +11,15 @@ import EmptyTableRow from './EmptyTableRow';
 import SpecialtyTableRow from './SpecialtyTableRow';
 import Select from 'react-select';
 
+const makeID = () => {
+  // var hash = md5(new Date().valueOf() + Math.random()).toString();
+  var date = new Date().valueOf();
+  var rnd = Math.random();
+  var hash = md5((date + rnd).toString());
+  var hashStr = hash.toString();
+  console.log("md5 hash:", hash, hashStr, rnd, date);
+  return hashStr.substr(-8);
+}
 
 const sectionsHeight = 170; //em
 const emCalc = {
@@ -21,7 +30,7 @@ const emCalc = {
 const initialState = {
   name: '',
   owner: '',
-  id: '',
+  id: makeID(),
   concept: '',
   virtue: '',
   vice: '',
@@ -108,7 +117,10 @@ const initialState = {
   armorOverflow: 0,
   horseOverflow: 0,
   specialtyOverflow: 0,
-  emptyOverflow: 0
+  emptyOverflow: 0,
+  xpFromPlayer: 0,
+  xpFromCampaign: 0,
+  xpFromCampaignObjs: []
 };
 
 const physicalAspects = ["strength", "dexterity", "stamina"];
@@ -132,7 +144,6 @@ export default class Create extends Component {
     this.clearState = this.clearState.bind(this);
     this.checkComponent = this.checkComponent.bind(this);
     this.checkIfComponent = this.checkIfComponent.bind(this);
-    this.makeID = this.makeID.bind(this);
     this.checkXP = this.checkXP.bind(this);
     this.checkEditAspectAndAptitude = this.checkEditAspectAndAptitude.bind(this);
     this.checkAspects = this.checkAspects.bind(this);
@@ -147,6 +158,8 @@ export default class Create extends Component {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeAspectAndAptitude = this.onChangeAspectAndAptitude.bind(this);
     this.onChangeNothing = this.onChangeNothing.bind(this);
+
+    this.onChangeXPFromCampaign = this.onChangeXPFromCampaign.bind(this);
     
     this.onChangeSize = this.onChangeSize.bind(this);
 
@@ -238,23 +251,10 @@ export default class Create extends Component {
 
   clearState(){
     this.setState(initialState, () => {
-      this.setState({
-        id: this.makeID()
-      }, () => {
-        console.log("this.state cleared!", this.state, "new ID:", this.state.id);
-      });
+      console.log("this.state cleared!", this.state);
     });
   }
 
-  makeID(){
-    // var hash = md5(new Date().valueOf() + Math.random()).toString();
-    var date = new Date().valueOf();
-    var rnd = Math.random();
-    var hash = md5((date + rnd).toString());
-    var hashStr = hash.toString();
-    console.log("md5 hash:", hash, hashStr, rnd, date);
-    return hashStr.substr(-8);
-  }
 
   checkOverflow(){
     var largest = 0;
@@ -338,6 +338,9 @@ export default class Create extends Component {
   availableXP -= this.state.armorTotalCost;
   availableXP -= this.state.horseTotalCost;
   availableXP -= this.state.specialtyTotalCost;
+
+  if(this.state.xpFromPlayer){availableXP += this.state.xpFromPlayer;}
+  if(this.state.xpFromCampaign){availableXP += this.state.xpFromCampaign;}
 
   // last line
   this.setState({available_xp: availableXP});
@@ -593,6 +596,16 @@ export default class Create extends Component {
     });
   }
 
+  onChangeXPFromCampaign(e) {
+    console.log("onChangeXPFromCampaign:", e);
+    this.setState({
+      xpFromCampaign: e.value
+    }, () => {
+      // console.log("setState extrasOverflow: overflow", this.state.extrasOverflow, sectionsHeight, largest);
+      this.checkXP();
+    });
+  }
+
   onEmptySubmit(e) {
     e.preventDefault();
     var obj = {
@@ -629,7 +642,6 @@ export default class Create extends Component {
       console.log(err);
     }
     var obj = {
-      id: this.state.id,
       name: this.state.name,
       owner: val,
       concept: this.state.concept,
@@ -659,6 +671,7 @@ export default class Create extends Component {
           .then(res => console.log(res.data));
     }else{
       console.log("In Create, no editID found", editID);
+      obj.id = this.state.id;
       axios.post('/sheet/add', obj, { baseUrl: "" })
             .then(res => console.log(res.data));
     }
@@ -963,9 +976,39 @@ export default class Create extends Component {
     axios.get('/sheet/edit/'+this.props.match.params.id, { baseUrl: "" })
       .then(response => {
         console.log("onRefreshFromDB, response.data:", response.data, this.props.match.params.id);
-        this.setState(response.data, () => {
+        this.setState(response.data.sheet, () => {
           console.log("this.state loaded from DB!", this.state);
-          
+          // this.setState({xps: response.data.xps});
+          var myXP = 0;
+          var sheetXP = [];
+          response.data.xps.forEach(item => {
+            if(item.target.includes(this.state.owner)){
+              myXP += item.qty;
+            }else{
+              var lbl = item.gm;
+              var val = item.qty;
+
+              var found = sheetXP.find(obj => {
+                return obj.label === lbl
+              });
+
+              if(found){
+                found.value += val;
+              }else{
+                sheetXP.push({label: lbl, value: val});
+              }
+            }
+          });
+
+          this.setState({
+            xpFromPlayer: myXP,
+            xpFromCampaignObjs: sheetXP
+          }, () => {
+            if(this.state.xpFromCampaignObjs.length == 1){
+              this.setState({xpFromCampaign: this.state.xpFromCampaignObjs[0].value});
+            }
+          });
+
           extrasList.forEach(extra => {
             axios.get('/'+extra+'/'+this.state.id,{ baseUrl: "" })
               .then(response => {
@@ -1346,7 +1389,12 @@ export default class Create extends Component {
                   ? <div>
                       <h3 style={{display: 'inline-block'}}>Remaining XP: {this.state.available_xp}</h3>
                       <button style={{float: 'right'}} onClick={this.undoClearAndRefresh} className="btn btn-danger">Undo Changes</button>
-
+                      { this.state.xpFromCampaignObjs.length > 1 &&
+                        <Select options={this.state.xpFromCampaignObjs} 
+                          onChange={this.onChangeXPFromCampaign} 
+                          placeholder="Choose a campaign XP source ..."
+                        />
+                      }
                     </div>
                   : <h3>Starting XP: {this.state.available_xp}</h3>}
 

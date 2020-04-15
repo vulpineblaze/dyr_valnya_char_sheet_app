@@ -5,11 +5,14 @@ import axios from 'axios';
 import HttpsRedirect from 'react-https-redirect';
 
 
+import Corebook from './components/corebook.component';
 import Create from './components/create.component';
 import Edit from './components/edit.component';
 import Index from './components/index.component';
 import AddCampaign from './components/addcampaign.component';
 import ListCampaign from './components/listcampaign.component';
+import PlayerEdit from './components/playeredit.component';
+import Invite from './components/invite.component';
 
 import './App.css';
 
@@ -529,9 +532,7 @@ class App extends Component {
             onSuccess={responseGoogle}
             onFailure={responseError}
             onRequest={responseGoogle}
-            autoLoad="true"
-            cookiePolicy={'single_host_origin'}
-            isSignedIn={true}
+            isSignedIn="true"
           />
           
         </div>
@@ -555,9 +556,11 @@ class App extends Component {
                 <li className="nav-item">
                   <Link to={'/listcampaign'} className="nav-link">My Campaigns</Link>
                 </li>
+                { this.state.player &&
                 <li className="nav-item">
-                  <Link to={'/'} className="nav-link">*My Profile (WIP)</Link>
+                  <Link to={'/playeredit/'+this.state.player._id} className="nav-link">My Profile</Link>
                 </li>
+                }
                 <li className="nav-item">
                   <Link to={'/create'} className="nav-link">New Character</Link>
                 </li>
@@ -581,6 +584,14 @@ class App extends Component {
             </div>
           </nav>
             <Switch>
+              <Route 
+                exact path='/' 
+                render={(props) => 
+                    <Corebook {...props} 
+                      user={this.state.user} 
+                      player={this.state.player}  
+                    />}
+              />
               <Route
                 exact path='/create'
                 render={(props) => 
@@ -618,6 +629,14 @@ class App extends Component {
                       player={this.state.player} 
                     />}
               />
+              <Route
+                exact path='/playeredit/:id'
+                render={(props) => 
+                    <PlayerEdit {...props} 
+                      user={this.state.user} 
+                      player={this.state.player} 
+                    />}
+              />
 
               <Route
                 exact path='/edit/:id'
@@ -651,6 +670,14 @@ class App extends Component {
                 exact path='/listcampaign' 
                 render={(props) => 
                     <ListCampaign {...props} 
+                      user={this.state.user} 
+                      player={this.state.player}  
+                    />}
+              />
+              <Route 
+                exact path='/invite/:id' 
+                render={(props) => 
+                    <Invite {...props} 
                       user={this.state.user} 
                       player={this.state.player}  
                     />}

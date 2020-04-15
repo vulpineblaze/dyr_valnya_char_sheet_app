@@ -28,9 +28,11 @@ class CampaignTableRow extends Component {
           <td>
             <Link to={"/editcampaign/"+this.props.obj._id} className="btn btn-primary">Edit</Link>
           </td>
-          <td>
-            <button onClick={this.delete} className="btn btn-danger">Delete</button>
-          </td>
+          { !this.props.noDelete &&  
+            <td>
+              <button onClick={this.delete} className="btn btn-danger">Delete</button>
+            </td>
+          }
         </tr>
     );
   }
