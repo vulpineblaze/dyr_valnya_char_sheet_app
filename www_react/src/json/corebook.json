@@ -1,0 +1,321 @@
+{"corebook": {
+    "header": "Dyr Valnya Corebook",
+    "tabs": [
+        {
+            "id": "home",
+            "name": "Home",
+            "tags": [
+                {"h3":"To the first timer player:"},
+                {"p":"This game is called dyr valnya, and it's just like every other game-night game you've played, but with different rules and more fun. "},
+                {"p":"dyr valnya is a story-focused DnD style sci-fantasy table-top role playing game in the theme of \"Gates of Ivrel\" and \"Adventure Time\". Each of us makes a character, and then plays as that character. To describe what that character is good at (and not good at) we use points systems like the one described below. More \"dots\" mean your character is good at something, less dots means they aren't as practiced, and no dots means they simply have never tried."},
+                {"p":"A point in any character trait is called a \"dot\". Dots are on your character sheet. Rolls are made with a d12, 9 thru 12 are successes, and 12s are re-rolled. One's cancel out successes. The number of relevant dots determine how many d12's are rolled."},
+                {"p":"Plenty of help is available from other players and myself, both [on discord], and during the game session."},
+                {"p":"Character sheets can be [found here], and here are the rules for [creating characters]."},
+                {"p":"Feel free to [Read the Backstory] and get familiar with the world, and you can check out the [Lore] and [Characters] on the fandom site."},
+                {"h3":"Main list of topics:"},
+                {"ab1":{"link":"#backstory", "text":"Backstory"}},
+                {"ab1":{"link":"#charactercreation", "text":"Character Creation"}},
+                {"ab1":{"link":"#aspects", "text":"Aspects"}},
+                {"ab1":{"link":"#aptitudes", "text":"Aptitudes"}},
+                {"ab1":{"link":"#actionrolls", "text":"Action Rolls"}},
+                {"ab1":{"link":"#combat", "text":"Combat"}},
+                {"ab1":{"link":"#vitality", "text":"Vitality"}},
+                {"ab1":{"link":"#specialities", "text":"Specialities"}},
+                {"ab1":{"link":"#quirks", "text":"Quirks"}},
+                {"ab1":{"link":"#virtues_and_vices", "text":"Virtues_and_Vices"}},
+                {"ab1":{"link":"#willpower", "text":"Willpower"}},
+                {"ab1":{"link":"#rollmodifiers", "text":"Roll Modifiers"}},
+                {"ab1":{"link":"#masscombat", "text":"Mass Combat"}},
+                {"ab1":{"link":"#downtimeactions", "text":"Downtime Actions"}},
+                {"ab1":{"link":"#equipment", "text":"Equipment"}},
+                {"ab1":{"link":"#technika", "text":"Technika"}},
+                {"ab1":{"link":"#magicka", "text":"Magicka"}},
+                {"ab1":{"link":"#astryl", "text":"Astryl"}},
+                {"ab1":{"link":"#sizecomparisons", "text":"Size Comparisons"}},
+                {"ab1":{"link":"#xpawardsandbonusxp", "text":"XP Awards and Bonus XP"}},
+                {"ab1":{"link":"#dying", "text":"Dying"}},
+                {"ab1":{"link":"#racial", "text":"Racial"}},
+                {"ab1":{"link":"#dyr", "text":"dyr"}},
+                {"ab1":{"link":"#viyas", "text":"Viyas"}},
+                {"ab1":{"link":"#monsters", "text":"Monsters"}},
+                {"ab1":{"link":"#planets", "text":"Planets"}},
+                {"ab1":{"link":"#thegates", "text":"The Gates"}},
+                {"ab1":{"link":"#economy", "text":"Economy"}},
+                {"ab1":{"link":"#elements", "text":"Elements"}},
+                {"ab1":{"link":"#characterconcepts", "text":"Character Concepts"}},
+                {"p":""}
+            ]
+        },
+
+        {
+            "id": "backstory",
+            "name": "Backstory",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "charactercreation",
+            "name": "Char. Creation",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "aspects",
+            "name": "Aspects",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "aptitudes",
+            "name": "Aptitudes",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "actionrolls",
+            "name": "Action Rolls",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "combat",
+            "name": "Combat",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "vitality",
+            "name": "Vitality",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "specialities",
+            "name": "Specialities",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "quirks",
+            "name": "Quirks",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "virtues_and_vices",
+            "name": "Virtues & Vices",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "willpower",
+            "name": "Willpower",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "rollmodifiers",
+            "name": "Roll Modifiers",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "masscombat",
+            "name": "Mass Combat",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "downtimeactions",
+            "name": "Downtime",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "equipment",
+            "name": "Equipment",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "technika",
+            "name": "Technika",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "magicka",
+            "name": "Magicka",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "astryl",
+            "name": "Astryl",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "sizecomparisons",
+            "name": "Size Chart",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "xpawardsandbonusxp",
+            "name": "XP Awards",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "dying",
+            "name": "Dying",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "racial",
+            "name": "Racial",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "dyr",
+            "name": "dyr",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "viyas",
+            "name": "Viyas",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "monsters",
+            "name": "Monsters",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "planets",
+            "name": "Planets",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "thegates",
+            "name": "The Gates",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "economy",
+            "name": "Economy",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+        {
+            "id": "elements",
+            "name": "Elements",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        },
+
+
+        {
+            "id": "characterconcepts",
+            "name": "Char.Concepts",
+            "tags": [
+                {"h3":"sb2 heres an h3"},
+                {"p":"sb2 heres an p"}
+            ]
+        }
+    ]
+}}

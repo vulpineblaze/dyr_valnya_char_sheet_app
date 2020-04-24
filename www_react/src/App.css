@@ -417,10 +417,10 @@ article.sidebar section h2
   position: absolute;
   font-size: 1em;
   font-weight: normal;
-  width: 8.1em;
+  width: 8.3em;
   height: 1.8em;
   /*top: -1.8em;*/
-  left: -8em;
+  left: -8.2em;
   padding: 0;
   margin: 0;
   color: #999;
@@ -428,78 +428,13 @@ article.sidebar section h2
   border-radius: 5px 0 0 5px;
 }
 
-article.sidebar section:nth-child(2) h2
+/*article.sidebar section:nth-child(2) h2
 {
   top: 2.5em;
-  background-color: #fdd;
+  background-color: #bbb;
 }
-
-article.sidebar section:nth-child(3) h2
-{
-  top: 4.4em;
-  background-color: #ddf;
-}
-article.sidebar section:nth-child(4) h2
-{
-  top: 6.3em;
-  background-color: #fdf;
-}
-article.sidebar section:nth-child(5) h2
-{
-  left: 518px;
-  background-color: #dfd;
-}
-article.sidebar section:nth-child(6) h2
-{
-  left: 640px;
-  background-color: #dff;
-  width: 150px;
-}
-article.sidebar section:nth-child(7) h2
-{
-  left: 55px;
-  background-color: #fdb;
-  width: 134px;
-  top: -3.6em;
-}
-article.sidebar section:nth-child(8) h2
-{
-  left: 192px;
-  background-color: #fbd;
-  /*width: 150px;*/
-  top: -3.6em;
-}
-article.sidebar section:nth-child(9) h2
-{
-  left: 316px;
-  background-color: #bfd;
-  /*width: 150px;*/
-  top: -3.6em;
-}
-article.sidebar section:nth-child(10) h2
-{
-  left: 440px;
-  background-color: #bdf;
-  /*width: 150px;*/
-  top: -3.6em;
-}
-article.sidebar section:nth-child(11) h2
-{
-  left: 564px;
-  background-color: #fbb;
-  /*width: 150px;*/
-  top: -3.6em;
-}
-/*..
-fdd - fbd fdb
-dfd - bfd bfd
-ddf - bdf dbf
-ffd
-dff
-fdf
-
-
 */
+
 article.sidebar section h2 a
 {
   display: block;
@@ -512,14 +447,21 @@ article.sidebar section h2 a
   padding: 0 0 -2em 0;
 }
 
-article.sidebar section:target,
+article.sidebar section:target
+{
+  color: #333;
+  /*background-color: #eee;*/
+  z-index: 3;
+}
 article.sidebar section:target h2
 {
   color: #333;
   /*background-color: #eee;*/
   font-weight: bold;
-
   z-index: 2;
+  border: 1px solid #333;
+  margin: 0 0 0 -0.5em;
+  width: 8.6em;
 }
 
 article.sidebar section,

@@ -268,82 +268,103 @@ export default class Create extends Component {
     this.setState({
         extrasOverflow: largest
       }, () => {
-        console.log("setState extrasOverflow: overflow", this.state.extrasOverflow, sectionsHeight, largest);
+        // console.log("setState extrasOverflow: overflow", this.state.extrasOverflow, sectionsHeight, largest);
       });
+  }
+
+  showXP(){
+    var showXP = this.state.available_xp;
+    // console.log("create checkXP availableXP:", availableXP);
+
+    showXP -= this.state.quirkTotalCost;
+    showXP -= Math.max(-15, this.state.flawsTotalCost);
+    showXP -= this.state.magickaTotalCost;
+    showXP -= this.state.weaponTotalCost;
+    showXP -= this.state.armorTotalCost;
+    showXP -= this.state.horseTotalCost;
+    showXP -= this.state.specialtyTotalCost;
+
+    // console.log("create checkXP after extras availableXP:", availableXP);
+
+    if(this.state.xpFromPlayer){showXP += this.state.xpFromPlayer;}
+    if(this.state.xpFromCampaign){showXP += this.state.xpFromCampaign;}
+
+    // console.log("create checkXP after campaing/player XP availableXP:", availableXP);
+    return showXP;
   }
 
 
   checkXP(array){
-    var availableXP = this.state.starting_xp;
+    var availableXP = 0;
 
-    var array = [{key: 'physical', value: this.state.physical}, 
+    var editID = this.props.match.params.id;
+    if(editID && editID.length){
+      availableXP = this.state.available_xp;
+    }else{ // Create!
+      availableXP = this.state.starting_xp;
+      var array = [{key: 'physical', value: this.state.physical}, 
           {key: 'mental', value: this.state.mental}, 
           {key: 'social', value: this.state.social} 
           ];
-    array.sort(function(obj1, obj2) {
-     return obj1.value - obj2.value;
-  });
-    var arrayPhysical = [{key: 'strength', value: this.state.strength}, 
-          {key: 'dexterity', value: this.state.dexterity}, 
-          {key: 'stamina', value: this.state.stamina} 
-          ];
-    arrayPhysical.sort(function(obj1, obj2) {
-     return obj1.value - obj2.value;
-  });
-  var lowestPhysical = arrayPhysical[0].value;
-    var arrayMental = [{key: 'intelligence', value: this.state.intelligence}, 
-          {key: 'wits', value: this.state.wits}, 
-          {key: 'resolve', value: this.state.resolve} 
-          ];
-    arrayMental.sort(function(obj1, obj2) {
-     return obj1.value - obj2.value;
-  });
-  var lowestMental = arrayMental[0].value;
-    var arraySocial = [{key: 'presence', value: this.state.strength}, 
-          {key: 'manipulation', value: this.state.mental}, 
-          {key: 'composure', value: this.state.composure} 
-          ];
-    arraySocial.sort(function(obj1, obj2) {
-     return obj1.value - obj2.value;
-  });
-  var lowestSocial = arraySocial[0].value;
+      array.sort(function(obj1, obj2) {
+        return obj1.value - obj2.value;
+      });
+      var arrayPhysical = [{key: 'strength', value: this.state.strength}, 
+            {key: 'dexterity', value: this.state.dexterity}, 
+            {key: 'stamina', value: this.state.stamina} 
+            ];
+      arrayPhysical.sort(function(obj1, obj2) {
+       return obj1.value - obj2.value;
+      });
+      var lowestPhysical = arrayPhysical[0].value;
+        var arrayMental = [{key: 'intelligence', value: this.state.intelligence}, 
+              {key: 'wits', value: this.state.wits}, 
+              {key: 'resolve', value: this.state.resolve} 
+              ];
+        arrayMental.sort(function(obj1, obj2) {
+         return obj1.value - obj2.value;
+      });
+      var lowestMental = arrayMental[0].value;
+        var arraySocial = [{key: 'presence', value: this.state.strength}, 
+              {key: 'manipulation', value: this.state.mental}, 
+              {key: 'composure', value: this.state.composure} 
+              ];
+        arraySocial.sort(function(obj1, obj2) {
+         return obj1.value - obj2.value;
+      });
+      var lowestSocial = arraySocial[0].value;
 
-  var cycle = 0;
-  for(cycle=0;cycle<3;cycle++){
-    var allowed = cycle+3;
-    var cycleKey = array[cycle].key;
-    var cycleValue = array[cycle].value;
-    var diff = cycleValue - allowed;
+      var cycle = 0;
+      for(cycle=0;cycle<3;cycle++){
+        var allowed = cycle+3;
+        var cycleKey = array[cycle].key;
+        var cycleValue = array[cycle].value;
+        var diff = cycleValue - allowed;
 
-    console.log(cycle, cycleKey, cycleValue, "|", diff, "|" , lowestPhysical, lowestMental, lowestSocial);
+        console.log(cycle, cycleKey, cycleValue, "|", diff, "|" , lowestPhysical, lowestMental, lowestSocial);
 
-    var adjustment=0;
-    if(cycleValue > allowed){
-      if(cycleKey === "physical"){adjustment = lowestPhysical*5*diff}
-      if(cycleKey === "mental"){adjustment = lowestMental*5*diff}
-      if(cycleKey === "social"){adjustment = lowestSocial*5*diff}
+        var adjustment=0;
+        if(cycleValue > allowed){
+          if(cycleKey === "physical"){adjustment = lowestPhysical*5*diff}
+          if(cycleKey === "mental"){adjustment = lowestMental*5*diff}
+          if(cycleKey === "social"){adjustment = lowestSocial*5*diff}
+        }
+        if(adjustment == 5){adjustment = 10;}
+        availableXP -= adjustment;
+      }
+
+      var aptitudeOverage = 0;
+      if(this.state.aptitude_total < 0){aptitudeOverage = 3 * this.state.aptitude_total}
+      availableXP += aptitudeOverage;
+
+      this.setState({available_xp: availableXP});
+
     }
-    if(adjustment == 5){adjustment = 10;}
-    availableXP -= adjustment;
-  }
 
-  var aptitudeOverage = 0;
-  if(this.state.aptitude_total < 0){aptitudeOverage = 3 * this.state.aptitude_total}
-  availableXP += aptitudeOverage;
+    
+    
 
-  availableXP -= this.state.quirkTotalCost;
-  availableXP -= Math.max(-15, this.state.flawsTotalCost);
-  availableXP -= this.state.magickaTotalCost;
-  availableXP -= this.state.weaponTotalCost;
-  availableXP -= this.state.armorTotalCost;
-  availableXP -= this.state.horseTotalCost;
-  availableXP -= this.state.specialtyTotalCost;
-
-  if(this.state.xpFromPlayer){availableXP += this.state.xpFromPlayer;}
-  if(this.state.xpFromCampaign){availableXP += this.state.xpFromCampaign;}
-
-  // last line
-  this.setState({available_xp: availableXP});
+    // last line
   }
 
   checkAspects(){
@@ -602,7 +623,7 @@ export default class Create extends Component {
       xpFromCampaign: e.value
     }, () => {
       // console.log("setState extrasOverflow: overflow", this.state.extrasOverflow, sectionsHeight, largest);
-      this.checkXP();
+      // this.checkXP();
     });
   }
 
@@ -656,7 +677,7 @@ export default class Create extends Component {
       speed: this.state.speed,
       initiative: this.state.initiative,
       defense: this.state.defense,
-      starting_xp: this.state.starting_xp,
+      starting_xp: this.state.available_xp,
       available_xp: this.state.available_xp
     };
     allStats.forEach(val => {
@@ -1114,7 +1135,7 @@ export default class Create extends Component {
        quirkTotalCost: tally,
        quirkOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1139,7 +1160,7 @@ export default class Create extends Component {
        flawsTotalCost: tally,
        flawsOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1160,7 +1181,7 @@ export default class Create extends Component {
        magickaTotalCost: tally,
        magickaOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1181,7 +1202,7 @@ export default class Create extends Component {
        weaponTotalCost: tally,
        weaponOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1202,7 +1223,7 @@ export default class Create extends Component {
        armorTotalCost: tally,
        armorOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1223,7 +1244,7 @@ export default class Create extends Component {
        horseTotalCost: tally,
        horseOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1256,7 +1277,7 @@ export default class Create extends Component {
        specialtyTotalCost: tally,
        specialtyOverflow: overflow
     }, () => {
-      this.checkXP();
+      // this.checkXP();
       this.checkOverflow();
     });
   }
@@ -1387,7 +1408,7 @@ export default class Create extends Component {
            
               { this.props.match.params.id 
                   ? <div>
-                      <h3 style={{display: 'inline-block'}}>Remaining XP: {this.state.available_xp}</h3>
+                      <h3 style={{display: 'inline-block'}}>Remaining XP: {this.showXP()}</h3>
                       <button style={{float: 'right'}} onClick={this.undoClearAndRefresh} className="btn btn-danger">Undo Changes</button>
                       { this.state.xpFromCampaignObjs.length > 1 &&
                         <Select options={this.state.xpFromCampaignObjs} 
@@ -1396,7 +1417,7 @@ export default class Create extends Component {
                         />
                       }
                     </div>
-                  : <h3>Starting XP: {this.state.available_xp}</h3>}
+                  : <h3>Starting XP: {this.showXP()}</h3>}
 
             
             <form onSubmit={this.onSubmit}>

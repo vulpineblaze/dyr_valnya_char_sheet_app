@@ -130,7 +130,8 @@ class App extends Component {
       loadCodaArrays: false
         }, () => {
           const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
-          const quirkTablelistRows = coda.listRows('55_RuUt6nh', 'grid-sFVbFfjLoX');
+          const docID = "55_RuUt6nh";
+          const quirkTablelistRows = coda.listRows(docID, 'grid-sFVbFfjLoX');
           const flawsTablelistRows = coda.listRows('55_RuUt6nh', 'grid-G4ppHQClqI');
           const magickaTablelistRows = coda.listRows('55_RuUt6nh', 'grid-9SNgTm2b_x');
           const weaponTablelistRows = coda.listRows('55_RuUt6nh', 'grid-QZHWTOUszi');
@@ -153,9 +154,32 @@ class App extends Component {
           //   console.log("sectionAspects JSON", JSON.stringify(value));
           // });
 
+
+/*
+          //  TEMP TO GET JSONS
+          const tables = coda.listTables(docID);
+          console.log(" >>> CODA TABLES", tables);
           
-
-
+          tables.then(function(tbls) {
+            var i;
+            for (i = 0; i < tbls.length; i++) {
+              const t_id = tbls[i].id;
+              const name = tbls[i].name;
+              console.log(" >>> CODA TABLES t_id:", t_id);
+              const tablerow = coda.listRows(docID, t_id);
+              tablerow.then(function(tblr) {
+                console.log(" >>> CODA TABLES tblr:", name, tblr);
+                const fileData = JSON.stringify(tblr);
+                const blob = new Blob([fileData], {type: "text/plain"});
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = name+'.json';
+                link.href = url;
+                link.click();
+              });
+            }
+          });
+*/
 
 
           const scopedThis = this;

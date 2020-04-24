@@ -1,0 +1,72 @@
+[
+  {
+    "name":"Typical Dragon",
+    "desc":"This is a Dragon, nothing special",
+    "size":8,
+    "damage":15,
+    "ap":3,
+    "armor":4,
+    "vitality":18,
+    "speed":10,
+    "primary":10,
+    "secondary":7,
+    "tertiary":6,
+    "level":46
+  },
+  {
+    "name":"Throp",
+    "desc":"The lil shoulder of a Saurothrop. \n\nNot hard to kill, but will psychically bond to you and make you desire the extigiuoshment of all life in the most sadistic ways possible. \n\nDoesnt make many rolls, since it's just a tiny cute squish... but it is technically hyper intelligent.",
+    "size":1,
+    "damage":0,
+    "ap":0,
+    "armor":0,
+    "vitality":1,
+    "speed":0,
+    "primary":10,
+    "secondary":9,
+    "tertiary":8,
+    "level":13
+  },
+  {
+    "name":"Thugs",
+    "desc":"General demihuman jerk whose gonna try to rough up the party. Usually in crews.",
+    "size":5,
+    "damage":7,
+    "ap":1,
+    "armor":2,
+    "vitality":7,
+    "speed":5,
+    "primary":7,
+    "secondary":5,
+    "tertiary":3,
+    "level":24
+  },
+  {
+    "name":"Jerk Bois",
+    "desc":"Little dudes, like goblins and kobolds, who are gonna try to snuff your stuff",
+    "size":3,
+    "damage":5,
+    "ap":0,
+    "armor":2,
+    "vitality":5,
+    "speed":3,
+    "primary":6,
+    "secondary":4,
+    "tertiary":2,
+    "level":17
+  },
+  {
+    "name":"Saurothrop",
+    "desc":"Giant nightmare werewolf lizard 6-limbed monster made a molten metal and rage. ",
+    "size":7,
+    "damage":11,
+    "ap":3,
+    "armor":4,
+    "vitality":10,
+    "speed":7,
+    "primary":8,
+    "secondary":5,
+    "tertiary":4,
+    "level":34
+  }
+]

@@ -55,7 +55,20 @@ let Sheet = new Schema({
   composure: {
     type: Number
   },
-  //     APTITUDES /////
+  //   COMBAT  APTITUDES /////
+  fisticuffs: {
+    type: Number
+  },
+  melee: {
+    type: Number
+  },
+  ranged: {
+    type: Number
+  },
+  thaumatism: {
+    type: Number
+  },
+  //   NON COMBAT   APTITUDES /////
   athletics: {
     type: Number
   },
