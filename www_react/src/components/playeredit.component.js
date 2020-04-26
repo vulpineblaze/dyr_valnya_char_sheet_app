@@ -58,10 +58,18 @@ export default class PlayerEdit extends Component {
     };
     axios.defaults.baseURL = '';
     axios.post('/player/update/'+this.props.match.params.id, obj, { baseUrl: "" })
-        .then(res => console.log(res.data));
+        .then(res => {
+          // console.log(res.data)
+          this.setState({
+            discordname: res.data.discordname,
+            nick: res.data.nick
+          }, () => {
+            console.log("discordname updated db:", res.data);
+          }); 
+        });
 
     
-    this.props.history.push('/playeredit/'+this.props.match.params.id);  // either way, bounce to ....
+    // this.props.history.push('/playeredit/'+this.props.match.params.id);  // either way, bounce to ....
     
   }
 

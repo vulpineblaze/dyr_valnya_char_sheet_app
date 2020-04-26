@@ -93,6 +93,7 @@ export default class Corebook extends Component {
     displayOneTag(tag){
 
       if(tag.h3){return(<h3>{tag.h3}</h3>);}
+      if(tag.h1){return(<h1>{tag.h1}</h1>);}
       if(tag.p){return(<p>{tag.p}</p>);}
       if(tag.b1){return(<ul><li>{tag.b1}</li></ul>);}
       if(tag.ab1){return(<ul><li><a href={tag.ab1.link}>{tag.ab1.text}</a></li></ul>);}

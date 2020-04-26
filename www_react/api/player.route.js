@@ -57,7 +57,7 @@ playerRoutes.route('/update/:id').post(function (req, res) {
         player.discordname = req.body.discordname;
         
         player.save().then(player => {
-          res.json('Update complete');
+          res.json(player);
       })
       .catch(err => {
             res.status(400).send("unable to update the database");

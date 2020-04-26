@@ -1,5 +1,5 @@
 # dyr valnya Character Sheet App
-> Character Sheet automator for "dyr valnya" TTRPG
+> Character Sheet automator for "dyr valnya" TTRPG.
 
 ## Table of contents
 * [General info](#general-info)
