@@ -1,0 +1,122 @@
+[
+  {
+    "name":"fisticuffs",
+    "type":"combat",
+    "desc":"Engaging in melee combat using your fists, gloves, brass knuckles, martial arts, etc.."
+  },
+  {
+    "name":"melee",
+    "type":"combat",
+    "desc":"Hitting people with swords, knives, clubs, staves, etc.."
+  },
+  {
+    "name":"ranged",
+    "type":"combat",
+    "desc":"Shooting people with guns, bows, etc.. \nRule of thumb: If a tiny angle change (3° at 15 meters) causes the attack to miss, then it is Ranged."
+  },
+  {
+    "name":"thaumatism",
+    "type":"combat",
+    "desc":"Firing Magicka from one's hand, wand, staff, brain, a nearby door, etc..\nUsing non-directed magicka and technika to deal lethal damage, or just gain the effects therein. One must also spend a single point of Astrylose anytime they attempt to use this Aptitude.\nRule of thumb: If a tiny angle change (3° at 15 meters) does not prevent the attack from striking, then it is Thaumatism."
+  },
+  {
+    "name":"arcanaforn",
+    "type":"noncombat",
+    "desc":"This covers everything in the weird. Psychic powers, bizarre and ancient rituals all fall under this category. It's the Lore roll for Magicka'esque items and well as the roll for learning Magicka and imbuing Magicka onto items. Astryl related research rolls fall under this Aptitude as well."
+  },
+  {
+    "name":"athletics",
+    "type":"noncombat",
+    "desc":"Your physical abilities such as Running, Jumping, Climbing, Dodging, etc.."
+  },
+  {
+    "name":"crafts",
+    "type":"noncombat",
+    "desc":"This represents your ability to do crafts and make various things from scratch. knitting, crotchet, metalsmithing, cobblering, masonry, carpentry, etc..  "
+  },
+  {
+    "name":"culture",
+    "type":"noncombat",
+    "desc":"This sums up questions about various nations and Demihumans way of doing things, history, language, art, etc.. This covers learnable Lore from academically sound sources."
+  },
+  {
+    "name":"empathy",
+    "type":"noncombat",
+    "desc":"You understand the emotions of others, and can sympathize with, feign sympathy for, or play on such emotions as you see fit. You are an easy hand at discerning motive, and might be able to pick up on when someone's lying to you. However, you may be so in tune with other people's feelings that your own emotions are affected. This includes Animal Ken and one's ability to meaningfully interact with beasts and non-verbal entities."
+  },
+  {
+    "name":"expression",
+    "type":"noncombat",
+    "desc":"The ability to express yourself to be well understood, not only in speech or written language, but in dance and art and music and other displays. This covers transmitting messages in a myriad of unconventional forms, like blinking, morse code, interpretive dance, etc.."
+  },
+  {
+    "name":"intimidation",
+    "type":"noncombat",
+    "desc":"Your ability to frighten or impose your will on others. Intimidation takes many forms, from outright threats and physical violence to mere force of personality. You know the right method for each occasion, and can be very… persuasive."
+  },
+  {
+    "name":"investigation",
+    "type":"noncombat",
+    "desc":"The ability to drill into a series of observations to deduce deeper truths. Used to gather clues and form reasonable deductions."
+  },
+  {
+    "name":"larceny",
+    "type":"noncombat",
+    "desc":"Your ability to steal the property of others, employ tools like lock picks and safe cracking, and to do this without being noticed. Hacking would fall under this too, if there was such a thing."
+  },
+  {
+    "name":"luck",
+    "type":"noncombat",
+    "desc":"When you cant train for this, and there's no skill to cover this attempt - just you and your hopes. \"Fuck this! I'm going to walk up and slap the tits off that dragon\". That's not intimidate, its not hand-to-hand, its not athletics either, and its sure af not streetwise. But it might just work. \nAlso, if any other Aptitude makes equal or more sense, we're using that one. "
+  },
+  {
+    "name":"medicine",
+    "type":"noncombat",
+    "desc":"You have an understanding of how demihuman bodies work. This ability entails knowledge of medicines, ailments, first-aid procedures, and diagnosis or treatment of disease."
+  },
+  {
+    "name":"observation",
+    "type":"noncombat",
+    "desc":"The ability to notice things even when not paying attention to them. Anyone can see the blue curtains, but you'd notice them enough to ask \"Why are those curtains blue, in this red curtain factory?\""
+  },
+  {
+    "name":"persuasion",
+    "type":"noncombat",
+    "desc":"Your ability to make someone to believe or agree with your point of view."
+  },
+  {
+    "name":"portaelogy",
+    "type":"noncombat",
+    "desc":"This isn't the paltry ability to fiddle with the trickets of a thousand dead races - this is the direct power and command over The Gates themselves. And they don't just go from point A to point B; They are can made to perform all sort of feats under the knowledged and lucky hand. "
+  },
+  {
+    "name":"riding",
+    "type":"noncombat",
+    "desc":"This reflects your skill at riding horses, to include endurance, speed, trick shots, etc..  Also, this includes riding mules and yaks and lizards and flying space worms and 6 legged magitek equimachina. And also probably running in power armor or driving ATVs."
+  },
+  {
+    "name":"stealth",
+    "type":"noncombat",
+    "desc":"This talent is the ability to avoid being detected, whether you're hiding or moving at the time."
+  },
+  {
+    "name":"streetwise",
+    "type":"noncombat",
+    "desc":"Your ability to have the social graces of a diplomat or socialite. Perhaps after you successfully make your Culture rolls, you'd have to roll this to actually use that knowledge. This also includes the darker side of life, gathering info, getting in on the black market, avoiding social/status based dangers (Cant talk to an admiral the same way as a pirate)."
+  },
+  {
+    "name":"subterfuge",
+    "type":"noncombat",
+    "desc":"You know how to conceal your own motives and project what you like. Furthermore, you can root out other people's motives, then use those motives against them. This talent defines your talent for intrigue, secrets and double-dealing; mastery of Subterfuge can make you the ultimate seducer, or a brilliant spy."
+  },
+  {
+    "name":"survival",
+    "type":"noncombat",
+    "desc":"This skill covers the typical mushroom forging and tent making boy scout stuff, but also covers things like getting suited up and geared up rapidly. Anything that requires drilled and rapid response, or long-term necessities meeting is probably Survival. Failing this roll is a fast way to die. This game contains no saving throws."
+  },
+  {
+    "name":"technika",
+    "type":"noncombat",
+    "desc":"Ability to operate and repair Technika artefacts. This includes various Lore rolls surrounding these items, such as identifying unknown items without grave personal risk. Also listed, cobbling together multiple Technika such that they work in tandem as one new unit, and pulling Technika apart for same effect. "
+  }
+]

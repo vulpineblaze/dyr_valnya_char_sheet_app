@@ -357,7 +357,12 @@ article.tabs section h2 a
   padding: 0 0 -2em 0;
 }
 
-article.tabs section:target,
+article.tabs section:target
+{
+  color: #333;
+  z-index: 2;
+}
+
 article.tabs section:target h2
 {
   color: #333;
@@ -562,4 +567,9 @@ h3.warning {
   padding: 0.8em;
   margin: 0.9em -0.5em;
   height: 5em;
+}
+
+
+.hideStat {
+  display: none;
 }

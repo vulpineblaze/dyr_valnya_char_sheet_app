@@ -1,0 +1,56 @@
+[
+  {
+    "name":"strength",
+    "type":"physical",
+    "trait":"power",
+    "desc":"Power trait. Pretty straightforward. Feats of strength, smashing my dudes in the face, lifting shit, prying open some scifi weird ass doors, etc.."
+  },
+  {
+    "name":"dexterity",
+    "type":"physical",
+    "trait":"finesse",
+    "desc":"Finesse trait. Shooting magic guns, riding various creatures or machines, dancing probably, larceny, skilled fornicating to acquire local currency or DNA samples, etc.."
+  },
+  {
+    "name":"stamina",
+    "type":"physical",
+    "trait":"defense",
+    "desc":"Defense trait. It isn't hard to do, and it isn't complicated to do, but it takes forever. Running miles, hold a door open for an hour, wearing down an attacker, eating poison like a dumbdumb, get shot like a dumbdumb and not bleeding to death, etc.."
+  },
+  {
+    "name":"intelligence",
+    "type":"mental",
+    "trait":"power",
+    "desc":"Power trait. Intelligence is often used when dealing with difficult and straightforward tasks, like research and investigation. This also goes with logic, mathematics, and detailed analysis."
+  },
+  {
+    "name":"wits",
+    "type":"mental",
+    "trait":"finesse",
+    "desc":"Finesse trait. For quick and snappy challenges, Wits is your go-to. Fire Control, Piloting ancient alien psychic warships, and other rapid mental tasks fall under this purview. While some computer work will be intelligence, often time Hacking with fall under Wits. Noticing things, when combined with observation, is a very high-mileage Wits task."
+  },
+  {
+    "name":"resolve",
+    "type":"mental",
+    "trait":"defense",
+    "desc":"Defense trait. The defense traits don't see a lot of action, but you'll really want them when you need them. Any contested roll initiated by the other party will put you on the defensive, requiring this roll. When hacking from the VR, you may not just fail your tasks, you may even come to harm. Remember, CCI banned VR for frying peoples brains."
+  },
+  {
+    "name":"presence",
+    "type":"social",
+    "trait":"power",
+    "desc":"Power trait. Even the smallest creature can tower over the larger, owing to extreme Presence. When that one person enters the room and everyone has to look. Typically the \"Bad Cop\" in good-cop-bad-cop has a lot of Presence as they threaten, interrogate, and torture. Shouting grandiose lies until everyone starts to believe them or getting the attention of a house-sized nightmare-werewolf-lizard-monster in the middle of a rampage is Presence."
+  },
+  {
+    "name":"manipulation",
+    "type":"social",
+    "trait":"finesse",
+    "desc":"Finesse trait. Giving the target an idea that they think they thought of themselves. The \"Good Cop\" in good-cop-bad-cop, pleading with the victim to help, so everything can go well; begging the victim to save themselves. Most forms of lying fall under Manipulation, to include bent and half truths used to get the target to work against their own interests."
+  },
+  {
+    "name":"composure",
+    "type":"social",
+    "trait":"defense",
+    "desc":"Defense trait. As with the other traits, typically you didn't start the contested action. Being able to remain cool, calm, and collected enough to dilute the attack and refrain from making mistakes or complying with those who would make you act against your own interest."
+  }
+]

@@ -1,0 +1,371 @@
+[
+  {
+    "name":"Self-taught Magicka",
+    "cost":7,
+    "desc":"You are real good at figuring out new magicka, such that you can learn new ones without anyone's training you or showing you how.",
+    "prereq":"Int 3 & Magicka 3",
+    "benefit":"You still have to spend the XP, but that's it. You are ___ XP from knowing any magicka listed. \n\nYou must still have purchased a magicka before teaching it to someone else though.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Alternate Nourishment",
+    "cost":4,
+    "desc":"You \"eat\" something other than regular food",
+    "prereq":"N/A",
+    "benefit":"You eat something thats not food, and still draw nourishment (and the daily Astrylose) from it. Sunlight, kinetic energy, metals, souls, etc..  could be good choices. \n\n",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Cutie Mark",
+    "cost":7,
+    "desc":"You have found your calling, purpose, what your good at, or just what you like; and it shows!",
+    "prereq":"Race as per MLP",
+    "benefit":"There's a really long version, here: https://mlp.fandom.com/wiki/Cutie_marks\n\nBasically the player chooses their characters cutie mark, at least described in rough detail, which appears on their characters flank. The cutie mark describes a general type of action/situation the character excels at. Also, unless otherwise stated, the cutie mark must be exceedingly wholesome. Not gonna allow the \"Firebombs\" cutie mark, sorry. Once a character has discovered/earned their cutie mark, they gain the following benefits:\n\nPerforming strenuous or heroic action covered by their cutie mark may regain one willpower.\n\nTaking actions covered under their cutie mark may be considered a non-rolling action, especially if they would have 6 or more dice in their net dicepool. \n\nThey get +1 to any roll covered by their cutie mark, and failures or critical failures may be more comical or instructive than deadly. \n\nFinally, downtime actions covered under their cutie mark may be subject to automatic success, extra rolls, metagame/OOC hints, and ofc that +1 mentioned above. \n\nEg. The pony \"Firebombs\" happens to excel at fabricating and wielding launched explosives. This pony can often work with these weapons with a +1, and sometimes isnt made to roll very easy rolls. During downtime, Firebombs makes technika rolls to create more interesting and destructive weapons, sometimes with the +1, and sometimes with hints like \"you'll want to add Elemental Blast, not Bolt\" and \"Start rolling now so when you get some Astrylite, you'll already have racked up some successes\". During a harrowing adventure, the party was saved by a thermite IED built by Firebombs and launched from a slingshot, to which Firebombs regained a point of willpower. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Regenerate",
+    "cost":9,
+    "desc":"You do not require emergency or medical care to heal outside of combat.",
+    "prereq":"Stamina, 3",
+    "benefit":"stabilize without medicine roll, repair health without medicine roll",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Undead",
+    "cost":13,
+    "desc":"Your character is technically a corpse.",
+    "prereq":"N/A",
+    "benefit":"You will not bleed out, but, \nYou cannnot heal naturally at all, must repair damage manually, usually via [Craft, Medicine, Technika, Etc.. ] rolls \n\nOnce your character receives full damage, the corpse becomes dust / slop / rot, etc.. no 2nd reanimate is ever possible, even if your scheme says it should. \n\nMagicka - PC whose Reanimated must take Undead to remain playable\n\nThis is a catch-all for automatons, corpses, constructs, robots, androids, etc..  too besides it's the \n\n\n\n\n\n",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Immune to Elements",
+    "cost":5,
+    "desc":"You are immune to all elemental effects, for better and definitely for worse. ",
+    "prereq":"N/A",
+    "benefit":"You are immune to elemental effects and damages, which is lumpin awesome.. You'll still take damage with someone hits you with an axe, but if the axe had added elemental damage, that you ignore. \n\nThe good news is you could fight off fire wolves for some fire deer and enjoy fire venison that would burn your party members (given the meat is cooked properly lol). You can get in and out of a lot of weird predicaments this way.\n\nThe bad news is your mostly immune to the emotions/feelings/concepts those elements embody, so you're weirdo socially stunted self will usually be too busy acting so conceited and self-absorbed that they think they are the social character, even while taking -1 and -2 to rolls. \n\nThis is a curse you pay for. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Thick Skin",
+    "cost":4,
+    "desc":"Your skin is as thick as armor",
+    "prereq":"N/A",
+    "benefit":"One extra point of defense, no penalty. This is removed by wearing external armor, just like other natural defense ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Extra pair of Limbs",
+    "cost":8,
+    "desc":"You either have 4 arms or 4 legs",
+    "prereq":"N/A",
+    "benefit":"You gain two addl limbs, either arms or legs. This is how to be a Centaur, for instance. \n\nmix-matches, tentacles, and other stuff are not covered, but may still be allowed. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Rebirth",
+    "cost":25,
+    "desc":"You can't technically die.",
+    "prereq":"N/A",
+    "benefit":"Your character takes damage as normal. \n\nYour character dies, or at least everything rules-wise occurs like you did. \n\nFrom there, whatever pieces of your body exist will slowly reform and seek each other out. This process is typically slower than a campaign, and varies based on the kind of damage and the availability of ambient Magicka/Astyrl/energies/etc..\n\nA true kill is possible, but only if all damage inflicted is Agg, and that's obviously gonna be rare. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Jack of all trades",
+    "cost":5,
+    "desc":"You take no penalty for rolling an unlearning Aptitude",
+    "prereq":"N/A",
+    "benefit":"You do not take that penalty, so at worst you only roll the Aspect, sans modifiers. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Dragon Ancestry",
+    "cost":2,
+    "desc":"Some long distant ancestor was a dragon, but that's it.",
+    "prereq":"N/A",
+    "benefit":"No actual bonus occurs, but the Dragons will immediately recognize you as kin, and so willl any other Demihuman. \n\nYou also instinctually dislike The Gates, Portaelogy, everything. And you dislike the Fae. To do anything over than simple/quick interactions, you must spend a willpower. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Poison Resist",
+    "cost":4,
+    "desc":"Intoxicants that would negatively affect you, don't as much. ",
+    "prereq":"N/A",
+    "benefit":"You get an easy +1 to any ingested/ingested toxin related roll straight up, and also gain far fewer negative effects therein. \n\nEg. Might roll stumbly drunk, but is still composed enough to crawl to the bathroom instead of peeing the bed. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Doesnt sleep",
+    "cost":5,
+    "desc":"You dont need tradinational sleep.",
+    "prereq":"N/A",
+    "benefit":"You can just zone out / study / meditate for 4+ hours and feel rested as if you slept. You cannot sleep if you wanted to, and you don't dream. Might be cool, might suck. \n\nEvil sleep magic is 50:50 on whether or not you go down, possibly contested roll, depending on the source. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Fae Ancestry",
+    "cost":2,
+    "desc":"Some long distant ancestor was Fae, but that's it.",
+    "prereq":"N/A",
+    "benefit":"No actual bonus occurs, but the Fae themselves immediately recognize you as kin, and that's cool.. right..? ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Darkvision",
+    "cost":1,
+    "desc":"You can see, even when its pitch black",
+    "prereq":"N/A",
+    "benefit":"This isn't a very good ability, you still take vision penalties, and everything is monochrome.. But you can see, which is better than nothing. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Elemental Blood",
+    "cost":7,
+    "desc":"You are displaying the Elemental phenotype from some recent or distant ancestry.",
+    "prereq":"N/A",
+    "benefit":"You are visibly and undeniably an Elemental of your chosen type. Fire people have hot skin and burning hair. Water people have cool moist skin and dripping waterfall hair. Life Elementals could be trees or Faun or breakfast people.  \n\nYou receive +1 to any roll regarding your opposing 'strong against' type, even if your just hitting them with a mundane sword. \n\nYou receive -2 on any roll against your 'weak against' types, even if you are rolling Athletics trying to run away. \n\nCharmander rules too, you take Lethal damage if your elemental traits are snuffed out by your 'weak against' type. Good luck crawling thru that river of knives as a Fire Elemental.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Flight",
+    "cost":12,
+    "desc":"You can fly, but not well",
+    "prereq":"N/A",
+    "benefit":"You can fly / hover. You might have cool wings, or not. \n\nYou cant go very high and you cant go very fast, but you can fly. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Crazy ole wizard eyes",
+    "cost":4,
+    "desc":"You can see things that arent typically visible.",
+    "prereq":"N/A",
+    "benefit":"You have the crazy wizard eyes, and can see things that arent really there. \n\nSometimes thats like magicka stuff and hidden plot and fae gates and invisible but real monsters. \n\nSometimes that's weird crazy shit and false positives and the 5th dimension and invisible and not real monsters. \n\nA success, as always, returns a positive result. Yours arent always real. And sometimes you'll just get told things. 50:50 on those being outright lies. ",
+    "aspects":"",
+    "aptitudes":"Observation"
+  },
+  {
+    "name":"Ageless",
+    "cost":15,
+    "desc":"You appear to stop aging at a certain age",
+    "prereq":"N/A",
+    "benefit":"At the adult'ish age you choose, your character stops aging. Also, this character will not die from growing old. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Reload ",
+    "cost":3,
+    "desc":" You can reload your weapon as if taking a breath.",
+    "prereq":"N/A",
+    "benefit":" Reloading your weapon is a free action.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Danger Sense",
+    "cost":4,
+    "desc":" You can usually tell when your \"great idea\" is actually about to get you killed",
+    "prereq":"N/A",
+    "benefit":" If you are about to do something stupid  you can take some OOC clues and stop yourself. Also  you can see the potential of your situation to be fatal and may   but probably not   respond.   Don't ask for OOC advice   and actual OOC knowledge is still unavailable. If you already made a roll you can't take it back.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Private ID ",
+    "cost":4,
+    "desc":" Somewhere you have papers saying you are someone else...",
+    "prereq":"N/A",
+    "benefit":" You have another name  career  background  etc... that you can use temporarily. May be taken more than once.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Time Sense ",
+    "cost":1,
+    "desc":" You have an unusual acuity for the passage of time.",
+    "prereq":"N/A",
+    "benefit":" You have an internal sense for time that's accurate to about a minute and a +1 to relevant rolls.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Unconventional ",
+    "cost":2,
+    "desc":" You quite frequently disobey orders and are not afraid of the consequences",
+    "prereq":"N/A",
+    "benefit":"You suffer no penalties for directly disobeying orders. You can still be held on charges upon your return...",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Quick Draw ",
+    "cost":3,
+    "desc":" You can pull and/or arm your weapon as if taking a breath...",
+    "prereq":"N/A",
+    "benefit":" Drawing and/or arming your weapon is a free action..",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Intuitive Culturalist ",
+    "cost":3,
+    "desc":" You have always been fascinated with other Cultures and can pick new ones up with ease.",
+    "prereq":"N/A",
+    "benefit":" Gain one additional dice when dealing with unfamiliar cultures. Cannot critical fail on Culture or Xeno-Culture checks.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Catlike Balance ",
+    "cost":3,
+    "desc":" Balance comes naturally to you- you almost never slip or fall.",
+    "prereq":"N/A",
+    "benefit":" You gain a 1 bonus dice on all challenges of balance like walking a ledge or tightrope.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Lorg ",
+    "cost":4,
+    "desc":" You are significantly larger than the species norm.",
+    "prereq":"N/A",
+    "benefit":" You have 1 step extra than your species maximum and you are one size class lorgr. Includes the relevant increased health and complete inability to hide. And good luck fitting through some doorways and passages. And also, infinite aggro cuz you conspicuous ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Good Eye ",
+    "cost":4,
+    "desc":" You have the ability to shoot farther and more accurately than your peers.",
+    "prereq":"Dexterity, 2",
+    "benefit":" Increases maximum ranges by x2.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Light Sleeper ",
+    "cost":4,
+    "desc":" You can hear yourself snore while you sleep.",
+    "prereq":"N/A",
+    "benefit":" Anyone try to catch you off guard is removed of his/her surprise for you sleeping.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Confidence ",
+    "cost":4,
+    "desc":" There may be characters that are \"The Man\". You are definitely \"DA Man!\" and you know it.",
+    "prereq":"N/A",
+    "benefit":" You have an overwhelming self-confidence in your abilities perhaps to the point of hubris but you are sure of yourself and others notice too. This quirk grants you a 1 bonus dice for resolution of all diplomacy and intimidation rolls.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Poker Face",
+    "cost":4,
+    "desc":" You have the ultimate poker face no sign of emotion ever crosses your face.",
+    "prereq":"N/A",
+    "benefit":" You have one free defensive charisma reroll per session as others always have trouble figuring you out.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Officially Dead ",
+    "cost":5,
+    "desc":" According to all government records and documents you are dead. This also includes rumor and reputation. Many old collegues may react with horror as they see 'a ghost'.",
+    "prereq":"N/A",
+    "benefit":" Any attempts to locate official records of documents reflect this status tracking via official means is very difficult. All attempts to use bureaucracy influences against you fail. The storyteller may give other influences similar nods at his/her discretion.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Perfect Liar ",
+    "cost":6,
+    "desc":" You are the ultimate silver tongued devil.",
+    "prereq":"N/A",
+    "benefit":" You receive a 1 bonus dice for all Subterfuge rolls for or against you. Enemies lose -1 dice when trying to determine if you are lying or being deceptive.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Ambidexterity ",
+    "cost":6,
+    "desc":" You may use both hands as if they were both your dominant hand.",
+    "prereq":"N/A",
+    "benefit":" Your character does not suffer the -2 penalty for using his off-hand in combat or to perform other actions. Fighter Ace penalties will become \" -1 to Piloting or Fire Control \" Available at character creation only",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Iron Will ",
+    "cost":6,
+    "desc":" Things that would and should distract you.. well.. don't",
+    "prereq":"N/A",
+    "benefit":" If you were going to take a -1 penalty for broken concentration.. you don't. This does not give bonuses. This avoid penalties. GM Discretion as always...",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"MacGyver'ing ",
+    "cost":8,
+    "desc":" You can build complex unstable devices for almost any function you need in a short amount of time with none of the proper materials...",
+    "prereq":"Dexterity, 3, Intelligence, 4, -or-, Dexterity, 4, Intelligence, 3.",
+    "benefit":" Taking one whole round or 10 minutes to inventory available supplies you tell the GM what you want to accomplish and the GM tells you what you can build. Take 2 whole rounds or 30 minutes building it. This thing will probably break or explode soon. Roll a d12 - the number of uses whenever trying to activate it. If the roll is a 0 or 1 the device breaks permanently. If-1 or lower it may explode or otherwise do harm to the party. All items used in its construction are destroyed and unsalvageable.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Quick Healer ",
+    "cost":5,
+    "desc":" You have an almost supernatural healing ability.",
+    "prereq":"Stamina, 3",
+    "benefit":" For every 2 points of Bashing or Lethal damage healed you gain one more healed point. ",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"True Love ",
+    "cost":8,
+    "desc":" You have found a true love. This love gives you strength to continue against all odds.",
+    "prereq":"N/A",
+    "benefit":" You gain 1 true love trait.. a.k.a. one extra willpower trait.. This can also be used defensively to add +1 to relevant contested rolls. No refunds if you get your true love killed; Your 1 true love trait now becomes 1 punisher trait. You will be forever driven to punish/torture/maim/murder any entity and group associated with your True Loves death for at least 3 seasons. You will undoubtedly create newer meaner enemies in your rampage across the stars. It is impossible for any player or character to stop this although they may influence of deflect your decision.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Insensible to Pain ",
+    "cost":10,
+    "desc":" For whatever reason you feel no pain.",
+    "prereq":"N/A",
+    "benefit":" You cannot be stunned  nor made to be under duress via pain. This include VR input during combat. If the ship is at 0 hp you can still retain control giving commands and making rolls. -1 is still -1 though.",
+    "aspects":"",
+    "aptitudes":""
+  },
+  {
+    "name":"Nine Lives ",
+    "cost":14,
+    "desc":" You freak people out even by your un-killablity",
+    "prereq":"N/A",
+    "benefit":" Any time you would die you get a last free reroll to live. It can be used once per session. I'm not even going to try and keep track. Can be used more than 9 times.",
+    "aspects":"",
+    "aptitudes":""
+  }
+]

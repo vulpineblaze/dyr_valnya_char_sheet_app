@@ -1,0 +1,106 @@
+Replace
+"API":{},
+..with
+"API":{},    CTLR+ENTER
+
+regex replace with nothing
+("API).*(values":)|(,"docId).*("},{)
+
+replace
+"c-
+with
+CTRL+ENTER  SPACE SPACE  "c-
+
+replace
+"}
+with
+"   CTRL+ENTER  },
+
+
+manually fix:
+  leading { on first line
+  trailing bs on last line between closing ] and last items closing } 
+    ensure no , on last item!
+  highlight everything but first n last line, TAB
+    ensure tab is 2 spaces!
+
+for each  c-  value, find correct name via coda and replace
+  list from code at bottom...
+  highlight  c-  inside double quotes
+  CTRL-H
+  enter correct variable name
+  Replace All
+    ensure double quotes are preserved!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+quirk
+obj.name = item["c-DwoFJQd3dl"];
+obj.cost = item["c-y_V5aAOe6T"];
+obj.desc  = item["c-lNP3U8OyOI"];
+obj.prereq  = item["c--ZouJOAvPm"];
+obj.benefit   = item["c-l4Bk_6P6LS"];
+obj.aspects  = item["c-vFII4sqtOl"];
+obj.aptitudes  = item["c-4QuheStMsP"];
+
+flaws
+obj.name = item["c-s9xzG7woXK"];
+obj.cost = item["c-rFFIm2sGh9"];
+obj.desc  = item["c-Lp7cyXFEDW"];
+obj.prereq  = item["c-zbVXoKQktq"];
+obj.benefit   = item["c-KocWBPt7SG"];
+obj.aspects  = item["c-LyCRQn9XSj"];
+obj.aptitudes  = item["c-dxrVGg7kLf"];
+
+magicka
+obj.name = item["c-bsCHCx6q7b"];
+obj.cost = item["c-YStkFeoYgX"];
+obj.desc  = item["c-u_jw1APr1I"];
+obj.armor  = item["c-SS0-M0yvoI"];
+obj.penalty   = item["c-XDRsAOtXw9"];
+obj.damage  = item["c-gzvQuEUPue"];
+obj.ap  = item["c-9IAWNBUFF4"];
+
+weapon
+obj.name = item["c-rd7vNFnaVQ"];
+obj.cost = item["c-yk8_qzh54S"];
+obj.damage  = item["c-0SJozHmPQm"];
+obj.ap  = item["c-vrIDidjHSN"];
+obj.range  = item["c-YRkro88oLT"];
+
+armor
+obj.name = item["c-OqILalMUXQ"];
+obj.cost = item["c-Bdr6hk0g7E"];
+obj.armor  = item["c-Jhnu3dJcyy"];
+obj.penalty  = item["c-6MYC7AUcIX"];
+
+horse
+obj.name = item["c-c49Q0Wukcu"];
+obj.cost = item["c-7iYqKoXArj"];
+obj.health  = item["c-91yx9u0q5B"];
+obj.armor  = item["c-JYSLOBbFPT"];
+obj.size  = item["c-VAVIBMwjdb"];
+obj.speed  = item["c--iK2sioLsM"];

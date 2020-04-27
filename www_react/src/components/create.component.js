@@ -11,6 +11,10 @@ import EmptyTableRow from './EmptyTableRow';
 import SpecialtyTableRow from './SpecialtyTableRow';
 import Select from 'react-select';
 
+import aspectsJSON from '../json/aspects';
+import aptitudesJSON from '../json/aptitudes';
+
+
 const makeID = () => {
   // var hash = md5(new Date().valueOf() + Math.random()).toString();
   var date = new Date().valueOf();
@@ -141,6 +145,7 @@ const extrasList = [ "quirk", "flaws", "magicka", "weapon", "armor", "horse", "e
 export default class Create extends Component {
   constructor(props) {
     super(props);
+    this.myRef = React.createRef();
     this.clearState = this.clearState.bind(this);
     this.checkComponent = this.checkComponent.bind(this);
     this.checkIfComponent = this.checkIfComponent.bind(this);
@@ -200,6 +205,7 @@ export default class Create extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.undoClearAndRefresh = this.undoClearAndRefresh.bind(this);
     this.onRefreshFromDB = this.onRefreshFromDB.bind(this);
+    this.toggleStatDescHidden = this.toggleStatDescHidden.bind(this);
     this.mainStat = this.mainStat.bind(this);
     this.displayStatArray = this.displayStatArray.bind(this);
     this.codaDisplayAndSelect = this.codaDisplayAndSelect.bind(this);
@@ -1282,19 +1288,49 @@ export default class Create extends Component {
     });
   }
 
+  toggleStatDescHidden(e) {
+    console.log("toggleStatDescHidden:",
+        e.currentTarget,
+        e.currentTarget.dataset, 
+        this.refs[e.currentTarget.dataset.trgt]
+      );
+    if (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.trgt) {
+      var elem = this.refs[e.currentTarget.dataset.trgt];
+      if(elem.className.includes("hideStat")){
+        elem.className = "";
+      }else{
+        elem.className = "hideStat";
+      }
+      console.log("toggleStatDescHidden elem:",elem.className,elem);
+      // className 
+    }
+  }
+
   mainStat(stat, isAspect=false) {
     // console.log("mainStat:", stat, isAspect);
     var title = stat.charAt(0).toUpperCase() + stat.substring(1);
     var val = this.state[stat].toString() ;
+    var arr = [];
+    if(isAspect){arr=aspectsJSON;}
+      else{arr=aptitudesJSON}
+
+    var i, statObj={};
+    for(i=0;i < arr.length;i++){
+      if(stat.includes(arr[i].name)){statObj = arr[i];}
+    }
+
     return (
       <div className="form-group" key={title}>
-          <label>{title}: {val}</label>
+          <label onClick={this.toggleStatDescHidden} data-trgt={stat+"Hidden"}>{title}: {val}</label>
           <input type="range" 
             className="form-control"
             value={val}
             min="0" max="5" step="1"
             onChange={(e) => this.onChangeAspectAndAptitude(stat, e, isAspect)}
             />
+          <div id={stat+"Hidden"} ref={stat+"Hidden"} className="hideStat">
+            <p>{statObj.desc}</p>
+          </div>
       </div>
     );
   }
