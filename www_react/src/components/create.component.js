@@ -1289,19 +1289,19 @@ export default class Create extends Component {
   }
 
   toggleStatDescHidden(e) {
-    console.log("toggleStatDescHidden:",
-        e.currentTarget,
-        e.currentTarget.dataset, 
-        this.refs[e.currentTarget.dataset.trgt]
-      );
+    // console.log("toggleStatDescHidden:",
+    //     e.currentTarget,
+    //     e.currentTarget.dataset, 
+    //     this.refs[e.currentTarget.dataset.trgt]
+    //   );
     if (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.trgt) {
       var elem = this.refs[e.currentTarget.dataset.trgt];
       if(elem.className.includes("hideStat")){
-        elem.className = "";
+        elem.className = "statDesc";
       }else{
         elem.className = "hideStat";
       }
-      console.log("toggleStatDescHidden elem:",elem.className,elem);
+      // console.log("toggleStatDescHidden elem:",elem.className,elem);
       // className 
     }
   }
@@ -1322,15 +1322,15 @@ export default class Create extends Component {
     return (
       <div className="form-group" key={title}>
           <label onClick={this.toggleStatDescHidden} data-trgt={stat+"Hidden"}>{title}: {val}</label>
+          <div id={stat+"Hidden"} ref={stat+"Hidden"} className="hideStat">
+            <p>{statObj.desc}</p>
+          </div>
           <input type="range" 
             className="form-control"
             value={val}
             min="0" max="5" step="1"
             onChange={(e) => this.onChangeAspectAndAptitude(stat, e, isAspect)}
             />
-          <div id={stat+"Hidden"} ref={stat+"Hidden"} className="hideStat">
-            <p>{statObj.desc}</p>
-          </div>
       </div>
     );
   }
