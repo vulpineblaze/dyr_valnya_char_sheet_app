@@ -1649,7 +1649,7 @@ export default class Create extends Component {
                     this.onChangeSecondSpecialty ) }
 
 
-            <p className="tabnav"><a href="#tab6">next &#10151;</a></p>
+            <p className="tabnav"><a href="#tab7">next &#10151;</a></p>
                     {this.displayUpdateSubmitButton()}
           </section>
 
@@ -1710,7 +1710,7 @@ export default class Create extends Component {
                           className="btn btn-primary"/>
                     </div>
                       <button  onClick={this.onRefreshFromDB} className="btn btn-danger">Undo Changes</button>
-            <p className="tabnav"><a href="#tab7">next &#10151;</a></p>
+            <p className="tabnav"><a href="#tab1">next &#10151;</a></p>
 
           </section>
 
@@ -1842,7 +1842,7 @@ export default class Create extends Component {
                     this.onHorseSubmit) }
           
 
-            <p className="tabnav"><a href="#tab1">next &#10151;</a></p>
+            <p className="tabnav"><a href="#tab6">next &#10151;</a></p>
                     {this.displayUpdateSubmitButton()}
           </section>
 

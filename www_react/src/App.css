@@ -480,7 +480,7 @@ article.sidebar section h2
 
 p.tabnav
 {
-  font-size: 1.1em;
+  font-size: 2.1em;
   text-transform: uppercase;
   text-align: right;
 }
@@ -488,7 +488,7 @@ p.tabnav
 p.tabnav a
 {
   text-decoration: none;
-  color: #999;
+  color: #99F;
 }
 
 
