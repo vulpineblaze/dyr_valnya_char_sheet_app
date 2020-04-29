@@ -7,7 +7,6 @@ import HttpsRedirect from 'react-https-redirect';
 
 import Corebook from './components/corebook.component';
 import Create from './components/create.component';
-import Edit from './components/edit.component';
 import Index from './components/index.component';
 import AddCampaign from './components/addcampaign.component';
 import ListCampaign from './components/listcampaign.component';
@@ -19,6 +18,8 @@ import './App.css';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import Coda from 'coda-js';
 
+const extrasList = [ "quirk", "flaws", "magicka", "weapon", "armor", "horse"];
+
 
 class App extends Component {
 
@@ -27,6 +28,8 @@ class App extends Component {
     this.compare = this.compare.bind(this);
     this.compareInverted = this.compareInverted.bind(this);
     this.loadCodaArrays = this.loadCodaArrays.bind(this);
+    this.processExtras = this.processExtras.bind(this);
+    this.processOneExtra = this.processOneExtra.bind(this);
 
     this.state = {
       user: {},
@@ -120,6 +123,52 @@ class App extends Component {
     return comparison;
   }
 
+  processExtras(){
+    var i=0;
+    for(i=0;i<extrasList.length;i++){
+      var extra = extrasList[i];
+      if(this.state[extra+"Array"] && this.state[extra+"Array"].length == 0){
+        // this.processOneExtra(extra);
+      }
+    }
+    this.processOneExtra("quirk");
+
+  }
+
+  processOneExtra(extra){
+    const scopedThis = this;
+    import('./json/quirks')
+      .then(JSON => {
+        // module.loadPageInto(main);
+        // JSON.sort(this.compare);
+        const extraArray = JSON.default;
+        extraArray.sort(this.compare);
+
+        console.log(" >>> TEST >>> quirksJSON",JSON, extraArray);
+        scopedThis.setState({ [extra+"Array"]: extraArray }, () => {
+          var joinedSel = [];
+          var arr = scopedThis.state[extra+"Array"];
+          var i=0;
+          for (i = 0; i < arr.length; i++) {
+            var item = arr[i];
+            var optionInner = item.name + " - (" + item.cost + ")";
+            var optionString = {label: optionInner, value: i }
+            joinedSel.push(optionString);
+          }
+          console.log(" >>> TEST >>> quirks arr",arr,joinedSel);
+
+          scopedThis.setState({
+              [extra+"SelectArray"]: joinedSel
+            }, () => {
+              console.log("this.state."+extra+"SelectArray",scopedThis.state[extra+"SelectArray"]);
+          });  
+        });
+      })
+      .catch(err => {
+        console.log(" >>> FATAL >>> err loading: ",extra, err);
+      });
+    
+  }
 
   loadCodaArrays(){
     if (this.state.quirkArray 
@@ -130,8 +179,8 @@ class App extends Component {
       loadCodaArrays: false
         }, () => {
           const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
-          const docID = "55_RuUt6nh";
-          const quirkTablelistRows = coda.listRows(docID, 'grid-sFVbFfjLoX');
+          // const docID = "55_RuUt6nh";
+          // const quirkTablelistRows = coda.listRows(docID, 'grid-sFVbFfjLoX');
           const flawsTablelistRows = coda.listRows('55_RuUt6nh', 'grid-G4ppHQClqI');
           const magickaTablelistRows = coda.listRows('55_RuUt6nh', 'grid-9SNgTm2b_x');
           const weaponTablelistRows = coda.listRows('55_RuUt6nh', 'grid-QZHWTOUszi');
@@ -184,47 +233,7 @@ class App extends Component {
 
           const scopedThis = this;
 
-          quirkTablelistRows.then(function(value) {
-            const quirkList = value;
-            var i;
-            var joined = [];
-            for (i = 0; i < quirkList.length; i++) {
-              var item = quirkList[i].values;
-              var obj = {};
-              obj.name = item["c-DwoFJQd3dl"];
-              obj.cost = item["c-y_V5aAOe6T"];
-              obj.desc  = item["c-lNP3U8OyOI"];
-              obj.prereq  = item["c--ZouJOAvPm"];
-              obj.benefit   = item["c-l4Bk_6P6LS"];
-              obj.aspects  = item["c-vFII4sqtOl"];
-              obj.aptitudes  = item["c-4QuheStMsP"];
-
-              joined.push(obj);
-              
-            }
-            joined.sort(scopedThis.compare);
-            // console.log("joined",joined);
-            scopedThis.setState({ quirkArray: joined });
-            // console.log("scopedThis.state.quirkArray",scopedThis.state.quirkArray);
-
-            //  now to build the select friendly array
-            var joinedSel = [];
-            var arr = scopedThis.state.quirkArray;
-            for (i = 0; i < arr.length; i++) {
-              var item = arr[i];
-              var optionInner = item.name + " - (" + item.cost + ")";
-              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
-                // { label: "Snakes", value: 6 },
-              var optionString = {label: optionInner, value: i }
-              joinedSel.push(optionString);
-              // console.log("inside props quirks array:", optionString);
-            }
-            scopedThis.setState({
-                quirkSelectArray: joinedSel
-              }, () => {
-                console.log("this.state.quirkSelectArray",scopedThis.state.quirkSelectArray);
-            });  
-          });
+          
 
 
           flawsTablelistRows.then(function(value) {
@@ -247,7 +256,7 @@ class App extends Component {
 
             }
             joined.sort(scopedThis.compareInverted);
-            // console.log("joined",joined);
+            // console.log(" >>> TEST >>> flaws joined",joined);
             scopedThis.setState({ flawsArray: joined });
             // console.log("scopedThis.state.flawsArray",scopedThis.state.flawsArray);
 
@@ -512,6 +521,7 @@ class App extends Component {
 
         // this.freshGummi(this.state.user.getEmail(), this.state.gummi);
         this.loadCodaArrays();
+        this.processExtras();
       }
     }
 
@@ -568,7 +578,7 @@ class App extends Component {
             </p>
           </div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to={'/'} className="navbar-brand"> Hey, {this.state.name}  </Link>
+            <Link to={'/playeredit/'+this.state.player._id} className="navbar-brand"> Hey, {this.state.name}  </Link>
             <div className=" navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">

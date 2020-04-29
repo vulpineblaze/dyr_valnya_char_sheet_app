@@ -136,7 +136,7 @@ export default class PlayerEdit extends Component {
   }
 
   onRefreshFromDB(){
-    const scopedThis = this;
+    // const scopedThis = this;
     axios.defaults.baseURL = '';
     axios.get('/player/edit/'+this.props.match.params.id, { baseUrl: "" })
       .then(response => {

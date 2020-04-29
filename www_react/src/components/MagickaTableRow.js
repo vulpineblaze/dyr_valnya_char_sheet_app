@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class MagickaTableRow extends Component {
@@ -66,9 +66,6 @@ class MagickaTableRow extends Component {
             {this.props.obj.cost}
           </td>
           <td>
-            {this.props.obj.desc}
-          </td>
-          <td>
             <button onClick={this.delete} className="btn btn-danger">Delete</button>
           </td>
           <td>
@@ -78,6 +75,8 @@ class MagickaTableRow extends Component {
 
         { this.state.showMore &&
         <React.Fragment>
+          <tr><th>Description:</th></tr>
+          <tr><td>{this.props.obj.desc}</td></tr>
           <tr style={{display: this.props.obj.armor 
                                 || this.props.obj.penalty 
                                 || this.props.obj.damage 

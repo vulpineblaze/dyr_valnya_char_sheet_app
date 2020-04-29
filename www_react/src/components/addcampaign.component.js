@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import md5 from 'crypto-js/md5';
+import { Link } from 'react-router-dom';
 
 import Select from 'react-select';
 
@@ -25,6 +26,7 @@ const initialState = {
   newplayeremail: "",
   newgmemail: "",
   isGM: false,
+  isPlayer: false,
   xptoplayer: 0,
   xptoplayertemail: '',
   xptosheet: 0,
@@ -429,22 +431,27 @@ export default class AddCampaign extends Component {
 
     // console.log("state n prop", this.state.player, this.props.player);
     if(!this.state.player.email){
-      // console.log("not player state", this.state.player);
       if(this.props.player.email){
+        this.setState({
+          player: this.props.player
+        }, () => {
+          // console.log("found if GM:", this.state.isGM, email);
+        });  
+      }
+    }
+
+    if(!this.state.isGM && !this.state.isPlayer){
+      // console.log("not player state", this.state.player);
+      if(this.state.gms && this.state.gms.length > 0 && this.props.player.email){
         // console.log("player prop exists", this.props.player);
         const email = this.props.player.email;
-        var findGM = this.state.isGM;
         if(this.state.gms.includes(email)){
-          findGM = true;
           console.log("found your email as GM");
-        }
-        this.setState({
-          player: this.props.player,
-          isGM: findGM
-        }, () => {
-          console.log("found if GM:", this.state.isGM, email);
-          
-        });  
+          this.setState({ isGM: true });
+        }else{
+          console.log("found your email as Player");
+          this.setState({ isPlayer: true });
+        }  
       }
     }
   }
@@ -518,33 +525,41 @@ export default class AddCampaign extends Component {
         <div className="form-group playerObjs" key={email}>
           <ul>
             <li>Nickname:  {nick}</li>
-            <li>Email:  {email}</li>
             <li>Discord:  {discordname}</li>
-            <li>XP:  {xp}</li>
           </ul>
-          <button
+          {this.state.isGM && 
+            <ul>
+              <li>Email:  {email}</li>
+              <li>XP:  {xp}</li>
+            </ul>
+          }
+          {this.state.isGM && 
+            <div>
+            <button
               onClick={this.onSubmitDeletePlayer(email) } 
               className="btn btn-danger">
               Remove
-          </button>
-          <form onSubmit={this.onSubmitXPtoPlayer}>
-            <div className="form-group">
-              <label>XP to Player:  </label>
-              <input 
-                type="number" 
-                className="form-control" 
-                name={email}
-                value={this.state.xptoplayer}
-                onChange={this.onChangeXPtoPlayer}
-                />
+            </button>
+            <form onSubmit={this.onSubmitXPtoPlayer}>
+              <div className="form-group">
+                <input type="submit" 
+                  style={{float: 'right'}}
+                  value="Add XP to Player"
+                  className="btn btn-primary"/>
+              </div>
+              <div className="form-group">
+                <label>XP to Player:  </label>
+                <input 
+                  type="number" 
+                  className="form-control" 
+                  name={email}
+                  value={this.state.xptoplayer}
+                  onChange={this.onChangeXPtoPlayer}
+                  />
+              </div>
+            </form>
             </div>
-            <div className="form-group">
-              <input type="submit" 
-                style={{float: 'right'}}
-                value="Add XP to Player"
-                className="btn btn-primary"/>
-            </div>
-          </form>
+          }
         </div>
       );
     }else{
@@ -584,37 +599,53 @@ export default class AddCampaign extends Component {
       var owner = sheet.owner.toString();
       var id = sheet.id.toString();
       var xp = sheet.available_xp.toString();
+      console.log("displayOneSheet sheet:", sheet);
 
       return (
         <div className="form-group sheetObjs" key={id}>
-          <ul> 
-            <li>Name:  {name}</li>
-            <li>Owner:  {owner}</li>
-            <li>XP:  {xp}</li>
+          <h3>Name:  {name}</h3>
+          <ul>
+            <li>Concept:  {sheet.concept.toString()}</li>
+            <li>Description:  {sheet.description.toString()}</li>
+            <li>Racial:  {sheet.racial.toString()}</li>
+            <li>Virtue & Vice:  {sheet.virtue.toString() +" & "+ sheet.vice.toString()}</li>
           </ul>
-          <button
+          {this.state.isGM && 
+            <ul>
+              <li>Owner:  {owner}</li>
+              <li>XP:  {xp}</li>
+            </ul>
+          }
+          
+          {this.state.isGM && 
+            <div>
+            <Link to={"/edit/"+sheet._id+"#tab1"} className="btn btn-primary">Edit</Link>
+            <button
               onClick={this.onSubmitDeleteSheet(id) } 
               className="btn btn-danger">
               Remove
-          </button>
-          <form onSubmit={this.onSubmitXPtoSheet}>
-            <div className="form-group">
-              <label>XP to Sheet:  </label>
-              <input 
-                type="number" 
-                className="form-control" 
-                name={id}
-                value={this.state.xptosheet}
-                onChange={this.onChangeXPtoSheet}
-                />
+            </button>
+            <form onSubmit={this.onSubmitXPtoSheet}>
+              <div className="form-group">
+                <input type="submit" 
+                  style={{float: 'right'}}
+                  value="Add XP to Sheet"
+                  className="btn btn-primary"/>
+              </div>
+              <div className="form-group">
+                <label>XP to Sheet:  </label>
+                <input 
+                  type="number" 
+                  className="form-control" 
+                  name={id}
+                  value={this.state.xptosheet}
+                  onChange={this.onChangeXPtoSheet}
+                  />
+              </div>
+            </form>
             </div>
-            <div className="form-group">
-              <input type="submit" 
-                style={{float: 'right'}}
-                value="Add XP to Sheet"
-                className="btn btn-primary"/>
-            </div>
-          </form>
+          }
+          
         </div>
       );
     }else{
@@ -744,76 +775,66 @@ export default class AddCampaign extends Component {
             <div className="bufferDiv"></div>
 
 
+            {this.state.isGM && 
+            <div>
+              <form onSubmit={this.onSubmitNewPlayerEmail} className="playerObjs">
+                <h2>Add new player by Email:</h2>
+                <p> Enter players email and they will be added to this campaign upon submission. </p>
+                <div className="form-group">
+                  <input type="submit" 
+                    style={{float: 'right'}}
+                    value="Add New Player"
+                    className="btn btn-primary"/>
+                </div>
+                <div className="form-group">
+                  <label>New Player Email:  </label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    value={this.state.newplayeremail}
+                    onChange={this.onChangeNewPlayerEmail}
+                    />
+                </div>
+              </form>
 
-            <form onSubmit={this.onSubmitNewPlayerEmail}>
 
-            <h2>Add new player by Email:</h2>
-            <p> Text descibing the page. </p>
 
-            <div className="form-group">
-              <label>New Player Email:  </label>
-              <input 
-                type="text" 
-                className="form-control" 
-                value={this.state.newplayeremail}
-                onChange={this.onChangeNewPlayerEmail}
+              <form onSubmit={this.onSubmitNewGMEmail} className="playerObjs">
+                <h2>Add new GM by Email:</h2>
+                <p> Enter GM's email and they will be added to this campaign as a GM upon submission. </p>
+                <div className="form-group">
+                  <input type="submit" 
+                    style={{float: 'right'}}
+                    value="Add New GM"
+                    className="btn btn-primary"/>
+                </div>
+                <div className="form-group">
+                  <label>New GM Email:  </label>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    value={this.state.newgmemail}
+                    onChange={this.onChangeNewGMEmail}
+                    />
+                </div>
+              </form>
+              <div className="playerObjs">
+                <h2> Add Player's sheet to this Campaign: </h2>
+                <p> Select a char sheet from on of the campaigns players, and the sheet will be added upon submit. </p>
+                <Select options={this.loadSelectArraySheets()} 
+                  onChange={this.onChangeAddSheet} 
+                  placeholder="Pick Sheet to Add.."
                 />
+                <div className="form-group">
+                <input type="submit" 
+                  style={{float: 'right'}}
+                  value="Add Sheet"
+                  className="btn btn-primary"
+                  onClick={this.onSubmitAddSheet}/>
+                </div>
+              </div>
             </div>
-
-            <div className="form-group">
-              <input type="submit" 
-                style={{float: 'right'}}
-                value="Add New Player"
-                className="btn btn-primary"/>
-            </div>
-            </form>
-
-
-
-            <form onSubmit={this.onSubmitNewGMEmail}>
-
-            <h2>Add new GM by Email:</h2>
-            <p> Text descibing the page. </p>
-
-            <div className="form-group">
-              <label>New GM Email:  </label>
-              <input 
-                type="text" 
-                className="form-control" 
-                value={this.state.newgmemail}
-                onChange={this.onChangeNewGMEmail}
-                />
-            </div>
-
-            <div className="form-group">
-              <input type="submit" 
-                style={{float: 'right'}}
-                value="Add New GM"
-                className="btn btn-primary"/>
-            </div>
-
-
-
-
-
-            <div className="bufferDiv"></div>
-            <h2> Add Player's sheet to this Campaign: </h2>
-            <p> Text descibing the page. </p>
-            <Select options={this.loadSelectArraySheets()} 
-              onChange={this.onChangeAddSheet} 
-              placeholder="Pick Sheet to Add.."
-            />
-
-            <div className="form-group">
-            <input type="submit" 
-              value="Add Sheet"
-              className="btn btn-primary"
-              onClick={this.onSubmitAddSheet}/>
-            </div>
-                    
-
-                
-            </form>
+            }
 
           </div>} 
 

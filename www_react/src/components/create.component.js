@@ -1527,6 +1527,7 @@ export default class Create extends Component {
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab2">Aspects</a></h2>
             <p> Use 5|4|3 rule in the coda to select your Aspects.</p>
+            <p> Click the stats name for a description! </p>
             { navigator.userAgent.match(/(iPhone|iPod|iPad)/)
               ? <p> Drag dots left or right to set </p>
               : <p> Click or drag dots left or right to set </p>
@@ -1564,16 +1565,23 @@ export default class Create extends Component {
           <section id="tab3"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab3">Aptitudes</a></h2>
+            <p> Click the stats name for a description! </p>
             
-            { this.state.aptitude_total > 0 &&
+            { this.checkIfComponent("Edit")  && 
+              <p> Aptitudes cost 3x desired dot to increase. </p> 
+            }
+              
+            { this.checkIfComponent("Create") && this.state.aptitude_total > 0 &&
               <p> You get {this.state.aptitude_total} points to spend here, on top of the items already at +1. </p>
             }
-            { this.state.aptitude_total == 0 &&
+            { this.checkIfComponent("Create") && this.state.aptitude_total == 0 &&
               <p> You have spent all {this.state.aptitude_total} points, any additional aptitudes cost 3 XP per dot. </p>
             }
-            { this.state.aptitude_total < 0 &&
+            { this.checkIfComponent("Create") && this.state.aptitude_total < 0 &&
               <p> You have {20 - this.state.aptitude_total} total aptitudes selected. You have spent {-3 * this.state.aptitude_total} XP so far. </p>
-            }        
+            } 
+            
+                   
 
                     <div className="aptitude">
                       <h3 align="center">Combat Aptitudes:</h3>
@@ -1672,7 +1680,7 @@ export default class Create extends Component {
           <section id="tab5"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab5">Specialties</a></h2>
-            <p>The feature is Coming SOON(tm)!</p>
+            <p>Select an Aspect and Aptitude for your specialty. You'll gain +1 anytime you roll those stats.  Specialties cost 4 XP, and cannot be taken twice.</p>
 
 
           { this.codaDisplayAndSelect("specialty", 
@@ -1695,7 +1703,7 @@ export default class Create extends Component {
             style={{height: this.state.extrasOverflow+"em"}}>
  
             <h2><a href="#tab6">Finishing Touches</a></h2>
-            <p> Right now this is a big empty text box with only 10 lines. The full feature is Coming SOON(tm)!</p>
+            <p> Any additional notes for your character can be added here: </p>
 
             
               
@@ -1758,7 +1766,7 @@ export default class Create extends Component {
           <section id="tab7"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab7">Quirks & Flaws</a></h2>
-            <p>The feature is Coming SOON(tm)!</p>
+            <p>Quirks add unique extras to your character.  You may add any of them to read their description, and remove them if you do not like them.  Their Cost is an XP. </p>
 
             { this.codaDisplayAndSelect("quirk", 
                     "tabRow", 
@@ -1767,6 +1775,7 @@ export default class Create extends Component {
                     this.state.quirkTotalCost, 
                     this.onQuirkSubmit) }
 
+            <p>Flaws add unique extras to your character, and their cost add to your XP!  You may add any of them to read their description, and remove them if you do not like them.  </p>
 
               { this.codaDisplayAndSelect("flaws", 
                     "tabFlawsRow", 
@@ -1798,7 +1807,7 @@ export default class Create extends Component {
           <section id="tab8"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab8">Magicka</a></h2>
-            <p>The feature is Coming SOON(tm)!</p>
+            <p> Each Magicka is an ability your character has, and cost one Astrylose to activate.  You may add any of them to read their description, and remove them if you do not like them. </p>
 
             { this.codaDisplayAndSelect("magicka", 
                     "tabMagickaRow", 
@@ -1821,7 +1830,8 @@ export default class Create extends Component {
           <section id="tab9"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab9">Weapons</a></h2>
-            <p>The feature is Coming SOON(tm)!</p>
+            <p> Each Weapon represents an item so superior and majestic that it adds dice to your rolls. Adding mundane weapons can be done in Finishing Touches.  You may add any of them to read their description, and remove them if you do not like them. </p>
+            
 
             { this.codaDisplayAndSelect("weapon", 
                     "tabWeaponRow", 
@@ -1844,7 +1854,7 @@ export default class Create extends Component {
           <section id="tab10"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab10">Armor</a></h2>
-            <p>The feature is Coming SOON(tm)!</p>
+            <p> Each Armor represents an item so superior and majestic that it removes dice from your enemies rolls. Adding mundane armor/clothing can be done in Finishing Touches.  You may add any of them to read their description, and remove them if you do not like them. </p>
 
             { this.codaDisplayAndSelect("armor", 
                     "tabArmorRow", 
@@ -1867,7 +1877,7 @@ export default class Create extends Component {
           <section id="tab11"
             style={{height: this.state.extrasOverflow+"em"}}>
             <h2><a href="#tab11">Horses</a></h2>
-            <p>The feature is Coming SOON(tm)!</p>
+            <p> These are not used often, but contain the stats for Horses and other vehicles.  You may add any of them to read their description, and remove them if you do not like them. </p>
 
             
               { this.codaDisplayAndSelect("horse", 

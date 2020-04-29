@@ -513,19 +513,27 @@ p.tabnav a
 }
 
 
-.playerObjs {
+.playerObjs, .sheetObjs {
   border: 2px solid #bbb;
   border-radius: 0.5em;
-  padding: 0.8em;
-  margin: 0.7em 0.1em;
+  padding: 0.8em 0.8em 1.8em 0.8em;
+  margin: 1.7em 0.1em;
 }
-.sheetObjs {
-  border: 2px solid #bbb;
-  border-radius: 0.5em;
-  padding: 0.8em;
-  margin: 0.7em 0.1em;
-}
+/*.sheetObjs {
 
+}*/
+/*
+padding: 25px 50px 75px 100px;
+top padding is 25px
+right padding is 50px
+bottom padding is 75px
+left padding is 100px
+*/
+/*
+padding: 25px 50px;
+top and bottom paddings are 25px
+right and left paddings are 50px
+*/
 
 
 .codaDisplayAndSelect {
