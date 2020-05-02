@@ -536,7 +536,7 @@ right and left paddings are 50px
 */
 
 
-.codaDisplayAndSelect {
+.codaDisplayAndSelect , .magickaItemDiv {
   border: 2px solid #bbb;
   border-radius: 0.5em;
   padding: 0.8em;
@@ -589,3 +589,6 @@ h3.warning {
   padding: 0.5em;
   margin: 0.6em -0.2em;
 }
+
+
+

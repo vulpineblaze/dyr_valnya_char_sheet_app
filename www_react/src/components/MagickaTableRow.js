@@ -63,7 +63,9 @@ class MagickaTableRow extends Component {
             {this.props.obj.name}
           </td>
           <td>
-            {this.props.obj.cost}
+            {this.props.mag 
+              ? this.props.obj.cost + " * " + this.props.mag 
+              : this.props.obj.cost}
           </td>
           <td>
             <button onClick={this.delete} className="btn btn-danger">Delete</button>

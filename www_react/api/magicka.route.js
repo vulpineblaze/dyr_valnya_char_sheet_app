@@ -10,7 +10,7 @@ magickaRoutes.route('/add').post(function (req, res) {
   let magicka = new Magicka(req.body);
   magicka.save()
     .then(magicka => {
-      res.status(200).json({'magicka': 'magicka in added successfully'});
+      res.status(200).json({'magicka': 'magicka in added successfully for sheet: '+magicka.sheet});
     })
     .catch(err => {
     res.status(400).send("unable to save to database");
@@ -81,5 +81,23 @@ magickaRoutes.route('/delete/:id').get(function (req, res) {
         else res.json('Successfully removed');
     });
 });
+
+
+magickaRoutes.route('/getmagickas').post(function (req, res) {
+  console.log("in magicka getmagickas");
+  // let magicka = new Sheet(req.body);
+  const ownerArray = req.body;
+  const ownerQuery = { sheet: { $in: ownerArray } };
+  Magicka.find(ownerQuery, function(err, magickaResult){
+    if(err){console.log(err);}
+    else {
+      // console.log("emails:",emailArray,"| found:",magickaResult);
+      res.json(magickaResult);
+    }
+  });
+});
+
+
+
 
 module.exports = magickaRoutes;

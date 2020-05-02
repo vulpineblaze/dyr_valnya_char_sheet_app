@@ -100,7 +100,9 @@ const initialState = {
   hasMagicka: [],
   weapon: '',
   weaponTotalCost: "",
+  weaponChildrenCost: "",
   hasWeapon: [],
+  hasWeaponChildren: [],
   armor: '',
   armorTotalCost: "",
   hasArmor: [],
@@ -212,12 +214,32 @@ export default class Create extends Component {
     this.displayUpdateSubmitButton = this.displayUpdateSubmitButton.bind(this);
     this.arrayToSelectOptions = this.arrayToSelectOptions.bind(this);
 
+    this.compare = this.compare.bind(this);
+    this.compareInverted = this.compareInverted.bind(this);
+
 
     this.state = initialState;
     Object.assign(this.state, {
       whichComponent: ''
     });
 
+  }
+
+  compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const bandA = a.cost;
+    const bandB = b.cost;
+
+    let comparison = 0;
+    if (bandA > bandB) {comparison = 1;} 
+    else if (bandA < bandB) {comparison = -1;}
+    return comparison;
+  }
+  compareInverted(a, b) {
+    let comparison = 0;
+    if (a.cost > b.cost) {comparison = -1;} 
+    else if (a.cost < b.cost) {comparison = 1;}
+    return comparison;
   }
 
   checkComponent(){
@@ -286,6 +308,7 @@ export default class Create extends Component {
     showXP -= Math.max(-15, this.state.flawsTotalCost);
     showXP -= this.state.magickaTotalCost;
     showXP -= this.state.weaponTotalCost;
+    showXP -= this.state.weaponChildrenCost;
     showXP -= this.state.armorTotalCost;
     showXP -= this.state.horseTotalCost;
     showXP -= this.state.specialtyTotalCost;
@@ -1084,12 +1107,58 @@ export default class Create extends Component {
     }
 
   tabWeaponRow(){
+    const scopedThis = this;
+    const extra = "weapon";
     const theSheet = this.state.id;
     const theQS = this.weaponSetter;
-      return this.state.hasWeapon.map(function(object, i){
-          return <WeaponTableRow obj={object} key={i} index={i} sheet={theSheet} weaponSetter={theQS}/>;
+    const mSA = this.props.magickaSelectArray;
+    const wepArr = this.state.hasWeapon;
+    const mgkArr = this.props.magickaArray;
+    var newArray = [];
+    var hMGK = this.state.hasWeaponChildren;
+    wepArr.forEach(wep => {
+      var str = wep._id.toString();
+      newArray.push(str);
+    });
+    // this.state.hasWeapon;
+    console.log("tabWeaponRow hMGK: ", hMGK);
+
+    if(wepArr.length > 0){
+      if(this.state.hasWeaponChildren.length < 1){
+        axios.defaults.baseURL = '';
+        axios.post('/magicka/getmagickas', newArray, { baseUrl: "" })
+          .then(res => {
+            console.log("Found magicka:",res);
+            console.log("getting magickas for weapons:", newArray,wepArr, res);
+            var inbound = [];
+            if(res && res.data && res.data.length > 0){
+              inbound = res.data;
+              console.log("tabWeaponRow inbound: ", inbound);
+              var tally = 0, mag = 1;
+              inbound.sort(this.compare);
+              inbound.forEach(mgk => {
+                tally += parseInt(mgk.cost) * mag;
+                mag += 1;
+              });
+              this.setState({
+                hasWeaponChildren: inbound,
+                weaponChildrenCost: tally
+              }, () => {
+                hMGK = this.state.hasWeaponChildren;
+              });
+            }
+          });
+      }
+      return wepArr.map(function(object, i){
+        return <WeaponTableRow obj={object} key={i} index={i} 
+                  sheet={theSheet} weaponSetter={theQS} 
+                  mSA={mSA} hMGK={hMGK} 
+                  magickaArray={mgkArr}/>;
       });
     }
+    
+    
+  }
 
   tabArmorRow(){
     const theSheet = this.state.id;
