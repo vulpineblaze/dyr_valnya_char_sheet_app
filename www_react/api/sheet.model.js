@@ -68,7 +68,10 @@ let Sheet = new Schema({
   thaumatism: {
     type: Number
   },
-  //   NON COMBAT   APTITUDES /////
+  //   NON COMBAT   APTITUDES ///// 
+  arcanaforn: {
+    type: Number
+  },
   athletics: {
     type: Number
   },
