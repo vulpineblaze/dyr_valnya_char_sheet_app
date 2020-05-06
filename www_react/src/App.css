@@ -535,12 +535,38 @@ top and bottom paddings are 25px
 right and left paddings are 50px
 */
 
+/*
+border-style: dotted solid double dashed;
+top border is dotted
+right border is solid
+bottom border is double
+left border is dashed
 
-.codaDisplayAndSelect , .magickaItemDiv {
+border-style: dotted solid;
+top and bottom borders are dotted
+right and left borders are solid
+*/
+.codaDisplayAndSelect {
   border: 2px solid #bbb;
   border-radius: 0.5em;
   padding: 0.8em;
   margin-bottom: 0.5em;
+}
+.magickaItemDiv {
+  border: 2px solid #bbd;
+  border-radius: 1.5em;
+  border-style: hidden;
+  padding: 1.8em;
+  margin: 1.5em;
+}
+.magickaItemDivBorderTop {
+  border-style: solid solid hidden solid;
+}
+.magickaItemDivBorderBottom {
+  border-style: hidden solid solid solid;
+}
+.magickaItemDivBorderSides {
+  border-style: hidden solid;
 }
 
 .browserWarning {

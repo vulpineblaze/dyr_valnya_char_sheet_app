@@ -9,7 +9,8 @@ class MagickaTableRow extends Component {
       this.delete = this.delete.bind(this);
       this.toggleRow = this.toggleRow.bind(this);
       this.state = {
-        showMore: false
+        showMore: false,
+        showMoreText: "More .."
       }
     }
     delete(e) {
@@ -34,25 +35,12 @@ class MagickaTableRow extends Component {
     }
     toggleRow(e){
       e.preventDefault();
-      // console.log("toggleRow", this.props.index);
-      // var i = this.props.index;
-      // var elem = this.refs["longTR_"+i];
-      // var style = elem.style.display;
 
-      // if(style.includes("none")){
-      //   style = "";
-      // }else{
-      //   style = "none";
-      // }
       if(this.state.showMore){
-        this.setState({showMore: false});
+        this.setState({showMore: false, showMoreText: "More .."});
       }else{
-        this.setState({showMore: true});
+        this.setState({showMore: true, showMoreText: ".. less"});
       }
-      
-
-
-      // console.log("toggleRow", elem, this.refs);
     }
   render() {
     return (
@@ -68,17 +56,17 @@ class MagickaTableRow extends Component {
               : this.props.obj.cost}
           </td>
           <td>
-            <button onClick={this.delete} className="btn btn-danger">Delete</button>
+            <button onClick={this.toggleRow} className="btn">More..</button>
           </td>
           <td>
-            <button onClick={this.toggleRow} className="btn">More..</button>
+            <button onClick={this.delete} className="btn btn-danger">Delete</button>
           </td>
         </tr>
 
         { this.state.showMore &&
         <React.Fragment>
           <tr><th>Description:</th></tr>
-          <tr><td>{this.props.obj.desc}</td></tr>
+          <tr><td colSpan="4">{this.props.obj.desc}</td></tr>
           <tr style={{display: this.props.obj.armor 
                                 || this.props.obj.penalty 
                                 || this.props.obj.damage 
@@ -98,6 +86,7 @@ class MagickaTableRow extends Component {
             <td> {this.props.obj.ap}</td>
 
           </tr>
+          <tr><th colSpan="4"></th></tr>
         </React.Fragment>
         }
             

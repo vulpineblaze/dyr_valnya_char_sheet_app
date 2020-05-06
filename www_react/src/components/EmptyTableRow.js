@@ -43,7 +43,7 @@ class EmptyTableRow extends Component {
   render() {
     return (
       <tr>
-        <td>
+        <td colSpan="3">
           {this.props.obj.empty } 
         </td>
         <td>
