@@ -32,6 +32,7 @@ const emCalc = {
 };
 
 const initialState = {
+  displayOnly: false,
   name: '',
   owner: '',
   id: makeID(),
@@ -60,6 +61,7 @@ const initialState = {
   melee: 0,
   ranged: 0,
   thaumatism: 0,
+  arcanaforn: 0,
   athletics: 0,
   crafts: 0,
   culture: 0,
@@ -69,7 +71,6 @@ const initialState = {
   investigation: 0,
   larceny: 0,
   luck: 1,
-  arcanaforn: 0,
   medicine: 0,
   observation: 1,
   persuasion: 0,
@@ -223,6 +224,16 @@ export default class Create extends Component {
       whichComponent: ''
     });
 
+  }
+
+  toggleDisplayOnly(e){
+    e.preventDefault();
+
+    if(this.state.displayOnly){
+      this.setState({displayOnly: false});
+    }else{
+      this.setState({displayOnly: true});
+    }
   }
 
   compare(a, b) {
@@ -1527,7 +1538,7 @@ export default class Create extends Component {
             
             <form onSubmit={this.onSubmit}>
 
-              <article className="tabs">
+              <article className="tabs" style={{display: this.state.displayOnly ? "none" : ""}}>
 
           <section id="tab1"
             style={{height: this.state.extrasOverflow+"em"}}>
@@ -1965,6 +1976,12 @@ export default class Create extends Component {
 
 
         </article>
+
+
+        <article className="tabs" style={{display: this.state.displayOnly ? "none" : ""}}>
+          <p> it owkr s!!</p>
+        </article>
+
 
 
 
