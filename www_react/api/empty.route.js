@@ -10,7 +10,7 @@ emptyRoutes.route('/add').post(function (req, res) {
   let empty = new Empty(req.body);
   empty.save()
     .then(empty => {
-      res.status(200).json({'empty': 'empty in added successfully'});
+      res.status(200).json({'empty': 'empty in added successfully for sheet: '+empty.sheet});
     })
     .catch(err => {
     res.status(400).send("unable to save to database");
@@ -80,6 +80,21 @@ emptyRoutes.route('/delete/:id').get(function (req, res) {
         if(err) res.json(err);
         else res.json('Successfully removed');
     });
+});
+
+
+emptyRoutes.route('/getemptys').post(function (req, res) {
+  console.log("in empty getemptys");
+  // let empty = new Sheet(req.body);
+  const ownerArray = req.body;
+  const ownerQuery = { sheet: { $in: ownerArray } };
+  Empty.find(ownerQuery, function(err, emptyResult){
+    if(err){console.log(err);}
+    else {
+      // console.log("emails:",emailArray,"| found:",emptyResult);
+      res.json(emptyResult);
+    }
+  });
 });
 
 module.exports = emptyRoutes;

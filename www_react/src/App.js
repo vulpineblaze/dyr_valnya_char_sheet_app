@@ -102,21 +102,17 @@ class App extends Component {
 
   compare(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.cost;
-    const bandB = b.cost;
+    const bandA = parseInt(a.cost);
+    const bandB = parseInt(b.cost);
 
     let comparison = 0;
     if (bandA > bandB) {comparison = 1;} 
     else if (bandA < bandB) {comparison = -1;}
     return comparison;
   }
-
-
   compareInverted(a, b) {
-    // Use toUpperCase() to ignore character casing
-    const bandA = a.cost;
-    const bandB = b.cost;
-
+    const bandA = parseInt(a.cost);
+    const bandB = parseInt(b.cost);
     let comparison = 0;
     if (bandA > bandB) {comparison = -1;} 
     else if (bandA < bandB) {comparison = 1;}

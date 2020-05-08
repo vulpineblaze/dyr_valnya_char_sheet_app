@@ -103,7 +103,8 @@ const initialState = {
   weaponTotalCost: "",
   weaponChildrenCost: "",
   hasWeapon: [],
-  hasWeaponChildren: [],
+  hasWeaponMGKChildren: [],
+  hasWeaponMTChildren: [],
   armor: '',
   armorTotalCost: "",
   hasArmor: [],
@@ -238,8 +239,8 @@ export default class Create extends Component {
 
   compare(a, b) {
     // Use toUpperCase() to ignore character casing
-    const bandA = a.cost;
-    const bandB = b.cost;
+    const bandA = parseInt(a.cost);
+    const bandB = parseInt(b.cost);
 
     let comparison = 0;
     if (bandA > bandB) {comparison = 1;} 
@@ -247,9 +248,11 @@ export default class Create extends Component {
     return comparison;
   }
   compareInverted(a, b) {
+    const bandA = parseInt(a.cost);
+    const bandB = parseInt(b.cost);
     let comparison = 0;
-    if (a.cost > b.cost) {comparison = -1;} 
-    else if (a.cost < b.cost) {comparison = 1;}
+    if (bandA > bandB) {comparison = -1;} 
+    else if (bandA < bandB) {comparison = 1;}
     return comparison;
   }
 
@@ -1126,7 +1129,8 @@ export default class Create extends Component {
     const wepArr = this.state.hasWeapon;
     const mgkArr = this.props.magickaArray;
     var newArray = [];
-    var hMGK = this.state.hasWeaponChildren;
+    var hMGK = this.state.hasWeaponMGKChildren;
+    var hMT = this.state.hasWeaponMTChildren;
     wepArr.forEach(wep => {
       var str = wep._id.toString();
       newArray.push(str);
@@ -1135,7 +1139,7 @@ export default class Create extends Component {
     console.log("tabWeaponRow hMGK: ", hMGK);
 
     if(wepArr.length > 0){
-      if(this.state.hasWeaponChildren.length < 1){
+      if(this.state.hasWeaponMGKChildren.length < 1){
         axios.defaults.baseURL = '';
         axios.post('/magicka/getmagickas', newArray, { baseUrl: "" })
           .then(res => {
@@ -1144,7 +1148,7 @@ export default class Create extends Component {
             var inbound = [];
             if(res && res.data && res.data.length > 0){
               inbound = res.data;
-              console.log("tabWeaponRow inbound: ", inbound);
+              console.log("tabWeaponRow hMGK inbound: ", inbound);
               var tally = 0, mag = 1;
               inbound.sort(this.compare);
               inbound.forEach(mgk => {
@@ -1152,10 +1156,28 @@ export default class Create extends Component {
                 mag += 1;
               });
               this.setState({
-                hasWeaponChildren: inbound,
+                hasWeaponMGKChildren: inbound,
                 weaponChildrenCost: tally
               }, () => {
-                hMGK = this.state.hasWeaponChildren;
+                hMGK = this.state.hasWeaponMGKChildren;
+              });
+            }
+          });
+      }
+      if(this.state.hasWeaponMTChildren.length < 1){
+        axios.defaults.baseURL = '';
+        axios.post('/empty/getemptys', newArray, { baseUrl: "" })
+          .then(res => {
+            console.log("Found emptys for weapons:", newArray,wepArr, res);
+            var inbound = [];
+            if(res && res.data && res.data.length > 0){
+              inbound = res.data;
+              console.log("tabWeaponRow hMT inbound: ", inbound);
+              inbound.sort(this.compare);
+              this.setState({
+                hasWeaponMTChildren: inbound
+              }, () => {
+                hMT = this.state.hasWeaponMTChildren;
               });
             }
           });
@@ -1163,7 +1185,7 @@ export default class Create extends Component {
       return wepArr.map(function(object, i){
         return <WeaponTableRow obj={object} key={i} index={i} 
                   sheet={theSheet} weaponSetter={theQS} 
-                  mSA={mSA} hMGK={hMGK} 
+                  mSA={mSA} hMGK={hMGK} hMT={hMT} 
                   magickaArray={mgkArr}/>;
       });
     }
