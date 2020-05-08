@@ -688,6 +688,27 @@ class App extends Component {
                       horseSelectArray={this.state.horseSelectArray} 
                     />}
               />
+              <Route
+                exact path='/displayonly/:id'
+                render={(props) => 
+                    <Create {...props} 
+                      user={this.state.user} 
+                      player={this.state.player} 
+                      quirkArray={this.state.quirkArray} 
+                      quirkSelectArray={this.state.quirkSelectArray} 
+                      flawsArray={this.state.flawsArray} 
+                      flawsSelectArray={this.state.flawsSelectArray} 
+                      magickaArray={this.state.magickaArray} 
+                      magickaSelectArray={this.state.magickaSelectArray} 
+                      weaponArray={this.state.weaponArray} 
+                      weaponSelectArray={this.state.weaponSelectArray} 
+                      armorArray={this.state.armorArray} 
+                      armorSelectArray={this.state.armorSelectArray} 
+                      horseArray={this.state.horseArray} 
+                      horseSelectArray={this.state.horseSelectArray} 
+                      displayOnly={true}
+                    />}
+              />
               <Route 
                 exact path='/index' 
                 render={(props) => 

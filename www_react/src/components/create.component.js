@@ -33,6 +33,8 @@ const emCalc = {
 
 const initialState = {
   displayOnly: false,
+  displayOnlyText: "Display Only",
+  displayOnlyBtn: true,
   name: '',
   owner: '',
   id: makeID(),
@@ -150,6 +152,7 @@ export default class Create extends Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+    this.toggleDisplayOnly = this.toggleDisplayOnly.bind(this);
     this.clearState = this.clearState.bind(this);
     this.checkComponent = this.checkComponent.bind(this);
     this.checkIfComponent = this.checkIfComponent.bind(this);
@@ -219,6 +222,10 @@ export default class Create extends Component {
     this.compare = this.compare.bind(this);
     this.compareInverted = this.compareInverted.bind(this);
 
+    this.displayOneStat = this.displayOneStat.bind(this);
+    this.displayOnlyAspects = this.displayOnlyAspects.bind(this);
+    this.displayOnlyAptitudes = this.displayOnlyAptitudes.bind(this);
+    this.displayOnlyExtras = this.displayOnlyExtras.bind(this);
 
     this.state = initialState;
     Object.assign(this.state, {
@@ -231,9 +238,9 @@ export default class Create extends Component {
     e.preventDefault();
 
     if(this.state.displayOnly){
-      this.setState({displayOnly: false});
+      this.setState({displayOnly: false, displayOnlyText: "Display Only"});
     }else{
-      this.setState({displayOnly: true});
+      this.setState({displayOnly: true, displayOnlyText: "Editable Sheet"});
     }
   }
 
@@ -1027,6 +1034,20 @@ export default class Create extends Component {
 
     // console.log("check if quirkSelectArray made it",this.props.quirkSelectArray);
   }
+  componentDidUpdate(prevProps, prevState) {
+
+    // console.log("state n prop", this.state.player, this.props.player);
+    if(this.state.displayOnlyBtn){
+      if(this.props.displayOnly){
+        this.setState({
+          displayOnlyBtn: false,
+          displayOnly: true
+        }, () => {
+          // console.log("found if GM:", this.state.isGM, email);
+        });  
+      }
+    }
+  }
 
   undoClearAndRefresh(){
     this.setState(initialState, () => {
@@ -1399,9 +1420,12 @@ export default class Create extends Component {
     if (e.currentTarget && e.currentTarget.dataset && e.currentTarget.dataset.trgt) {
       var elem = this.refs[e.currentTarget.dataset.trgt];
       if(elem.className.includes("hideStat")){
-        elem.className = "statDesc";
+        // elem.className = elem.className.replace(/\bhideStat\b/g, "");
+        elem.classList.remove("hideStat");
       }else{
-        elem.className = "hideStat";
+        // elem.className = "hideStat";
+        elem.classList.add('hideStat');
+
       }
       // console.log("toggleStatDescHidden elem:",elem.className,elem);
       // className 
@@ -1424,7 +1448,7 @@ export default class Create extends Component {
     return (
       <div className="form-group" key={title}>
           <label onClick={this.toggleStatDescHidden} data-trgt={stat+"Hidden"}>{title}: {val}</label>
-          <div id={stat+"Hidden"} ref={stat+"Hidden"} className="hideStat">
+          <div id={stat+"Hidden"} ref={stat+"Hidden"} className="hideStat statDesc">
             <p>{statObj.desc}</p>
           </div>
           <input type="range" 
@@ -1525,7 +1549,171 @@ export default class Create extends Component {
     
   }
 
+  displayOneStat(stat, isAspect=false, blank=false, dotLen=5){
+    if(blank){
+      return (<p>
+        <div className="titles">{"\t\t\t"}</div>
+        <div className="dots">{"\t\t\t"}</div>
+      </p>
+      );
+    }
+    var title = stat.charAt(0).toUpperCase() + stat.substring(1) +": ";
+    const dotFull="⚫";
+    const dotMT="⚪";
+    var padding = 18 - dotLen;
+    // if(isAspect){padding += 7}
+    var i=0;
+    var outStr="";
+    for(i=0;i<dotLen;i++){
+      if(i<this.state[stat]){
+        outStr += dotFull;
+      }else{
+        outStr += dotMT;
+      }
+    }
+    if(isAspect){outStr += "\t\t"}
+    for(i=title.length;i<padding;i++){
+      title += " ";
+    }
+    return (<p>
+        <div className="titles">{title}</div>
+        <div className="dots">{outStr}</div>
+      </p>
+      );
+  }
 
+  displayOnlyAspects(){
+    var scopedThis = this;
+
+    var physicalCol = physicalAspects.map(function(aspect) {
+      return  scopedThis.displayOneStat(aspect, true) ;
+    });
+
+    var mentalCol = mentalAspects.map(function(aspect) {
+      return  scopedThis.displayOneStat(aspect, true) ;
+    });
+
+    var socialCol = socialAspects.map(function(aspect) {
+      return  scopedThis.displayOneStat(aspect, true) ;
+    });
+    
+    return (
+      <div className="aspectDisplay">
+        <div className="triCol">
+          {physicalCol}
+        </div>
+        <div className="triCol">
+          {mentalCol}
+        </div>
+        <div className="triCol">
+          {socialCol}
+        </div>
+      </div>
+    );
+  }
+
+
+  displayOnlyAptitudes(){
+    var rows = nonCombatAptitudes.length / 4;
+    var remainder = nonCombatAptitudes % 4;
+    if(remainder){rows += 1;}
+    var outArray = [[],[],[],[]];
+
+    var i=0;
+    for(i=0;i<combatAptitudes.length;i++){
+      outArray[i].push(this.displayOneStat(combatAptitudes[i]));
+      outArray[i].push(this.displayOneStat(null,null,true));
+    }
+    var j=0,rowCnt=0;
+    for(i=0;i<nonCombatAptitudes.length;i++){
+      if(rowCnt >= rows){
+        rowCnt = 0;
+        j += 1;
+      }
+      rowCnt += 1;
+      outArray[j].push(this.displayOneStat(nonCombatAptitudes[i]));
+    }
+
+    
+    return (
+      <div className="aptitudeDisplay">
+        <div className="quadCol">
+          {outArray[0]}
+        </div>
+        <div className="quadCol">
+          {outArray[1]}
+        </div>
+        <div className="quadCol">
+          {outArray[2]}
+        </div>
+        <div className="quadCol">
+          {outArray[3]}
+        </div>
+      </div>
+    );
+  }
+
+
+  displayOnlyExtras(){
+
+    const scopedThis = this;
+
+    var displayExtras = [];
+
+
+    var displayExtras = extrasList.map(function(extra) {
+      const title = extra.charAt(0).toUpperCase() + extra.substring(1);
+
+      if(scopedThis.state["has"+title] && scopedThis.state["has"+title].length > 0){
+        return scopedThis.state["has"+title].map(function(has) {
+          // var hasTitle = has.name.charAt(0).toUpperCase() + has.name.substring(1);
+          const myRef = has._id;
+          console.log("displayOnlyExtras has:", has);
+          var hasTitle = "("+title+") ";
+          var hasCost = "";
+          var hasStr = "";
+          if(has.name){hasTitle += has.name.charAt(0).toUpperCase() + has.name.substring(1)}
+          if(has.specialty){hasTitle += has.specialty}
+          if(has.empty){hasTitle += has.empty}
+          if(has.cost){hasCost += "Cost: "+has.cost}
+
+          var keys = Object.keys(has);
+
+          for (var i = 0; i < keys.length; i++) {
+            var key = keys[i];
+            var val = has[key];
+            if(key.includes("name")
+              || key.includes("cost")
+              || key.includes("specialty")
+              || key.includes("empty")
+              || key.includes("_id")
+              || key.includes("_v")
+              || key.includes("sheet")){
+
+            }else if(val && val.toString().length > 0 && val.toString() != "0"){
+              var capKey = key.charAt(0).toUpperCase() + key.substring(1);
+              if(hasStr.length > 0){
+                hasStr += " | ";
+              }
+              hasStr += capKey+": "+val;
+            }else{
+
+            }
+          }
+
+
+          return (
+            <div className="halfCol"  onClick={ hasStr ? scopedThis.toggleStatDescHidden : ""} data-trgt={myRef+"Hidden"}>
+              <div className="titles">{hasTitle}</div>
+              <div className="dots">{hasCost}</div>
+              { hasStr && <div id={myRef+"Hidden"} ref={myRef+"Hidden"} className="fullCol hideStat">{hasStr}</div> }
+            </div>
+          );
+        });
+      }
+    });
+    return <div className="aptitudeDisplay">{displayExtras}</div>
+  }
 
 
 
@@ -1548,6 +1736,16 @@ export default class Create extends Component {
                   ? <div>
                       <h3 style={{display: 'inline-block'}}>Remaining XP: {this.showXP()}</h3>
                       <button style={{float: 'right'}} onClick={this.undoClearAndRefresh} className="btn btn-danger">Undo Changes</button>
+                      <button 
+                        style={{float: 'right', 
+                                backgroundColor: '#9400D3', 
+                                margin: '0 0.5em',
+                                display: this.state.displayOnlyBtn ? "" : "none"
+                              }} 
+                        onClick={this.toggleDisplayOnly} 
+                        className="btn btn-primary">
+                          {this.state.displayOnlyText}
+                      </button>
                       { this.state.xpFromCampaignObjs.length > 1 &&
                         <Select options={this.state.xpFromCampaignObjs} 
                           onChange={this.onChangeXPFromCampaign} 
@@ -2000,8 +2198,62 @@ export default class Create extends Component {
         </article>
 
 
-        <article className="tabs" style={{display: this.state.displayOnly ? "none" : ""}}>
-          <p> it owkr s!!</p>
+        <article className="tabs" style={{display: this.state.displayOnly ? "" : "none"}}>
+          <section id="only"
+            style={{height: this.state.extrasOverflow+"em"}}>
+            <h2><a href="#only">Char Sheet</a></h2>
+            
+
+
+
+            <div className="aspectDisplay">
+              <div className="triCol">
+                <div className="flavorText">Name:  {this.state.name}</div>
+                <div className="flavorText">Concept:  {this.state.concept}</div>
+              </div>
+              <div className="triCol">
+                <div className="flavorText">Virtue:  {this.state.virtue}</div>
+                <div className="flavorText">Vice:  {this.state.vice}</div>
+              </div>
+              <div className="triCol">
+                <div className="flavorText">Racial:  {this.state.racial}</div>
+                <div className="flavorText">Description:  {this.state.description}</div>
+              </div>
+            </div>
+
+            {this.displayOnlyAspects()}
+            {this.displayOnlyAptitudes()}
+
+            <div className="aspectDisplay">
+              <div className="triCol">
+                <div className="flavorText">{this.displayOneStat("astrylose", false,false,10)}</div>
+              </div>
+              <div className="triCol">
+                <div className="flavorText">{this.displayOneStat("willpower", false,false,10)}</div>
+              </div>
+              <div className="triCol">
+                <div className="flavorText">{this.displayOneStat("vitality", false,false,10)}</div>
+              </div>
+            </div>
+            <div className="aspectDisplay">
+              <div className="quadCol">
+                <div className="flavorText">Size:  {this.state.size}</div>
+              </div>
+              <div className="quadCol">
+                <div className="flavorText">Speed:  {this.state.speed}</div>
+              </div>
+              <div className="quadCol">
+                <div className="flavorText">Initiative:  {this.state.initiative}</div>
+              </div>
+              <div className="quadCol">
+                <div className="flavorText">Defense:  {this.state.defense}</div>
+              </div>
+            </div>
+
+
+            {this.displayOnlyExtras()}
+
+          </section>
         </article>
 
 
@@ -2014,3 +2266,49 @@ export default class Create extends Component {
     )
   }
 }
+
+
+
+
+
+
+
+
+// var item = flawsList[i].values;
+// obj.name = item["c-s9xzG7woXK"];
+// obj.cost = item["c-rFFIm2sGh9"];
+// obj.desc  = item["c-Lp7cyXFEDW"];
+// obj.prereq  = item["c-zbVXoKQktq"];
+// obj.benefit   = item["c-KocWBPt7SG"];
+// obj.aspects  = item["c-LyCRQn9XSj"];
+// obj.aptitudes  = item["c-dxrVGg7kLf"];
+
+// var item = magickaList[i].values;
+// obj.name = item["c-bsCHCx6q7b"];
+// obj.cost = item["c-YStkFeoYgX"];
+// obj.desc  = item["c-u_jw1APr1I"];
+// obj.armor  = item["c-SS0-M0yvoI"];
+// obj.penalty   = item["c-XDRsAOtXw9"];
+// obj.damage  = item["c-gzvQuEUPue"];
+// obj.ap  = item["c-9IAWNBUFF4"];
+
+// var item = weaponList[i].values;
+// obj.name = item["c-rd7vNFnaVQ"];
+// obj.cost = item["c-yk8_qzh54S"];
+// obj.damage  = item["c-0SJozHmPQm"];
+// obj.ap  = item["c-vrIDidjHSN"];
+// obj.range  = item["c-YRkro88oLT"];
+
+// var item = armorList[i].values;
+// obj.name = item["c-OqILalMUXQ"];
+// obj.cost = item["c-Bdr6hk0g7E"];
+// obj.armor  = item["c-Jhnu3dJcyy"];
+// obj.penalty  = item["c-6MYC7AUcIX"];
+
+// var item = horseList[i].values;
+// obj.name = item["c-c49Q0Wukcu"];
+// obj.cost = item["c-7iYqKoXArj"];
+// obj.health  = item["c-91yx9u0q5B"];
+// obj.armor  = item["c-JYSLOBbFPT"];
+// obj.size  = item["c-VAVIBMwjdb"];
+// obj.speed  = item["c--iK2sioLsM"];

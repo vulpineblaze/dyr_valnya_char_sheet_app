@@ -242,7 +242,7 @@ article.tabs section
   top: 4em;
   left: 0;
   height: 279em; /* Max app height , 170*/
-  width: 50em;
+  width: 65em;
   padding: 10px 20px;
   background-color: #eee;
   border-radius: 5px;
@@ -617,4 +617,46 @@ h3.warning {
 }
 
 
+.aspectDisplay , .aptitudeDisplay {
+  overflow:hidden;
+  margin:auto;
+}
+.triCol, .quadCol , .halfCol , .fullCol {
+  border: 2px solid #ddd;
+  border-radius: 0.5em;
+  float:left;
+  padding: 0.8em;
+}
+
+.triCol {
+  width:33.3%;
+}
+.quadCol {
+  width:25%;
+}
+.halfCol {
+
+  width:50%;
+}
+.fullCol {
+  width:100%;
+}
+/*.aspectDisplay .triCol:first-child{margin-left:0}*/
+
+.titles {
+  float:left;
+  white-space: pre;
+  text-align: right;
+}
+.dots {
+  float:right;
+  white-space: pre;
+  text-align: left;
+}
+.flavorText {
+  float:left;
+  white-space: pre;
+  text-align: left;
+  width:100%;
+}
 

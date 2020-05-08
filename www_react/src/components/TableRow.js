@@ -29,6 +29,14 @@ class TableRow extends Component {
             {this.props.obj.concept}
           </td>
           <td>
+            <Link to={"/displayonly/"+this.props.obj._id} 
+              className="btn btn-primary"
+              style={{float: 'right', 
+                      backgroundColor: '#9400D3', 
+                      margin: '0 0.5em'
+                    }}>
+              Display Only
+            </Link>
             <Link to={"/edit/"+this.props.obj._id} className="btn btn-primary">Edit</Link>
           </td>
           <td>
