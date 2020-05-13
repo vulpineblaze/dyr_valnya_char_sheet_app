@@ -621,6 +621,10 @@ h3.warning {
   overflow:hidden;
   margin:auto;
 }
+.rangeableDisplay , {
+  overflow:visible;
+  margin:auto;
+}
 .triCol, .quadCol , .halfCol , .fullCol {
   border: 2px solid #ddd;
   border-radius: 0.5em;

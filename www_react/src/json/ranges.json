@@ -1,0 +1,37 @@
+[
+	{
+	  "id":"6",
+	  "name":"Anywhere",
+	  "desc":"Only on here to be through. You basically cant hide from this gun. This gun is probably in orbit. And can shoot into your bunker. RIP"
+	},
+	{
+	  "id":"5",
+	  "name":"Over the horizon",
+	  "desc":"Like missiles and mortars and shit."
+	},
+	{
+	  "id":"4",
+	  "name":"Line of sight",
+	  "desc":"If you can see it, you can shoot it. "
+	},
+	{
+	  "id":"3",
+	  "name":"Long",
+	  "desc":"pssh, like down the street and then some"
+	},
+	{
+	  "id":"2",
+	  "name":"Medium",
+	  "desc":"a couple football fields"
+	},
+	{
+	  "id":"1",
+	  "name":"Short",
+	  "desc":"less than a football field"
+	},
+	{
+	  "id":"0",
+	  "name":"Touch",
+	  "desc":"Has to touch the victim"
+	}
+]

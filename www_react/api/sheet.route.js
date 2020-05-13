@@ -45,8 +45,8 @@ sheetRoutes.route('/edit/:id').get(function (req, res) {
   console.log("in sheet edit");
   let id = req.params.id;
   Sheet.findById(id, function (err, sheet){
-    const email = sheet.owner;
-    const sheetID = sheet.id;
+    const email = sheet.owner || "error";
+    const sheetID = sheet.id || "error";
     // find( { $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] } )
     // var query = { $or: [ { target: email }, { target: sheetID } ] };
     var query = { target: { $in: [email, sheetID]} };

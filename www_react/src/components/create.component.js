@@ -13,6 +13,7 @@ import Select from 'react-select';
 
 import aspectsJSON from '../json/aspects';
 import aptitudesJSON from '../json/aptitudes';
+import rangesJSON from '../json/ranges';
 
 
 const makeID = () => {
@@ -107,6 +108,7 @@ const initialState = {
   hasWeapon: [],
   hasWeaponMGKChildren: [],
   hasWeaponMTChildren: [],
+  weaponRangeSelectArray: [],
   armor: '',
   armorTotalCost: "",
   hasArmor: [],
@@ -130,7 +132,12 @@ const initialState = {
   emptyOverflow: 0,
   xpFromPlayer: 0,
   xpFromCampaign: 0,
-  xpFromCampaignObjs: []
+  xpFromCampaignObjs: [],
+  customWeapon_name: "",
+  customWeapon_cost: 0,
+  customWeapon_damage: 0,
+  customWeapon_ap: 0,
+  customWeapon_range: ""
 };
 
 const physicalAspects = ["strength", "dexterity", "stamina"];
@@ -208,6 +215,9 @@ export default class Create extends Component {
     this.specialtySetter = this.specialtySetter.bind(this);
     this.onSpecialtySubmit = this.onSpecialtySubmit.bind(this);
 
+    this.customStat = this.customStat.bind(this);
+    this.onChangeCustomExtra = this.onChangeCustomExtra.bind(this);
+    this.onSubmitCustomWeapon = this.onSubmitCustomWeapon.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
     this.undoClearAndRefresh = this.undoClearAndRefresh.bind(this);
@@ -221,6 +231,7 @@ export default class Create extends Component {
 
     this.compare = this.compare.bind(this);
     this.compareInverted = this.compareInverted.bind(this);
+    this.compareID = this.compareID.bind(this);
 
     this.displayOneStat = this.displayOneStat.bind(this);
     this.displayOnlyAspects = this.displayOnlyAspects.bind(this);
@@ -260,6 +271,14 @@ export default class Create extends Component {
     let comparison = 0;
     if (bandA > bandB) {comparison = -1;} 
     else if (bandA < bandB) {comparison = 1;}
+    return comparison;
+  }
+  compareID(a, b) {
+    const bandA = parseInt(a.id);
+    const bandB = parseInt(b.id);
+    let comparison = 0;
+    if (bandA > bandB) {comparison = 1;} 
+    else if (bandA < bandB) {comparison = -1;}
     return comparison;
   }
 
@@ -598,6 +617,39 @@ export default class Create extends Component {
       description: e.target.value
     });
   }
+  onChangeCustomExtra(changed, e, type, theStat) {
+    var theVal = "";
+    if(e.value){
+      theVal = e.value;
+    }else if(e.target.value){
+      theVal = e.target.value;
+    }
+    // const theVal = parseInt(e.target.value);
+    const theType = type.charAt(0).toUpperCase() + type.substring(1);
+    const prefix = "custom"+theType+"_";
+    // console.log("onChangeCustomExtra", changed, theVal, type, theStat, prefix);
+    if(changed.includes("range")){theVal = rangesJSON[parseInt(theVal)].name;}
+    this.setState({
+      [prefix+changed]: theVal
+    }, () => {
+      if(type.includes("weapon")){
+        var rangeID = 0;
+        rangesJSON.forEach(item => { 
+          if(this.state[prefix+"range"] &&
+              this.state[prefix+"range"].length > 0 &&
+              item.name.includes(this.state[prefix+"range"])){
+            rangeID=item.id;
+          } 
+        });
+        var dmg = this.state[prefix+"damage"] * 3 + Math.max(0, this.state[prefix+"damage"] - 2);
+        var ap = this.state[prefix+"ap"] * 2 + Math.max(0, this.state[prefix+"damage"] - 2);
+        var range = Math.pow(rangeID, 2);
+        console.log("onChangeCustomExtra cost:", dmg, ap, range, rangeID, this.state[prefix+"range"]);
+        this.setState({[prefix+"cost"]: dmg+ap+range});
+      }
+    });
+  }  
+
   onChangeAspectAndAptitude(changed, e, isAspect=false) {
     const theVal = parseInt(e.target.value);
     console.log("onChangeAspectAndAptitude", changed, e.target.value, theVal, isAspect);
@@ -618,7 +670,7 @@ export default class Create extends Component {
       });
     }
     
-  }  
+  }
 
   onChangeSize(e) {
     this.setState({
@@ -889,6 +941,42 @@ export default class Create extends Component {
 
   }
 
+  onSubmitCustomWeapon(e) {
+    e.preventDefault();
+
+    const prefix = "customWeapon_";
+    const obj = {
+      sheet: this.state.id,
+      name: this.state[prefix+'name'],
+      cost: this.state[prefix+'cost'],
+      damage: this.state[prefix+'damage'],
+      ap: this.state[prefix+'ap'],
+      range: this.state[prefix+'range']
+    };
+    axios.defaults.baseURL = '';
+    axios.post('/weapon/add', obj, { baseUrl: "" })
+        .then(res => console.log("Added weapon:",res.data))
+        .then(res => {
+          console.log("getting weapons for sheet:", this.state.id);
+          axios.get('/weapon/'+this.state.id, { baseUrl: "" })
+            .then(response => {
+              this.weaponSetter(response.data);
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+        });
+    
+    this.setState({
+      [prefix+'name']: '',
+      [prefix+'cost']: 0,
+      [prefix+'damage']: 0,
+      [prefix+'ap']: 0,
+      [prefix+'range']: '',
+    });
+
+  }
+
   onArmorSubmit(e) {
     e.preventDefault();
 
@@ -1031,6 +1119,20 @@ export default class Create extends Component {
     }else{
       console.log("In Create (componentDidMount), no editID found", editID);
     }
+
+    var weaponSelArr = [];
+    // weaponRangeArray
+    rangesJSON.sort(this.compareID);
+    rangesJSON.forEach(item => {
+      var optionString = {label: item.name, value: item.id };
+      weaponSelArr.push(optionString);
+    });
+
+    this.setState({
+        weaponRangeSelectArray: weaponSelArr
+      }, () => {
+        // console.log("this.state."+extra+"SelectArray",scopedThis.state[extra+"SelectArray"]);
+    });  
 
     // console.log("check if quirkSelectArray made it",this.props.quirkSelectArray);
   }
@@ -1461,6 +1563,33 @@ export default class Create extends Component {
     );
   }
 
+  customStat(stat, type) {
+    // console.log("mainStat:", stat, isAspect);
+    const capType = type.charAt(0).toUpperCase() + type.substring(1);
+    const theStat = "custom"+capType+"_"+stat;
+    var title = stat.charAt(0).toUpperCase() + stat.substring(1);
+    var val = this.state[theStat].toString() ;
+    var arr = [];
+
+    return (
+      <div className="form-group" key={capType+title}>
+          <label>{title}: {val}</label>
+          { stat.includes("range") ?
+            <Select options={this.state.weaponRangeSelectArray} 
+                value={this.state.weaponRangeSelectArray[0]}
+                onChange={(e) => this.onChangeCustomExtra(stat, e, type, theStat)}
+            />
+            :
+            <input type="text" 
+            className="form-control"
+            value={val}
+            onChange={(e) => this.onChangeCustomExtra(stat, e, type, theStat)}
+            /> }
+          
+      </div>
+    );
+  }
+
   displayStatArray(typeArray, isAspect=false){
     // console.log("displayStatArray:",typeArray, isAspect);
     var scopedThis = this;
@@ -1655,11 +1784,7 @@ export default class Create extends Component {
 
 
   displayOnlyExtras(){
-
     const scopedThis = this;
-
-    var displayExtras = [];
-
 
     var displayExtras = extrasList.map(function(extra) {
       const title = extra.charAt(0).toUpperCase() + extra.substring(1);
@@ -1668,7 +1793,7 @@ export default class Create extends Component {
         return scopedThis.state["has"+title].map(function(has) {
           // var hasTitle = has.name.charAt(0).toUpperCase() + has.name.substring(1);
           const myRef = has._id;
-          console.log("displayOnlyExtras has:", has);
+          // console.log("displayOnlyExtras has:", has);
           var hasTitle = "("+title+") ";
           var hasCost = "";
           var hasStr = "";
@@ -2139,7 +2264,20 @@ export default class Create extends Component {
                     this.onChangeWeapon, 
                     this.state.weaponTotalCost, 
                     this.onWeaponSubmit) }
-          
+
+            <div className="rangeableDisplay">
+              <h3>Build a Custom Weapon</h3>
+              <div className="fullCol">
+                <button style={{float: 'right'}} onClick={this.onSubmitCustomWeapon} className="btn btn-primary">
+                  Cost ({this.state.customWeapon_cost}) : Build It!
+                </button>
+                { this.customStat("name", "weapon") }
+              </div>
+              <div className="triCol">{ this.customStat("damage", "weapon") }</div>
+              <div className="triCol">{ this.customStat("ap", "weapon") }</div>
+              <div className="triCol">{ this.customStat("range", "weapon") }</div>
+            </div>
+
 
             <p className="tabnav"><a href="#tab10">next &#10151;</a></p>
                     {this.displayUpdateSubmitButton()}

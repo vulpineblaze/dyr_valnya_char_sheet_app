@@ -10,7 +10,7 @@ let Sheet = new Schema({
     type: String
   },
   owner: {
-    type: String
+    type: String, default: "error"
   },
   concept: {
     type: String
