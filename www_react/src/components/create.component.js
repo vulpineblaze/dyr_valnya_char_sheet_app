@@ -511,7 +511,7 @@ export default class Create extends Component {
         [changed]: parseInt(val),
         available_xp: parseInt(cost) + parseInt(this.state.available_xp)
       }, () => {
-        // console.log("updated changed state", cost, this.state.available_xp, preVal, val);
+        console.log("updated changed state", cost, this.state.available_xp, preVal, val);
         if(isAspect){
           this.checkCompositeStats(changed, val);
         }

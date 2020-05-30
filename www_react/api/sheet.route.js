@@ -92,6 +92,11 @@ sheetRoutes.route('/update/:id').post(function (req, res) {
         sheet.presence = req.body.presence;
         sheet.manipulation = req.body.manipulation;
         sheet.composure = req.body.composure;
+        sheet.fisticuffs = req.body.fisticuffs;
+        sheet.melee = req.body.melee;
+        sheet.ranged = req.body.ranged;
+        sheet.thaumatism = req.body.thaumatism;
+        sheet.arcanaforn = req.body.arcanaforn;
         sheet.athletics = req.body.athletics;
         sheet.crafts = req.body.crafts;
         sheet.culture = req.body.culture;

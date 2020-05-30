@@ -566,6 +566,7 @@ class App extends Component {
           />
           
         </div>
+        { this.state.player &&  this.state.player._id &&
         <div className="container" style={this.state.loadState && this.state.quirkArray.length > 0 ? {} : { display: 'none' }}>
           <div className="browserWarning" style={ !this.state.isChrome && !this.state.isFirefox ? {} : { display: 'none' }}>
             <h3 >This browser is not fully supported</h3>
@@ -736,6 +737,7 @@ class App extends Component {
             </Switch>
             
         </div>
+        }
       </Router>        
       </HttpsRedirect>
 
