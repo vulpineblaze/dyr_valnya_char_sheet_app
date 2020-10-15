@@ -1,0 +1,26 @@
+[{
+  "name":"Full Plate/Battle Armor",
+  "cost":10,
+  "armor":4,
+  "penalty":2
+},{
+  "name":"Brigadine/Lamilar/Flak",
+  "cost":7,
+  "armor":3,
+  "penalty":2
+},{
+  "name":"Cloth Armor",
+  "cost":3,
+  "armor":1,
+  "penalty":""
+},{
+  "name":"Skilled Leather/Kevlar",
+  "cost":6,
+  "armor":2,
+  "penalty":""
+},{
+  "name":"Heavy Leather / Chain / Scale",
+  "cost":5,
+  "armor":2,
+  "penalty":1
+}]

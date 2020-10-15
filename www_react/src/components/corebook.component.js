@@ -97,6 +97,7 @@ export default class Corebook extends Component {
       if(tag.p){return(<p>{tag.p}</p>);}
       if(tag.b1){return(<ul><li>{tag.b1}</li></ul>);}
       if(tag.ab1){return(<ul><li><a href={tag.ab1.link}>{tag.ab1.text}</a></li></ul>);}
+      if(tag.ah3){return(<h3><a href={tag.ah3.link}>{tag.ah3.text}</a></h3>);}
     }
 
     render() {

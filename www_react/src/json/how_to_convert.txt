@@ -4,17 +4,28 @@ Replace
 "API":{},    CTLR+ENTER
 
 regex replace with nothing
-("API).*(values":)|(,"docId).*("},{)
+   //  ("API).*(values":)|(,"docId).*("},{)
+   //  new way!
+("id).*(values":{)|(,"docId).*("},{)
 
 replace
 "c-
 with
-CTRL+ENTER  SPACE SPACE  "c-
+CTRL+ENTER  SPACE SPACE  "
 
 replace
 "}
 with
 "   CTRL+ENTER  },
+
+
+//new biz
+
+replce
+"API":{}, CTRL+ENTER
+with
+,{
+
 
 
 manually fix:
@@ -31,6 +42,9 @@ for each  c-  value, find correct name via coda and replace
   enter correct variable name
   Replace All
     ensure double quotes are preserved!
+
+
+
 
 
 

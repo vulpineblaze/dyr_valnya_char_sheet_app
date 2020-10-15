@@ -1,0 +1,49 @@
+[{
+  "name":"AK-47 / SMG / Needler",
+  "damage":3,
+  "ap":0,
+  "cost":12,
+  "range":"Medium"
+},{
+  "name":"Rifle / Longbow / Magic Staff",
+  "damage":2,
+  "ap":1,
+  "cost":6,
+  "range":"Long"
+},{
+  "name":"Pistol / Crossbow / Blaster / Magic Wand",
+  "damage":1,
+  "ap":0,
+  "cost":3,
+  "range":"Short"
+},{
+  "name":"Brass Knuckles ",
+  "damage":1,
+  "ap":0,
+  "cost":1,
+  "range":"Touch"
+},{
+  "name":"Dagger / Club / Knife / Hatchet",
+  "damage":1,
+  "ap":0,
+  "cost":1,
+  "range":"Touch"
+},{
+  "name":"Short Sword / Rapier / Bat / Mace / Axe",
+  "damage":1,
+  "ap":1,
+  "cost":2,
+  "range":"Touch"
+},{
+  "name":"Long Sword / Katana / Sledgehammer / Battle Axe",
+  "damage":2,
+  "ap":2,
+  "cost":4,
+  "range":"Touch"
+},{
+  "name":"Great Sword / Warhammer",
+  "damage":3,
+  "ap":3,
+  "cost":8,
+  "range":"Touch"
+}]

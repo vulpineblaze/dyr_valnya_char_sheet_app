@@ -16,7 +16,8 @@ import Invite from './components/invite.component';
 import './App.css';
 
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
-import Coda from 'coda-js';
+// import Coda from 'coda-js';
+
 
 const extrasList = [ "quirk", "flaws", "magicka", "weapon", "armor", "horse"];
 
@@ -27,7 +28,7 @@ class App extends Component {
     super(props);
     this.compare = this.compare.bind(this);
     this.compareInverted = this.compareInverted.bind(this);
-    this.loadCodaArrays = this.loadCodaArrays.bind(this);
+    // this.loadCodaArrays = this.loadCodaArrays.bind(this);
     this.processExtras = this.processExtras.bind(this);
     this.processOneExtra = this.processOneExtra.bind(this);
 
@@ -48,7 +49,7 @@ class App extends Component {
       armorSelectArray: [],
       horseArray: [],
       horseSelectArray: [],
-      loadCodaArrays: true,
+      // loadCodaArrays: true,
       name: "",
       owner: "",
       loadState: false,
@@ -124,23 +125,23 @@ class App extends Component {
     for(i=0;i<extrasList.length;i++){
       var extra = extrasList[i];
       if(this.state[extra+"Array"] && this.state[extra+"Array"].length == 0){
-        // this.processOneExtra(extra);
+        this.processOneExtra(extra);
       }
     }
-    this.processOneExtra("quirk");
+    // this.processOneExtra("quirk");
 
   }
 
   processOneExtra(extra){
     const scopedThis = this;
-    import('./json/quirks')
+    import('./json/'+extra)
       .then(JSON => {
         // module.loadPageInto(main);
         // JSON.sort(this.compare);
         const extraArray = JSON.default;
         extraArray.sort(this.compare);
 
-        console.log(" >>> TEST >>> quirksJSON",JSON, extraArray);
+        console.log(" >>> TEST >>> extraJSON",JSON, extraArray);
         scopedThis.setState({ [extra+"Array"]: extraArray }, () => {
           var joinedSel = [];
           var arr = scopedThis.state[extra+"Array"];
@@ -151,7 +152,7 @@ class App extends Component {
             var optionString = {label: optionInner, value: i }
             joinedSel.push(optionString);
           }
-          console.log(" >>> TEST >>> quirks arr",arr,joinedSel);
+          console.log(" >>> TEST >>> extras arr",arr,joinedSel);
 
           scopedThis.setState({
               [extra+"SelectArray"]: joinedSel
@@ -166,324 +167,291 @@ class App extends Component {
     
   }
 
-  loadCodaArrays(){
-    if (this.state.quirkArray 
-          && this.state.quirkArray.length == 0
-          && this.state.loadCodaArrays
-        ) {
-      this.setState({
-      loadCodaArrays: false
-        }, () => {
-          const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
-          // const docID = "55_RuUt6nh";
-          // const quirkTablelistRows = coda.listRows(docID, 'grid-sFVbFfjLoX');
-          const flawsTablelistRows = coda.listRows('55_RuUt6nh', 'grid-G4ppHQClqI');
-          const magickaTablelistRows = coda.listRows('55_RuUt6nh', 'grid-9SNgTm2b_x');
-          const weaponTablelistRows = coda.listRows('55_RuUt6nh', 'grid-QZHWTOUszi');
-          const horseTablelistRows = coda.listRows('55_RuUt6nh', 'grid-ksWXxCkr47');
-          const armorTablelistRows = coda.listRows('55_RuUt6nh', 'grid-vc3JcNQDGu');
-          // console.log("quirkTablelistRows:", quirkTablelistRows);
+  // loadCodaArrays(){
+  //   if (this.state.quirkArray 
+  //         && this.state.quirkArray.length == 0
+  //         && this.state.loadCodaArrays
+  //       ) {
+  //     this.setState({
+  //     loadCodaArrays: false
+  //       }, () => {
 
-          // const sectionsList = coda.listSections('55_RuUt6nh');
-          // console.log("sectionsList", sectionsList);
-          
-          // sectionsList.then(function(value) {
-          //   console.log("sectionsList JSON", JSON.stringify(value));
-          // });
+  //         /*
+            
+  //           Havta subvert the old coda.io code; replace may break a ton of junk
+
+  //         */
 
 
-          // const sectionAspects = coda.getSection('55_RuUt6nh', 'canvas-SnxtTqKQVw');
-          // console.log("sectionAspects", sectionAspects);
-          
-          // sectionAspects.then(function(value) {
-          //   console.log("sectionAspects JSON", JSON.stringify(value));
-          // });
+  //         //  Old code below   vvvvv
 
 
-/*
-          //  TEMP TO GET JSONS
-          const tables = coda.listTables(docID);
-          console.log(" >>> CODA TABLES", tables);
-          
-          tables.then(function(tbls) {
-            var i;
-            for (i = 0; i < tbls.length; i++) {
-              const t_id = tbls[i].id;
-              const name = tbls[i].name;
-              console.log(" >>> CODA TABLES t_id:", t_id);
-              const tablerow = coda.listRows(docID, t_id);
-              tablerow.then(function(tblr) {
-                console.log(" >>> CODA TABLES tblr:", name, tblr);
-                const fileData = JSON.stringify(tblr);
-                const blob = new Blob([fileData], {type: "text/plain"});
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.download = name+'.json';
-                link.href = url;
-                link.click();
-              });
-            }
-          });
-*/
+  //         const coda = new Coda('d849acc0-66e6-4f17-8405-5e0a85cf7833'); // insert your token
 
+  //         const flawsTablelistRows = coda.listRows('55_RuUt6nh', 'grid-G4ppHQClqI');
+  //         const magickaTablelistRows = coda.listRows('55_RuUt6nh', 'grid-9SNgTm2b_x');
+  //         const weaponTablelistRows = coda.listRows('55_RuUt6nh', 'grid-QZHWTOUszi');
+  //         const horseTablelistRows = coda.listRows('55_RuUt6nh', 'grid-ksWXxCkr47');
+  //         const armorTablelistRows = coda.listRows('55_RuUt6nh', 'grid-vc3JcNQDGu');
+       
 
-          const scopedThis = this;
+  //         const scopedThis = this;
 
           
 
 
-          flawsTablelistRows.then(function(value) {
-            const flawsList = value;
-            var i;
-            var joined = [];
-            // console.log("flawsList[0].values get c-*'s",flawsList[0].values, JSON.stringify(flawsList[0].values));
-            for (i = 0; i < flawsList.length; i++) {
-              var item = flawsList[i].values;
-              var obj = {};
-              obj.name = item["c-s9xzG7woXK"];
-              obj.cost = item["c-rFFIm2sGh9"];
-              obj.desc  = item["c-Lp7cyXFEDW"];
-              obj.prereq  = item["c-zbVXoKQktq"];
-              obj.benefit   = item["c-KocWBPt7SG"];
-              obj.aspects  = item["c-LyCRQn9XSj"];
-              obj.aptitudes  = item["c-dxrVGg7kLf"];
+  //         // flawsTablelistRows.then(function(value) {
+  //         //   const flawsList = value;
+  //         //   var i;
+  //         //   var joined = [];
+  //         //   // console.log("flawsList[0].values get c-*'s",flawsList[0].values, JSON.stringify(flawsList[0].values));
+  //         //   for (i = 0; i < flawsList.length; i++) {
+  //         //     var item = flawsList[i].values;
+  //         //     var obj = {};
+  //         //     obj.name = item["c-s9xzG7woXK"];
+  //         //     obj.cost = item["c-rFFIm2sGh9"];
+  //         //     obj.desc  = item["c-Lp7cyXFEDW"];
+  //         //     obj.prereq  = item["c-zbVXoKQktq"];
+  //         //     obj.benefit   = item["c-KocWBPt7SG"];
+  //         //     obj.aspects  = item["c-LyCRQn9XSj"];
+  //         //     obj.aptitudes  = item["c-dxrVGg7kLf"];
 
-              joined.push(obj);
+  //         //     joined.push(obj);
 
-            }
-            joined.sort(scopedThis.compareInverted);
-            // console.log(" >>> TEST >>> flaws joined",joined);
-            scopedThis.setState({ flawsArray: joined });
-            // console.log("scopedThis.state.flawsArray",scopedThis.state.flawsArray);
+  //         //   }
+  //         //   joined.sort(scopedThis.compareInverted);
+  //         //   // console.log(" >>> TEST >>> flaws joined",joined);
+  //         //   scopedThis.setState({ flawsArray: joined });
+  //         //   // console.log("scopedThis.state.flawsArray",scopedThis.state.flawsArray);
 
-            //  now to build the select friendly array
-            var joinedSel = [];
-            var arr = scopedThis.state.flawsArray;
-            for (i = 0; i < arr.length; i++) {
-              var item = arr[i];
-              var optionInner = item.name + " - (" + item.cost + ")";
-              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
-                // { label: "Snakes", value: 6 },
-              var optionString = {label: optionInner, value: i }
-              joinedSel.push(optionString);
-              // console.log("inside props flawss array:", optionString);
-            }
-            scopedThis.setState({
-                flawsSelectArray: joinedSel
-              }, () => {
-                console.log("this.state.flawsSelectArray",scopedThis.state.flawsSelectArray);
-            });  
-          });
-
-
+  //         //   //  now to build the select friendly array
+  //         //   var joinedSel = [];
+  //         //   var arr = scopedThis.state.flawsArray;
+  //         //   for (i = 0; i < arr.length; i++) {
+  //         //     var item = arr[i];
+  //         //     var optionInner = item.name + " - (" + item.cost + ")";
+  //         //     // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+  //         //       // { label: "Snakes", value: 6 },
+  //         //     var optionString = {label: optionInner, value: i }
+  //         //     joinedSel.push(optionString);
+  //         //     // console.log("inside props flawss array:", optionString);
+  //         //   }
+  //         //   scopedThis.setState({
+  //         //       flawsSelectArray: joinedSel
+  //         //     }, () => {
+  //         //       console.log("this.state.flawsSelectArray",scopedThis.state.flawsSelectArray);
+  //         //   });  
+  //         // });
 
 
 
 
-          magickaTablelistRows.then(function(value) {
-            const magickaList = value;
-            var i;
-            var joined = [];
-            // console.log("magickaList[0].values get c-*'s",
-            //       magickaList[0].values, 
-            //       JSON.stringify(magickaList[0].values));
 
-            for (i = 0; i < magickaList.length; i++) {
-              var item = magickaList[i].values;
-              var obj = {};
-              obj.name = item["c-bsCHCx6q7b"];
-              obj.cost = item["c-YStkFeoYgX"];
-              obj.desc  = item["c-u_jw1APr1I"];
-              obj.armor  = item["c-SS0-M0yvoI"];
-              obj.penalty   = item["c-XDRsAOtXw9"];
-              obj.damage  = item["c-gzvQuEUPue"];
-              obj.ap  = item["c-9IAWNBUFF4"];
 
-              joined.push(obj);
+  //         // magickaTablelistRows.then(function(value) {
+  //         //   const magickaList = value;
+  //         //   var i;
+  //         //   var joined = [];
+  //         //   // console.log("magickaList[0].values get c-*'s",
+  //         //   //       magickaList[0].values, 
+  //         //   //       JSON.stringify(magickaList[0].values));
+
+  //         //   for (i = 0; i < magickaList.length; i++) {
+  //         //     var item = magickaList[i].values;
+  //         //     var obj = {};
+  //         //     obj.name = item["c-bsCHCx6q7b"];
+  //         //     obj.cost = item["c-YStkFeoYgX"];
+  //         //     obj.desc  = item["c-u_jw1APr1I"];
+  //         //     obj.armor  = item["c-SS0-M0yvoI"];
+  //         //     obj.penalty   = item["c-XDRsAOtXw9"];
+  //         //     obj.damage  = item["c-gzvQuEUPue"];
+  //         //     obj.ap  = item["c-9IAWNBUFF4"];
+
+  //         //     joined.push(obj);
               
-            }
-            joined.sort(scopedThis.compare);
-            // console.log("joined",joined);
-            scopedThis.setState({ magickaArray: joined });
-            // console.log("scopedThis.state.magickaArray",scopedThis.state.magickaArray);
+  //         //   }
+  //         //   joined.sort(scopedThis.compare);
+  //         //   // console.log("joined",joined);
+  //         //   scopedThis.setState({ magickaArray: joined });
+  //         //   // console.log("scopedThis.state.magickaArray",scopedThis.state.magickaArray);
 
-            //  now to build the select friendly array
-            var joinedSel = [];
-            var arr = scopedThis.state.magickaArray;
-            for (i = 0; i < arr.length; i++) {
-              var item = arr[i];
-              var optionInner = item.name + " - (" + item.cost + ")";
-              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
-                // { label: "Snakes", value: 6 },
-              var optionString = {label: optionInner, value: i }
-              joinedSel.push(optionString);
-              // console.log("inside props magickas array:", optionString);
-            }
-            scopedThis.setState({
-                magickaSelectArray: joinedSel
-              }, () => {
-                console.log("this.state.magickaSelectArray",scopedThis.state.magickaSelectArray);
-            });  
-          });
-
-
+  //         //   //  now to build the select friendly array
+  //         //   var joinedSel = [];
+  //         //   var arr = scopedThis.state.magickaArray;
+  //         //   for (i = 0; i < arr.length; i++) {
+  //         //     var item = arr[i];
+  //         //     var optionInner = item.name + " - (" + item.cost + ")";
+  //         //     // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+  //         //       // { label: "Snakes", value: 6 },
+  //         //     var optionString = {label: optionInner, value: i }
+  //         //     joinedSel.push(optionString);
+  //         //     // console.log("inside props magickas array:", optionString);
+  //         //   }
+  //         //   scopedThis.setState({
+  //         //       magickaSelectArray: joinedSel
+  //         //     }, () => {
+  //         //       console.log("this.state.magickaSelectArray",scopedThis.state.magickaSelectArray);
+  //         //   });  
+  //         // });
 
 
 
 
 
-          weaponTablelistRows.then(function(value) {
-            const weaponList = value;
-            var i;
-            var joined = [];
-            // console.log("weaponList[0].values get c-*'s",
-            //       weaponList[0].values, 
-            //       JSON.stringify(weaponList[0].values));
 
-            for (i = 0; i < weaponList.length; i++) {
-              var item = weaponList[i].values;
-              var obj = {};
-              obj.name = item["c-rd7vNFnaVQ"];
-              obj.cost = item["c-yk8_qzh54S"];
-              obj.damage  = item["c-0SJozHmPQm"];
-              obj.ap  = item["c-vrIDidjHSN"];
-              obj.range  = item["c-YRkro88oLT"];
 
-              joined.push(obj);
+  //         weaponTablelistRows.then(function(value) {
+  //           const weaponList = value;
+  //           var i;
+  //           var joined = [];
+  //           // console.log("weaponList[0].values get c-*'s",
+  //           //       weaponList[0].values, 
+  //           //       JSON.stringify(weaponList[0].values));
+
+  //           for (i = 0; i < weaponList.length; i++) {
+  //             var item = weaponList[i].values;
+  //             var obj = {};
+  //             obj.name = item["c-rd7vNFnaVQ"];
+  //             obj.cost = item["c-yk8_qzh54S"];
+  //             obj.damage  = item["c-0SJozHmPQm"];
+  //             obj.ap  = item["c-vrIDidjHSN"];
+  //             obj.range  = item["c-YRkro88oLT"];
+
+  //             joined.push(obj);
               
-            }
-            joined.sort(scopedThis.compare);
-            // console.log("joined",joined);
-            scopedThis.setState({ weaponArray: joined });
-            // console.log("scopedThis.state.weaponArray",scopedThis.state.weaponArray);
+  //           }
+  //           joined.sort(scopedThis.compare);
+  //           // console.log("joined",joined);
+  //           scopedThis.setState({ weaponArray: joined });
+  //           // console.log("scopedThis.state.weaponArray",scopedThis.state.weaponArray);
 
-            //  now to build the select friendly array
-            var joinedSel = [];
-            var arr = scopedThis.state.weaponArray;
-            for (i = 0; i < arr.length; i++) {
-              var item = arr[i];
-              var optionInner = item.name + " - (" + item.cost + ")";
-              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
-                // { label: "Snakes", value: 6 },
-              var optionString = {label: optionInner, value: i }
-              joinedSel.push(optionString);
-              // console.log("inside props weapons array:", optionString);
-            }
-            scopedThis.setState({
-                weaponSelectArray: joinedSel
-              }, () => {
-                console.log("this.state.weaponSelectArray",scopedThis.state.weaponSelectArray);
-            });  
-          });
-
-
+  //           //  now to build the select friendly array
+  //           var joinedSel = [];
+  //           var arr = scopedThis.state.weaponArray;
+  //           for (i = 0; i < arr.length; i++) {
+  //             var item = arr[i];
+  //             var optionInner = item.name + " - (" + item.cost + ")";
+  //             // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+  //               // { label: "Snakes", value: 6 },
+  //             var optionString = {label: optionInner, value: i }
+  //             joinedSel.push(optionString);
+  //             // console.log("inside props weapons array:", optionString);
+  //           }
+  //           scopedThis.setState({
+  //               weaponSelectArray: joinedSel
+  //             }, () => {
+  //               console.log("this.state.weaponSelectArray",scopedThis.state.weaponSelectArray);
+  //           });  
+  //         });
 
 
 
 
 
-          armorTablelistRows.then(function(value) {
-            const armorList = value;
-            var i;
-            var joined = [];
-            // console.log("armorList[0].values get c-*'s",
-            //       armorList[0].values, 
-            //       JSON.stringify(armorList[0].values));
 
-            for (i = 0; i < armorList.length; i++) {
-              var item = armorList[i].values;
-              var obj = {};
-              obj.name = item["c-OqILalMUXQ"];
-              obj.cost = item["c-Bdr6hk0g7E"];
-              obj.armor  = item["c-Jhnu3dJcyy"];
-              obj.penalty  = item["c-6MYC7AUcIX"];
 
-              joined.push(obj);
+  //         armorTablelistRows.then(function(value) {
+  //           const armorList = value;
+  //           var i;
+  //           var joined = [];
+  //           // console.log("armorList[0].values get c-*'s",
+  //           //       armorList[0].values, 
+  //           //       JSON.stringify(armorList[0].values));
+
+  //           for (i = 0; i < armorList.length; i++) {
+  //             var item = armorList[i].values;
+  //             var obj = {};
+  //             obj.name = item["c-OqILalMUXQ"];
+  //             obj.cost = item["c-Bdr6hk0g7E"];
+  //             obj.armor  = item["c-Jhnu3dJcyy"];
+  //             obj.penalty  = item["c-6MYC7AUcIX"];
+
+  //             joined.push(obj);
               
-            }
-            joined.sort(scopedThis.compare);
-            // console.log("joined",joined);
-            scopedThis.setState({ armorArray: joined });
-            // console.log("scopedThis.state.armorArray",scopedThis.state.armorArray);
+  //           }
+  //           joined.sort(scopedThis.compare);
+  //           // console.log("joined",joined);
+  //           scopedThis.setState({ armorArray: joined });
+  //           // console.log("scopedThis.state.armorArray",scopedThis.state.armorArray);
 
-            //  now to build the select friendly array
-            var joinedSel = [];
-            var arr = scopedThis.state.armorArray;
-            for (i = 0; i < arr.length; i++) {
-              var item = arr[i];
-              var optionInner = item.name + " - (" + item.cost + ")";
-              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
-                // { label: "Snakes", value: 6 },
-              var optionString = {label: optionInner, value: i }
-              joinedSel.push(optionString);
-              // console.log("inside props armors array:", optionString);
-            }
-            scopedThis.setState({
-                armorSelectArray: joinedSel
-              }, () => {
-                console.log("this.state.armorSelectArray",scopedThis.state.armorSelectArray);
-            });  
-          });
-
-
+  //           //  now to build the select friendly array
+  //           var joinedSel = [];
+  //           var arr = scopedThis.state.armorArray;
+  //           for (i = 0; i < arr.length; i++) {
+  //             var item = arr[i];
+  //             var optionInner = item.name + " - (" + item.cost + ")";
+  //             // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+  //               // { label: "Snakes", value: 6 },
+  //             var optionString = {label: optionInner, value: i }
+  //             joinedSel.push(optionString);
+  //             // console.log("inside props armors array:", optionString);
+  //           }
+  //           scopedThis.setState({
+  //               armorSelectArray: joinedSel
+  //             }, () => {
+  //               console.log("this.state.armorSelectArray",scopedThis.state.armorSelectArray);
+  //           });  
+  //         });
 
 
 
 
 
-          horseTablelistRows.then(function(value) {
-            const horseList = value;
-            var i;
-            var joined = [];
-            // console.log("horseList[0].values get c-*'s",
-            //       horseList[0].values, 
-            //       JSON.stringify(horseList[0].values));
 
-            for (i = 0; i < horseList.length; i++) {
-              var item = horseList[i].values;
-              var obj = {};
-              obj.name = item["c-c49Q0Wukcu"];
-              obj.cost = item["c-7iYqKoXArj"];
-              obj.health  = item["c-91yx9u0q5B"];
-              obj.armor  = item["c-JYSLOBbFPT"];
-              obj.size  = item["c-VAVIBMwjdb"];
-              obj.speed  = item["c--iK2sioLsM"];
 
-              joined.push(obj);
+  //         horseTablelistRows.then(function(value) {
+  //           const horseList = value;
+  //           var i;
+  //           var joined = [];
+  //           // console.log("horseList[0].values get c-*'s",
+  //           //       horseList[0].values, 
+  //           //       JSON.stringify(horseList[0].values));
+
+  //           for (i = 0; i < horseList.length; i++) {
+  //             var item = horseList[i].values;
+  //             var obj = {};
+  //             obj.name = item["c-c49Q0Wukcu"];
+  //             obj.cost = item["c-7iYqKoXArj"];
+  //             obj.health  = item["c-91yx9u0q5B"];
+  //             obj.armor  = item["c-JYSLOBbFPT"];
+  //             obj.size  = item["c-VAVIBMwjdb"];
+  //             obj.speed  = item["c--iK2sioLsM"];
+
+  //             joined.push(obj);
               
-            }
-            joined.sort(scopedThis.compare);
-            // console.log("joined",joined);
-            scopedThis.setState({ horseArray: joined });
-            // console.log("scopedThis.state.horseArray",scopedThis.state.horseArray);
+  //           }
+  //           joined.sort(scopedThis.compare);
+  //           // console.log("joined",joined);
+  //           scopedThis.setState({ horseArray: joined });
+  //           // console.log("scopedThis.state.horseArray",scopedThis.state.horseArray);
 
-            //  now to build the select friendly array
-            var joinedSel = [];
-            var arr = scopedThis.state.horseArray;
-            for (i = 0; i < arr.length; i++) {
-              var item = arr[i];
-              var optionInner = item.name + " - (" + item.cost + ")";
-              // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
-                // { label: "Snakes", value: 6 },
-              var optionString = {label: optionInner, value: i }
-              joinedSel.push(optionString);
-              // console.log("inside props horses array:", optionString);
-            }
-            scopedThis.setState({
-                horseSelectArray: joinedSel
-              }, () => {
-                console.log("this.state.horseSelectArray",scopedThis.state.horseSelectArray);
-            });  
-          });
-
-
+  //           //  now to build the select friendly array
+  //           var joinedSel = [];
+  //           var arr = scopedThis.state.horseArray;
+  //           for (i = 0; i < arr.length; i++) {
+  //             var item = arr[i];
+  //             var optionInner = item.name + " - (" + item.cost + ")";
+  //             // var optionString = "<option value=\""+optionInner+"\">"+optionInner+"</option>";
+  //               // { label: "Snakes", value: 6 },
+  //             var optionString = {label: optionInner, value: i }
+  //             joinedSel.push(optionString);
+  //             // console.log("inside props horses array:", optionString);
+  //           }
+  //           scopedThis.setState({
+  //               horseSelectArray: joinedSel
+  //             }, () => {
+  //               console.log("this.state.horseSelectArray",scopedThis.state.horseSelectArray);
+  //           });  
+  //         });
 
 
 
-      });
+
+
+  //     });
       
-    }
-  }
+  //   }
+  // }
 
   render() {
     console.log("broswer found:", this.state.isChrome, this.state.isFirefox);
@@ -516,7 +484,7 @@ class App extends Component {
           })
 
         // this.freshGummi(this.state.user.getEmail(), this.state.gummi);
-        this.loadCodaArrays();
+        // this.loadCodaArrays();
         this.processExtras();
       }
     }

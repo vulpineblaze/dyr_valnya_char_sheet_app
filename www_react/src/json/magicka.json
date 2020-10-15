@@ -1,0 +1,513 @@
+[{
+  "name":"Cure Disease",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":6,
+  "desc":"When you need to get rid of a medical affliction, this is your spell.\n\nFor the easy stuff, like colds, flu, food poisoning, infections, etc.. simply cast (Int + Medicine|Thaum) and successes successfully remove the affliction. Basically anything that you can take medicine once and be \"cured\" is in this category.  For modifiers, cold might be easy, but sepsis might be -2.\n\nSuccesses may be rolled onto addl afflictions, but only if the second is less-difficult to cure.\n\nFor the hard stuff: Addiction, Cancer, TB, Chronic or Agg related pain, etc..  the roll (Int + Medicine|Magicka) may only temporarily remove the symptoms.  Modifiers might be 0 for slaking mundane addiction withdrawals or getting a diabetic out of acidosis, -1 for preventing the spread of AIDS, -2 for slowing Stage 4 cancer. A diabetic may survive with this spell, but would need it recast very often, possibly daily, to stay alive. \n\nFinally, as per Imbuing Magicka rules, given Astrylite and some XP, one can permanently cure one major affliction, like OCD or Cancer, for their patient by permanently imbuing them with the fix. The difficult is found by the casters (Int + Medicine) and the patient has to survive until the casting is complete. "
+},{
+  "name":"Chaos Lives In Everything ",
+  "armor":"",
+  "penalty":"",
+  "damage":2,
+  "ap":2,
+  "cost":5,
+  "desc":"The Caster transmutes one object of their size or smaller into another object…  However…\n\nCaster rolls 3 drawbacks, less every success past the first (Eg. 4 success with have no drawbacks). Here’s the drawback table:\n\nYou’ve done some transmuting, but you do not get the object you wanted, and the object is cursed.\nWhat’s your least favorite body part? Color? Animal? \nGains an extra Magicka, but only whatever is the most maladaptive. \nThe object sounds/smells really bad, all NPCs reflexively hate it.\nObject is one size smaller than desired\nObject gains sentience; but may only scream and wish for death.\nEveryone at the table shouts the first object that ones to mind. This object becomes a grotesque composite.\nThis item either becomes a weapon, or stops being a weapon; Whatever is opposite of desired.\nGains an random or ironic Element Type (eg. you made bandage with [Life] - Poison on them)\nUse of this object grants +1 to all relevant rolls\nObject is one size larger than desired\nNo drawbacks. Item is as desired. Honors 5s, 10s, and 11s, if desired.  \n\n-1 for every size above the caster. -1 for size size larger or smaller than the source item.\n\n\nOptional: When used in combat, Caster can use one set of ordered predrilled drawbacks. "
+},{
+  "name":"Metro Temporis",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":4,
+  "desc":"Whenever the caster and company are making a long journey, casting this spell with accelerate the jaunt, saving both times and avoid *some* encounters.  \n\nThe spell begins when the caster and company have been travelling in fairly homogenous landscape/terrain/etc..  The spell ends when the conditions/surroundings change. \n\nAn 8 day walk through the desert may only take hours.  A single day's journey may be interrupted by kobolds blocking the road, after only a mile or two. You probably won't win any races (you'd have to pass your opponents), but a townsperson might be vocally skeptical when you make it 100 miles up then down Mt Boring in a day.\n"
+},{
+  "name":"Soul Stuffer",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":6,
+  "desc":"If the caster can manage it, they can stuff a soul into some other vessel. This spell does not release souls, it can only grab up souls between their release, and wherever souls go afterward. \n\nSo, if your tragic loved one is dying of a mystery disease, you can stuff their soul into a random item like a cup or a locket or robot body and hold onto it...\n"
+},{
+  "name":"This is Interesting ",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":3,
+  "desc":"The caster makes an object/person/etc..  appear *interesting*. Not like they are good at holding conversations or anything, but that the target gets noticed by damn near anything it encounters.  \n\nThis may be good, for people selling things. This could be bad, for those treading alone in a dark forest.  \n\nThe spell ends if the target deals damage to someone/thing else. Objects smashed make interesting piles of broken stuff.\n"
+},{
+  "name":"Gate Anchor",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":3,
+  "desc":"The caster, if successful porteology roll, figures out coordinates to their exact spot, any distance from a gate.  Anyone using a Gate, and navigating to the coords the caster comes up with, deposits the gate user at the exact spot. \n\nThis is not permanent, as the whole of reality is in constant mild flux.  A large battle, heavy magic use, earthquakes, etc.. will all nullify the coords.\n"
+},{
+  "name":"Liar, Liar",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":4,
+  "desc":"The caster makes a willpower roll against the target and themselves; if both succeed, then neither are able to tell a lie.\n\n(aka Caster rolls Int+Thaum, Target rolls Willpower, then Caster rolls willpower. Both willpower rolls must be lower than the Int+Thaum roll.)\n\nWell, Fae rules, ofc, but they cannot tell lies otherwise. They can keep quiet, and roll willpower to lie-by-omittion, but otherwise they are stuck. \n\nThe spell ends when both are sufficiently embarrassed and neither want to talk ever again. Or if either are aggressed in any way (combat, intimidate, larceny, etc..).  \n\nThis counts as a curse btw.\n"
+},{
+  "name":"Dude, where's my car? ",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":2,
+  "desc":"The caster can seek out one beneficial item/creature/person.  The caster may know their direction, distance, heading, and/or disposition.  The spell ends when the car is found, and the caster becomes increasingly distressed/distractable the longer they do not complete the quest. \n\nDon't ever cast this underground, for your own sake.\n"
+},{
+  "name":"This Magic Mushroom",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":4,
+  "desc":"The caster \"enhances\" an object with magickal energies. Anyone who touches( or eats or drinks etc..) the object experiences a chill, surreal, mildly hallucinatory high. The caster experiences this worse than their victims, and will go on a quest to make everyone \"just try it, man..\"\n\nTaking lethal damage, or eating one Astrylose worth of food/potions ends the spell; the caster must be dealt or imbibe 2 points worth respectively.  \n"
+},{
+  "name":"Slipped your mind ",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":8,
+  "desc":"The caster wins over their targets willpower roll; the caster may choose a certain memory or group of similar memories, and the target will have extreme difficulty recalling them. This only works on memories, and not emotions, feelings, opinions, etc..  If the target loved/hated someone, and the caster made them forget that person, they will still feel the emotions where in their presence.\n\nEg. The caster may make the Bajoran forget why she hates Cardassians, but she will still reflectively hate Cardassians.\n"
+},{
+  "name":"Bane of My Existence",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":9,
+  "desc":"The caster wins over the target willpower roll; from then on, the target is as if they had the Quirk \"Bane of our existance\" when interacting with the caster or near the caster. \n"
+},{
+  "name":"Command Word",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":9,
+  "desc":"The caster says/begs/shouts a word or short phrase of utmost simplicity. \"Die\", \"Jump off a bridge\", etc.. probably won't be honored. \"Stand here (against the railing)\", while you tie something heavy to them might work though... Also, this may be a Presence or Manipulation + Thaum roll. \n\nAny item may begin marching around like those brooms in Fantasia. Success is success, but some larger or more resistant items may reduce casters dice pool.\n\nNon-sentient beings will heed the command, within reason. Larger, more intelligent creatures will reduce dice pool.\n\nSentient beings make a willpower check against the caster, less the casters successes -1. If success, they know they are being commanded, and are probably not friendly anymore. If not, they believe the caster has given them some good and very heedable advice. \n\nAt no point will a sentient, or a player, be *forced* into action...  But the caster did make a really good point and the player themselves are encouraged to agree.\n\n+1 if command is said in a funny/silly/strange/entertaining voice\n\n"
+},{
+  "name":"A Fae's Word",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":6,
+  "desc":"Fae always keep their word, and now you have that power too.  The Universe itself bends to the whim of such an oath.\n\nThe caster makes an agreement/pact/oath/etc.. with one or more other people. All parties are now bound to uphold that agreement.  The consequence is a bit like Bards Tongue, but on purpose. \n\nAny party upholding the letter of the agreement may receive arbitrary boons, bonus dice, random happenstance, etc..  Any party working against/outside of the agreement, when applicable (side quests are okay), without regard to intent, will receive various debuffs, reduced dice pools, and bizarre accidents.\n"
+},{
+  "name":"Thru the mirror",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":5,
+  "desc":"Character looks thru any sort of mirror, portal, picture frame, doorway, etc .. and can scry other places, and/or other times\n\nThis is probably a portalogoy roll, with possible bonuses if the chosen \"mirror\" is connected to the destination.\n\nProbable negatives might be:  distant location, -1 ; into the past, -2 ; into the future, -3 ; extra negative as \"distant\" grows exponentially. \n\nEg.  Took a kids hula hoop, try to scry the kid. +1 cuz they are connected. The kid is a couple miles away, no penalty.\n\nEg. A random puddle, trying to scry the kids birth. Kid is actually 100 years old, might be -2 or -3.  \n\nEg. The kid pulled a sword from a bunch of meat, and the goblins wont stfu about his destiny. Make a circle out of sticks (-1) and see the kids future (-3 or -4), because the kid spends 200 years in a pain box before getting rescued and handed to the Fae.\n"
+},{
+  "name":"Hydrate Jirate",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":6,
+  "desc":"The caster will (make an Expression check and) dance along to music (perhaps via Boombox or Our Battlecry ) or possibly sing themselves, while vigorously jirating.\n\nAll beings within earshot, who are not in combat or otherwise aggressed, will dance along vigorously as well, and all (including caster and friends) will sweat profusely. \n\nAll beings under this effect will take and increasing amount of bashing damage from dehydration, until they go unconscious. (first 1 point, then 2 points, then 3, and nothing should pass 4 cuz that 10 total points but whatever)\n\nOptional: Friends of the caster can make expression check, any who succeeds can form a \"Friendship Circle\" with a caster, pouring water into each other mouths as part of the dance.\n\nBeings who have reason to desist dancing may make a Willpower check, and must beat the Casters number of successes (If the Caster rolls 5 successes, the victim must roll 6 successes to break free). They are probably gonna be pissed and attack the caster. Any interruption to the dance ends the spell, all dancing parties will require a snack break immediately. "
+},{
+  "name":"Mime it out!",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":1,
+  "cost":5,
+  "desc":"Character will act out, mime, items or situations or whatever. Those things are non-visible, but become very real.\n\nFirst, the Thaum roll determines the strength of the magic. This lasts until the end of the scene, or the caster makes any vocal or intentional noise (or really, any non-mime action that would break the immersion). This determine how powerful the magicka backing the caster is (Eg. extra dice)\n\nSecond, the caster will make Expression checks, and whatever they successfully mime, is absolutely (non-visible) real. Caster mimes a bicycle, and can ride away on it. They mime a sword, and can stab people with it. \n\nThey mime a bridge over a massive chasm, and the entire party may walk across it.\n\nThe more flair, the more emotive, the more dice. The weirder and harder the mime would be, the larger the penalty. "
+},{
+  "name":"True Sight",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":3,
+  "desc":""
+},{
+  "name":"Elemental Barrier ",
+  "armor":1,
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":8,
+  "desc":"You create a shaped barrier of your chosen element type. \n\nEach opposed turn is a new roll, but only once per combat do you have to spend the Astrylose as long as you do nothing else. \n\nEach success is either more damage dealt to enemies in the field, more non-damaging strength to prevent enemies passing thru, or an extra 5 cubic meters of barrier you can create (given that paper thin barriers deal little damage and stop no one)"
+},{
+  "name":"Elemental Blast",
+  "armor":"",
+  "penalty":"",
+  "damage":2,
+  "ap":1,
+  "cost":10,
+  "desc":"You throw a massive incoherent wad of raw elemental energy at your target that explodes on contact, damaging anything nearby. This can be shaped conical/torus/etc..  if desired, or simply spherical. \n\nThe innermost 3m takes full damage rolled, and every successive 3m takes one point fewer until all damage is resolved.\n\nThis spectacularly destructive spell is an awesome way to piss off large monster, slay gibbering hordes of smaller monsters, or accidentally kill yourself and your friends. Friendly fire is anything but. \n\nOptional: This becomes a deadly focused \"Beam\" with Damage:1, AP:3 instead. This may splatter on adjacent targets or carve thru and pierce many enemies.  Make sure to declare that on cast or write it during imbue."
+},{
+  "name":"Where am I?",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":1,
+  "desc":"This spell provides you with an understanding of your immediate surroundings, no matter where you are or whether you've ever been there before. This knowledge is sufficient to make/draw/spawn a map.\n"
+},{
+  "name":"Glamour",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":3,
+  "desc":"\nYou make an item look/sound/smell/taste/feel like something else. \n\nBy all appearances and to all senses, the item behaves as it’s new appearance. A suit of plate mail glamoured to look like a t shirt will appear to be a t shirt, wrinkle and feel like a t shirt, and can be grabbed like a t shirt, but will protect (and carries penalty) as a suit of plate mail.\n\nYou can make a rock look/smell/taste like pumpkin pie, but your victim still gonna suffer when they bite tf out of that rock. \n\nThe closer you match size/volume/weight/etc.. the more likely your victim will be tricked and stay tricked. \n"
+},{
+  "name":"Back on Your Feet",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":4,
+  "desc":"You can help your fallen companions up and back into the fight. The affected target is immediately stabilized and has one debuff, disease or other negative/penalizing condition removed per success.\n\nExtra successes may the rolled over the addl targets. \n\nThis (temporarily) includes out-of-combat status effects, like addiction and deep sleeper. "
+},{
+  "name":"Too much of a same thing",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":8,
+  "desc":"Acquire multiple examples of a certain item, or get too much of a certain thing, then you might get more of that certain thing... or some gross version of it. \n\nEg. Get the mummy juice, and the mummy bread, and the mummy cheese, and the mummy lettuce, etc.. \n... And target might get immortality. \n... Or maybe target turns into a mummy. \n... Or maybe everything within 100' ages 3,000 years instantly. \n\nOr the meme \"What 5 things would you use to summon me?\", except \"What do these 5 similar things summon?\" \n... Could be your friend.\n... Could be a demon that looks/acts like your friend.\n... Could be your [ Oxygen, 43kg - Carbon, 16kg - Hydrogen, 7kg - Nitrogen, 1.8kg - Calcium, 1kg - Phosphorus, 0.78kg - Potassium, 0.14kg - Sulfur, 0.14kg - Sodium, 0.10kg - Chlorine, 0.095kg - and Magnesium, 0.019kg. ] turns into a screaming bag of retching slop. "
+},{
+  "name":"*Freestyle Magicka",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":2,
+  "desc":"     [ Disclaimer: If you use magic, you might wanna take this ]\n\nYou can spend one Astrylose and do any sort of minor magic or cantrip you can think of. Most effects disappear minutes or days after casting.\n\nThis includes (but is very not limited to):  Conjuring food, wine, water, a meal; creating simple objects one size per success; Producing low-poly holograms, illusions, shadows, etc..;  Put googly eyes on things en masse; Transmute similar objects, like dupe tricking one basket of red lobster cheddar biscuits into a minor feast, or changing tap water into cheap booze, quantity per success; Start a small fire, produce an ice cube, sprout a seed, force a lil dirt into becoming a lil rock, other elements etc..; do some derpomancy and predict the next ice age or ask a rude question to the GM in-game and get a mean answer from The Universe; Piss off ghosts; Brainalyze a giant kill-gun and shoot the dyr with it, just cuz that shit hates all magicka, to include the useless stuff; Adds volume to a container so your Adventurers kit can hold a 8ft spear; //add more as players do or say things\n\nThis is not nearly powerful enough to cause damage, and only in the most clever instances can even affect a dicepool...  but it might be the glue that holds together the parties otherwise absurd plan, or replaces that one missing link that would otherwise crunk yalls stuff up.. \n\n"
+},{
+  "name":"Reap",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":13,
+  "desc":"\nUpon death of a sentient target, one of two things happen:  \n\n- An otherwise useless meta-substance called \"Phylact\" is produced/appears wherever convenient.\n\n - Or, 12 existing/owned \"Phylact\"s disappear and transform into one unit of Astrylite. (Casters choice, the soul binds them)\n\n - Optional: Reap produces Astrylite power approx 1/30 to 1/50 worth of a full unit a Astrylite. Still requires final Reap to bind them."
+},{
+  "name":"Blink",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":6,
+  "desc":"Target 1 'blinks' to target 2, near-instants teleporting from one location to another. \n\nWhatever combination of casting, activating, and imbuing occurs follows this patterns. On activation, whatever is Target 1 blinks to wherever Target 2 is, and will be in physical contact with that object. \n\nEg. Imbue a ball with Blink such that T1 is the ball and T2 is the Owner. Activation, such as coming to a stop, or sudden impact, and the ball returns to the Owner. \n\nEg. Caster calls a Size 6 boulder T1 and a pebble T2, tosses the pebble and Blinks the Boulder to it. \n\nEg. A monk is T1 and his staff T2, throws his staff at an enemy and Blinks into a savage punch. \n\nThe pattern is fixed before the cast and before the imbue. And item that is T2 is always going to be T2, and vice versa. "
+},{
+  "name":"Flubbs",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":4,
+  "desc":"Kinetic force applied to the target is amplified and redirected in a random but near perpendicular vector.\n\nFlubb boots can jump crazy high, a flubb shield can redirect blows and strikes.\n\nBut always random, one can never truly master a flubbed item. "
+},{
+  "name":"Elemental Field",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":6,
+  "desc":"Wielder generates a field that is elementally aligned. Effects therein are +1 to that element, and maligned elements are -1. (Eg. rolls where elements matter, contested actions, or combat) \n\nDemihumans elementally aligned physically experience this field; could be warm and inviting or acrid and unpleasant. \n\nThe field lasts 12h for an approximate spherical radius of 3m (6m diameter, 18ft wide), although it may be extended or reshaped both accounts. \n\nThis Magicka does not deal damage! It simply acts as a \"Circle of Protection\"'ish or \"Buff field\" spell. "
+},{
+  "name":"Shapechange",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":7,
+  "desc":"This Magicka only alters the targets visible shape. It does not alter composition or density. \n\nThis Magicka only lasts 24-48 hours, although this is extendable. \n\nAny demihuman can look like another demihuman. You could probably get a goblin to look like a kobold. \n\nYou want wings? Wheres the mass coming from? And they wont fly. \n\nYou want gills? Sure, but they wont pass water. \n\nWerewolf? That's fine actually. Youll suck at it at first,"
+},{
+  "name":"Polymorph",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":15,
+  "desc":"The targets physical parameters change to become identical to the desired form. \n\nYou can polymorph poodle into a dragon, a rock into a zebra, and one demihuman into another. \n\nPhysically, bingo, so great. Mentally/Soulwise, heck naw. The dragon poodle could fly, but it'll take years to learn. The zebra dies, straight up, and doesn't taste very good. And while the demihuman looks exactly like their mark, they get psychologically wrecked riding a body that isn't theirs. (Or conversely, this spell can fix those issues in demihumans too)\n\nThis spell does not end on it's own. "
+},{
+  "name":"Our Battlecry",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":8,
+  "desc":"The wielder produces some effect (loud boisterous song, fire works, pyrotechnics, earthquake, field of sulfuric smell) that is incredibility engaging to all parties, and conveys the effect of giving all friendly forces +1 to damage while this Magicking is being actively cast. \n\nOnly one Astrylose per cast, cast can last for a long time, upwards of 30-45 minutes. Minor disruptions don't stop it, but grave injury, capture, etc.. will. Wielder cannot take other combat actions, save for avoiding being struck. \n\nEasily for miles, everyone knows combat is happening, and roughly where it is happening. The wielder could very easily drag a world of hurt down on their heads, shouting evil at a bunch of kobolds. Expect unintended consequences. "
+},{
+  "name":"Thickened",
+  "armor":1,
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":5,
+  "desc":"Just the armor, none of the penalty"
+},{
+  "name":"Unhahaed",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":2,
+  "desc":"The victim of this curse becomes dejected and melancholy, as if a love interest had visually revoked their affection from the victim. "
+},{
+  "name":"Automaton ",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":7,
+  "desc":"You can conjure a simple ethereal automaton. \n\nIt's a bit vaguely translucent, but otherwise looks like you and has your stats in most things. Or the target object echos your appearance. \n\nThe Automaton is not sentient. It has no drive or desires, and just sort of stands around and follows orders. It doesn't need to eat or sleep, but doesn't have a large capacity for activity either. It does not move or act quickly in any regard.\n\nThe Automaton eventually gets slower, more translucent and melty, and just sort of derps its way out of existence over the course of 3-7 days, based on activity level. \n\nThe Automaton will not participate in combat, except as a helpless victim. \n\nIt counts as \"Void\" elemental type, along with any other. "
+},{
+  "name":"Burn Dyr",
+  "armor":"",
+  "penalty":"",
+  "damage":1,
+  "ap":"",
+  "cost":6,
+  "desc":"Channel raw Magicka into a wide blast that burns/upsets the dyr. \n\nAll successes are interpreted as doubled wrt dyr reaction. (Eg. instead of +1 to roll, it's x2 successes)"
+},{
+  "name":"Invisibility",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":7,
+  "desc":"Target is not visible. \n\nSounds target causes are muffled; Smells are mostly subdued; physical displacement make minor readjustments to masks targets passing. \n\nSupernatural status. But vision is 100%. \n\nThis also includes \"Unnoticed\"s effects, so minor discrepancies aren't immediately suspicious. "
+},{
+  "name":"Unnoticed",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":3,
+  "desc":"Target becomes very difficult to notice. It's plainly visible, reacts and can move and all that..  But everyone will just sort of look past it. \n\nMake a ruckus and you'll still get noticed. But if you aren't making waves, you might as well be invisible. "
+},{
+  "name":"Channeling",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":2,
+  "desc":"You can channel the spirits of the dead (and maybe other stuff) to try and get answers.\n\nTry. They are a hostile audience, at minimum, and they can refuse the connection altogether. "
+},{
+  "name":"Aggravated Elemental Damage",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":9,
+  "desc":"This is no longer just Fire and Water and Ice and Corruption. This elemental damage now counts as Aggravated Damage.  \n\nFor instance, instead of a Class A fire (campsite) or Class B fire (oil/gasoline), this would be closer to Class D (metal/magnesium, white phosphorous).  \n\nIce would just be freezing, it'd be near-zero insta-freeze-shatter. \n\nCorruption wouldn't be toxic waste or polonium 210 anymore, it'd be demon-core/elephant foot.\n\nLife wouldn't be cyanide or nicotine anymore, it'd be botulism.\n\nEarth wouldn't crush like boulders, they'd unzip you like diamond tipped glass dust.  \n\nAgg. is about the fundamental wrongness of the damage source. Dealing Agg. is always an Iniquity check. "
+},{
+  "name":"Glitter",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":1,
+  "desc":"The target is covered in Glitter, usually extremely bright rainbow pattern, but relative to the targets original coloring. Permanent until undone. Could be a source of infinite food for a creature who eats Glitter. "
+},{
+  "name":"Reanimate",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":11,
+  "desc":"Creates a mindless undead automaton, similar to \"Gains Sentience\", but more mobile and less sentient. \n\nThis monster isn't necessarily loyal to it's creator, and it only desires to kill other creatures and die itself. It will mildly favor self-destruction. \n\nMagicka - PC whose Reanimated must take Undead to remain playable."
+},{
+  "name":"Grotesque Merge",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":6,
+  "desc":"Take any two objects/beings/etc.. and merge them, grotesquely. It's also probably very painful. "
+},{
+  "name":"Boombox",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":4,
+  "desc":"This Magicka create pleasant sounds that affect any being who has the capacity to hear and understand music, such that they are enrapt with the person or item making the sounds. \n\nNo roll per se, but anything enrapt isn't really interested in making rolls against anyone while enrapt, unless accosted (attack, larceny, etc..).\n\nIf the boombox turns off, or the target is accosted, the effect ends. An abrupt ending may enrage the audience. \n\nWhether Thaumatism or by object imbued changes the volume, pitch, tempo, etc...   A mountain may produce a chill ricolla d-n-b, while a campfire may be a saucy fast-paced staccato crunk. "
+},{
+  "name":"Elemental Bolt",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":5,
+  "desc":"Fire a magic bolt of raw elemental power, or the chosen element. Follows elemental strong/weak rules at +/-1\n\nOptional: This becomes a focused \"Beam\" with Damage:0, AP:1 instead. MAke sure to decalre that on cast or write it during imbue."
+},{
+  "name":"Magic Missile",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":4,
+  "desc":"Fan favorite right here!\n\nShoots a bolt of magic. Counts as a Thaumatism roll. \n\nItem would cast on 'use'. Whip your whip, swing your sword, bash your armor, wave the wand, lick the spoon... "
+},{
+  "name":"Deaths Curse",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":7,
+  "desc":"When the target dies, this Magicka is released and it kills it's assassin.\n\nOfc you can't imbue a frog and huck it at the last boss. This spell deals the targets vitality +1 worth of agg to its assassin.\n\nYou CANNOT resurrect the target by any source, as this spell completely consumes the targets soul. Trudge all the way down to the Land of the Dead and oink at Death directly and you'll still get a \"Sorry my dudes\".\n\nRocks and swords and power armor don't have Vitality, despite any HP points listed. This spell requires a soul.\n\nA sentient sword CAN be imbued, but it'll only deal a few points. If killed in battle, favor goes to the wider, and the sword with Deaths Curse whomever was receiving the stabbing."
+},{
+  "name":"Resurrection",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":21,
+  "desc":"You can bring someone/something back from the dead.\n\nThis requires an intact and healed body. If whatever caused the original death to occur is still true (blood loss, wounds and trauma, etc..) then the soul can't come back. This is not a Heal spell. Corpses that have begun to rot are also nonviable.\n\nOne Astrylite must be inserted into the corpse and will become neutralized before any attempts can begin. Multiple attempts will probably be required based on the targets max vitality."
+},{
+  "name":"Cursebound",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":5,
+  "desc":"This curse binds the target to the next demihuman who touches it. Typically either by dispelling the curse, destroying the item, or dying. \n\nAnd you see that last one a lot.\n\nCost counts as negative, when applicable."
+},{
+  "name":"Dispel Magic",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":1,
+  "desc":"For this effect, one must still make long-term rolls and accrue many successes, usually equal to the cost of the Magicka being dispelled. \n\nEg. To dispel \"Purple Magic (12)\", you'd need 12 successes. \nTo dispel \"Cursebound (5)\", you'd need 5 successes. "
+},{
+  "name":"Life Steal",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":7,
+  "desc":"For every 2 damage / successes dealt, one bashing is healed by the wielder.\n\n5 damage/successes heals one lethal\n\n10 successes/damage heals agg"
+},{
+  "name":"Collapsible ",
+  "armor":"",
+  "penalty":"",
+  "damage":"",
+  "ap":"",
+  "cost":5,
+  "desc":"The target can now collapse/ retract/fold itself 2 size classes lower. Like sword collapsing into its hilt, or a demihuman sucking their limbs and head inside their torso like a turtle. "
+},{
+  "name":"Polychroma",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":1,
+  "desc":"Changes the colors of the target, to a rainbow / oil-on-water kind of pattern. Permanent until undone. Roughly matches the casters desire, relative to the target. "
+},{
+  "name":"Heal",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":5,
+  "desc":"Heals 2 bashing per use/success\nHeals 1 lethal per use/success\nHeals 1 agg per 2 uses/successes, rounded down\n\nExtra successes may roll over to adjacent party members"
+},{
+  "name":"Crystallize",
+  "armor":1,
+  "penalty":1,
+  "damage":1,
+  "ap":"",
+  "cost":6,
+  "desc":"Whatever the thing is, becomes crystally"
+},{
+  "name":"Summon Monsters",
+  "armor":1,
+  "penalty":0,
+  "damage":3,
+  "ap":0,
+  "cost":15,
+  "desc":"You conjure forth living creatures, either from no where, somewhere normal, or even someplace weird. \n\nNot gonna tie explicit rules to this. Instead, it will be up to the Fate Dice. You might get a dire spider, or an army of rats, or 3 skeletons, or a single unarmed goblin who is really really good at signing opera. \n\nThe summoned monster will generally have a positive disposition toward you, and will usually attack your enemies in battle, and will probably have those stats below...  but they might be chased off, dispelled, killed, or even turned again you. No guarantees. \n\nThey may despawn after a few minutes/hours, but normally they are permanent. That opera goblin pulled from his debut is gonna be unhappy with y'all and demand his way back ASAP. "
+},{
+  "name":"Phased/Displaced",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":2,
+  "cost":5,
+  "desc":"Pushed about halfway out of reality. Everyone can see you and you can see them. With some effort, you can go through solid matter, although the non-phased matter by be disrupted by the passing. \n\nUsing the spell again will force the victim back into regular reality. "
+},{
+  "name":"Psychokinesis",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":8,
+  "desc":"You can lift items with your brain. \n\nTake your size difference for a roll modifier, and one or more successes are the liftable size classes. \n\nA size 5 demihuman lifting a size 1 apple would gain 4 to their dicepool. A size 8 dragon would get +3 to lift a size 5 human. A size 5 human would take a 3 dice penalty to lift the size 8 dragon.\n\nTo inflict damage, you must have much more control and power. As a damage roll, a penalty of 2 is applied, and then each success is a point of bashing damage. "
+},{
+  "name":"Heavy",
+  "armor":1,
+  "penalty":1,
+  "damage":0,
+  "ap":0,
+  "cost":3,
+  "desc":"This imbued|struck item is now thick and heavy. Light wooden staff is now like cast iron. Leather armor is now like cast iron. Regular ole sword is now like THICC cast iron."
+},{
+  "name":"Gains Sentience",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":5,
+  "desc":"Whatever is struck or imbued becomes sentient/intelligent, with a semi-random personality that fits the item; Eg. a fancy tea pot would be a nice old British lady, and a chainsaw would probably be a jerk. The soup isnt just randomized, sometimes its accidentally the soul of a demigod or something. \n\nMost items will also gain minor mobility, using Disney-esque rules (Fantasia, Beauty and the Beast, Toy Story, Brave Little Toaster), but it's rarely Speed greater than 1, and sometimes it's nearly useless; Eg. A Minorly Mobile sword could flop around and shout obscenities, but its form just doesn't lend itself to movement. \n\nNo items will grow tiny arms and legs.\n\nAlso, this item will become exceedingly delicious. If this item was already food, its impressive flavors would be to die for."
+},{
+  "name":"Dex/Str flipped weapon",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":2,
+  "desc":"This weapon has its Str/Dex flipped, meaning that if it was supposed to use Str (sword) it now uses Dex, and if it was supposed to use Dex (bow) now it uses Str.\n\nMaybe it makes sense (Dex → rapier) and maybe its weird Magicka (Str → pistol), but it is what it do. \n\nOptional: flips Int and Wits, for wands and staffs "
+},{
+  "name":"Basic Elemental Damage",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":3,
+  "desc":"This is the basic catchall for simple effects. Counts as elemental. Is only Lethal damage type."
+},{
+  "name":"Unending Flame",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":2,
+  "desc":"Has inextinguishable flame, like magical napalm. Thaumatism version will eventually die out, but on a sword, it'll be there forever. "
+},{
+  "name":"Purple Magic",
+  "armor":0,
+  "penalty":0,
+  "damage":3,
+  "ap":1,
+  "cost":12,
+  "desc":"best and most powerful magic"
+},{
+  "name":"Spews hot metal",
+  "armor":0,
+  "penalty":0,
+  "damage":1,
+  "ap":0,
+  "cost":4,
+  "desc":"Hot metal comes out, and it burns. Its usually junk and stray utensils and shit. Good luck. "
+}]

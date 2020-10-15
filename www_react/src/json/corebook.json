@@ -51,8 +51,19 @@
             "id": "backstory",
             "name": "Backstory",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"p":"From the beginning of recorded time, and across every eon, The Gates have stood. They allow for strange passage across all the lands and millions of worlds. "},
+                {"p":"Recorded during that time have been civilization after civilization of demihumans, each calling itself \"Man\" and anyone else \"The Other\". These societies rise, conquer, and fall. Sometimes using powerful artefacts called Technika, sometimes bizarre forces called Magicka, sometimes coming from worlds rich in the enigmatic substance Astryl, and sometimes by just being better at conventional murder. Demihumans killing demihumans, as it has been ever since there was such a thing as demihuman."},
+                {"p":"The Last Great Civilization was called:  The Commonwealth of United Worlds, Confederated Nation-States, Sovereign Freeholds, Guildmaster Trade Alliance, Entwined Subsentients, Nymph-Troll-Balrog League, etc.. // keep making more"},
+                {"p":"Aka The Commonwealth."},
+                {"p":"They say an endless vigil of 1,000 suns shone down on The Commonwealth. While it had awesome, terrifying, and mysterious powers at its command, it mostly preferred to subjugate and occupy without bloodshed. The reign of The Commonwealth may have lasted for many hundreds or thousands of years more, However:"},
+                {"p":"Then the dyr came."},
+                {"p":"Evil vicious jet black gibbering madness one cannot look upon nor comprehend. It comes from The Gates, and it cannot be killed. Only items imbued with Magicka/Technika can repel the dyr at all. The bravest battles saw the heroes merely annoy it into retreat, taking heavy loses under its vicious tentacled murder ropes. "},
+                {"p":"As the attacks got worse, and it became harder and harder to mobilize the proper defense of stricken worlds, the decision was made. "},
+                {"h3":"All the gates must be closed. "},
+                {"p":"The Commonwealth mobilized more than a million warriors, decked out in primo gear from the last of the artefactories. And they set out. "},
+                {"p":"Teams went to every charted planet, and entered the final sacred runes into the Main Gate of every known world. The Gates would allow one final egress, and then would cease all functions forever. And when the Main Gate of a world closed, all the dozens or thousands of Minor Gates would stop too. Gateless, the dyr can no longer threaten that world."},
+                {"p":"But these egresses make for strange passage. It's a blind jump and the party almost never ends up at a Main Gate (only minor gates) and they may never arrive together.. or at the same time.. or in the same time period.. or even with the same party."},
+                {"p":"Finally, as each hero dies, they leave their mission and purpose in their gear, in the form of guardian spirits called viyas. Every item has a viya, and they merge and get stronger the more technika one collects. And all viyas tell stories of past adventures, of heroes long dead, or thyself, and of compatriots, now and to come. "}
             ]
         },
 
@@ -60,8 +71,62 @@
             "id": "charactercreation",
             "name": "Char. Creation",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h1":"Left Column: "},
+                {"h3":"NAME/PLAYER:"},
+                {"p":" [Adventurer McCool guy] played by [Real You O'Regular]"},
+                {"ah3":{"link":"#characterconcepts", "text":"CONCEPT: "}},
+                {"p":"Flavor text that helps focus you and the GM on who your character is. \"Lovable Rogue\", \"Stoic Soldier-for-hire\", or \"Vance the Betrayer\" are good examples. "},
+                {"ah3":{"link":"#virtues_and_vices", "text":"VIRTUE: "}},
+                {"p":"This is a defining good quality possessed by your character. When combined with your Vice, it will help define your character's personality. The seven to choose from are: Charity, Faith, Hope, Fortitude, Justice, Prudence, and Temperance and are described in detail in the link."},
+                {"ah3":{"link":"#virtues_and_vices", "text":"VICE: "}},
+                {"p":"This is a defining negative quality possessed by your character. When combined with your Virtue, it will help define your character's personality. The seven to choose from are: Envy, Gluttony, Lust, Greed, Pride, Sloth, and Wrath. These are described in detail in the link."},
+                {"ah3":{"link":"#racial", "text":"RACIAL: "}},
+                {"p":"You’re all humanoid or demihuman. The word here is for roleplaying, and many of its traits will be covered in Quirks. (Eg. Your cat-person will probably take the \"Acute Sense\" quirk) "},
+                {"h3":"DESC: "},
+                {"p":"(Optional) Flavor text for the purpose of role playing. No rules currently attached. Aka.  AGE/HAIR/EYES/HEIGHT"},
+                {"ah3":{"link":"#aspects", "text":"ASPECTS: "}},
+                {"p":"These all begin at 1, and can go to five. You are given 5, 4, and 3 points to spend between the three types of attributes. (Mental - Physical - Social) For instance, a combat-monkey will choose 5 dots to add to physical traits. No single trait however should be 4 or above without GM approval."},
+                {"ah3":{"link":"#aptitudes", "text":"APTITUDES: "}},
+                {"p":"These all start at Zero, with a penalty prescribed for attempts made untrained. You are given 20 points to spend in whatever fashion you choose. For instance, the nerdy type will spend most dots in 'mental' skills. No single trait however should be 4 or above without GM approval. Using an untrained aptitude has a penalty of -1, if I remember."},
+                {"h1":"Right Column: "},
+                {"ah3":{"link":"#astryl", "text":"ASTRYLOSE: "}},
+                {"p":"This equals your Resolve + Size (5 for Adult Demihuman). This is the activating force behind most Technika and Thaumatism.  "},
+                {"ah3":{"link":"#willpower", "text":"WILLPOWER: "}},
+                {"p":"This equals your Resolve + Composure. This is very important and has many uses, for instance, you can spend a willpower and gain 3 extra dice to your dice pool. These will be spent and regained numerous times during a session, so have plenty to start with. Can only be increased by increasing the base attributes Willpower is derived from."},
+                {"ah3":{"link":"#vitality", "text":"VITALITY: "}},
+                {"p":"Is equal to Size + Stamina. Basically it’s your capacity to take a beating. The three damage types (Bashing, Lethal, and Aggravated) can bring you to a knockout or worse, death. Dying is permanent, so Good luck. "},
+                {"ah3":{"link":"#sizecomparisons", "text":"SIZE: "}},
+                {"p":"Base is 5 (Adult Demihuman). Relevant Quirk is required for anything else. "},
+                {"h3":"SPEED: "},
+                {"p":"Describes roughly how many meters you may travel in a single turn. Strength + Dexterity + Size Factor (5 for Demihuman Adult). Specific actions may have other modifiers."},
+                {"h3":"INITIATIVE: "},
+                {"p":"Is Dexterity + Composure. Who jumps to their feet firing versus who is standing there with their mouths agape during an encounter. You can always stall for time and take a lower Init. If you so choose.  "},
+                {"h3":"DEFENSE: "},
+                {"p":"Is equal to your Dexterity or Wits, whichever is lower. Can be increased with various armor, but may be negated or lowered for other rolls, so choose wisely."},
+                {"ah3":{"link":"#specialities", "text":"SPECIALTIES: "}},
+                {"p":"(Optional) These are derived from your skills, and describe a particular focus you have. They aren't mandatory, and do have XP cost, but are a great way to give your character a little extra oomph for something they're good at. "},
+                {"ah3":{"link":"#quirks", "text":"QUIRKS | MAGICKA | EQUIPMENT: "}},
+                {"p":"These are what you spend your free exp points on, and add flair to your character. Once you choose them and begin playing, you can NOT change them without GM approval. This is scarce, but may happen on occasion. "},
+                {"h3":"UNSPENT & TOTAL EARNED EXP: "},
+                {"p":"You start at zero, see below for how to spend them. "},
+                {"h1":"Not Listed: "},
+                {"ah3":{"link":"#equipment", "text":"INVENTORY/EQUIPMENT: "}},
+                {"p":"Use XP to purchase equipment, discussed below. Tracked online and not on paper."},
+                {"h1":"Finishing Touches: "},
+                {"p":"FREE XP POINTS: You have 15 starter exp points to spend on your starting Equipment, known Magicka, and Quirks, using the amounts listed below. This allows you to round out your character with Quirks, or additional points in other areas. Negative quirks may increase your total to spend, but you can only take up to a maximum of -15 points worth. That totals 30 exp points, if you really want them...  "},
+                {"p":"So like, taking [Hecka Busted AF (-13)] and you could then spend 28 points on whatever: QUIRKS, A Machine Gun that fires Electric Kittens, Specialties, your 7th dot aspect, whatever."},
+                {"p":"These can be used to purchase starting equipment, starting magicka(spells), and the Quirks your character has.. "},
+                {"p":"// XP Table goes here //"},
+                {"h3":" ... And Finally: "},
+                {"p":"We have this coda, the logs, and possibly a sick af website to handle the below items, but feel free to jump into #suggestions if you've got ideas! "},
+                {"p":"It is recommended that you keep track of the following things other than your character sheet:"},
+                {"b1":"Current inventory"},
+                {"b1":"What is currently equipped"},
+                {"b1":"Your kill count of each species (comes in handy), and you might want a column for special kills"},
+                {"b1":"Your money"},
+                {"b1":"Your health levels"},
+                {"b1":"XP, because although there’s a spot for it on the sheet, it gets smudgy and clutters things"},
+                {"b1":"Willpower points"}
             ]
         },
 
@@ -69,8 +134,8 @@
             "id": "aspects",
             "name": "Aspects",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -78,8 +143,8 @@
             "id": "aptitudes",
             "name": "Aptitudes",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -87,8 +152,8 @@
             "id": "actionrolls",
             "name": "Action Rolls",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -96,8 +161,8 @@
             "id": "combat",
             "name": "Combat",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -105,8 +170,8 @@
             "id": "vitality",
             "name": "Vitality",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -114,8 +179,8 @@
             "id": "specialities",
             "name": "Specialities",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -123,8 +188,8 @@
             "id": "quirks",
             "name": "Quirks",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -132,8 +197,8 @@
             "id": "virtues_and_vices",
             "name": "Virtues & Vices",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -141,8 +206,8 @@
             "id": "willpower",
             "name": "Willpower",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -150,8 +215,8 @@
             "id": "rollmodifiers",
             "name": "Roll Modifiers",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -159,8 +224,8 @@
             "id": "masscombat",
             "name": "Mass Combat",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -168,8 +233,8 @@
             "id": "downtimeactions",
             "name": "Downtime",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -177,8 +242,8 @@
             "id": "equipment",
             "name": "Equipment",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -186,8 +251,8 @@
             "id": "technika",
             "name": "Technika",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -195,8 +260,8 @@
             "id": "magicka",
             "name": "Magicka",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -204,8 +269,8 @@
             "id": "astryl",
             "name": "Astryl",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -213,8 +278,8 @@
             "id": "sizecomparisons",
             "name": "Size Chart",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -222,8 +287,8 @@
             "id": "xpawardsandbonusxp",
             "name": "XP Awards",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -231,8 +296,8 @@
             "id": "dying",
             "name": "Dying",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -240,8 +305,8 @@
             "id": "racial",
             "name": "Racial",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -249,8 +314,8 @@
             "id": "dyr",
             "name": "dyr",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -258,8 +323,8 @@
             "id": "viyas",
             "name": "Viyas",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -267,8 +332,8 @@
             "id": "monsters",
             "name": "Monsters",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -276,8 +341,8 @@
             "id": "planets",
             "name": "Planets",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -285,8 +350,8 @@
             "id": "thegates",
             "name": "The Gates",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -294,8 +359,8 @@
             "id": "economy",
             "name": "Economy",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -303,8 +368,8 @@
             "id": "elements",
             "name": "Elements",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         },
 
@@ -313,8 +378,8 @@
             "id": "characterconcepts",
             "name": "Char.Concepts",
             "tags": [
-                {"h3":"sb2 heres an h3"},
-                {"p":"sb2 heres an p"}
+                {"h3":"fill_h3"},
+                {"p":"fill_p"}
             ]
         }
     ]

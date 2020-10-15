@@ -1,0 +1,22 @@
+[{
+  "name":"Horse",
+  "health":10,
+  "armor":0,
+  "size":6,
+  "speed":7,
+  "cost":5
+},{
+  "name":"ATV",
+  "health":3,
+  "armor":1,
+  "size":"4+2",
+  "speed":10,
+  "cost":10
+},{
+  "name":"Power Armor",
+  "health":6,
+  "armor":1,
+  "size":6,
+  "speed":4,
+  "cost":25
+}]
