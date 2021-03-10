@@ -510,4 +510,12 @@
   "ap":0,
   "cost":4,
   "desc":"Hot metal comes out, and it burns. Its usually junk and stray utensils and shit. Good luck. "
+},{
+  "name":"The Paradox of Paradox",
+  "armor":0,
+  "penalty":0,
+  "damage":0,
+  "ap":0,
+  "cost":5,
+  "desc":"With this you can harness the power of a held Paradox, whatever or not you made it.\n\nSome examples are: Bind the paradox to yourself or another; Make it so that you or your victim cannot take/give any paradox; Turn Paradox into Astrylite-type drugs for personal/team enhancement; Infuse any other magicka or technika to add dice; Intentionally trigger negative consequences on a foe; And more!!\n\nThe consequences: Roll one dice. If success, no consequence. If 12, +1 and/or improved effect to whatever you were doing. If no success, whatever you were doing backfires as per critical failure.  If a 1 – whatever wound that caused the Paradox to be created is reopened, and the entire stinkin Universe starts unraveling. Yeah, this is one possible TPK campaign ending btw.\n\nMalice:  If you want, you can declare that the critical failure happens to the originator of the Paradox. If its you, then you don’t roll and something terrible happens to you.  If its not you, you still roll, as above; the originator always takes the critical failure, and takes a double scoop if you roll 12.  "
 }]

@@ -664,3 +664,14 @@ h3.warning {
   width:100%;
 }
 
+.grid-container-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 0.5rem;
+}
+
+.minor-border{
+/*  border: 1px solid #bbb;
+  border-radius: 0.5rem;*/
+  padding: 0.4rem;
+}

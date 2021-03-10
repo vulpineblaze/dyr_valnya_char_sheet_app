@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+
 import corebook from '../json/corebook';
+
+import aspectsJSON from '../json/aspects';
+import aptitudesJSON from '../json/aptitudes';
+import rangesJSON from '../json/ranges';
+import magickaJSON from '../json/magicka';
 
 
 export default class Corebook extends Component {
@@ -10,7 +16,10 @@ export default class Corebook extends Component {
       this.displayCBTabs = this.displayCBTabs.bind(this);
       this.displayOneTab = this.displayOneTab.bind(this);
       this.displayOneTag = this.displayOneTag.bind(this);
+      this.displayOneAspect= this.displayOneAspect.bind(this);
+      this.displayOneAptitude= this.displayOneAptitude.bind(this);
       this.parseIndexToColor = this.parseIndexToColor.bind(this);
+      this.makeTitle = this.makeTitle.bind(this);
 
       this.state = {
         player: {},
@@ -57,6 +66,10 @@ export default class Corebook extends Component {
       return "#" + String.fromCharCode(first, second, third) ;
     }
 
+    makeTitle(str){
+      return str.charAt(0).toUpperCase() + str.substring(1);
+    }
+
     displayCBTabs(){
       const tabs = this.state.cb.corebook.tabs;
       const scopedThis = this;
@@ -91,6 +104,7 @@ export default class Corebook extends Component {
     }
 
     displayOneTag(tag){
+      const scopedThis = this;
 
       if(tag.h3){return(<h3>{tag.h3}</h3>);}
       if(tag.h1){return(<h1>{tag.h1}</h1>);}
@@ -98,6 +112,74 @@ export default class Corebook extends Component {
       if(tag.b1){return(<ul><li>{tag.b1}</li></ul>);}
       if(tag.ab1){return(<ul><li><a href={tag.ab1.link}>{tag.ab1.text}</a></li></ul>);}
       if(tag.ah3){return(<h3><a href={tag.ah3.link}>{tag.ah3.text}</a></h3>);}
+
+      if(tag.aspects){
+        return aspectsJSON.map(function(aspect) {
+          return  scopedThis.displayOneAspect(aspect) ;
+        });
+      }
+      if(tag.aptitudes){
+        return aptitudesJSON.map(function(aptitude) {
+          return  scopedThis.displayOneAptitude(aptitude) ;
+        });
+      }
+
+      if(tag.table){
+        var theTable = tag.table;
+        if(theTable == "magicka"){
+          return magickaJSON.map(function(row) {
+            return  scopedThis.displayOneTableRow(row) ;
+          });
+        }
+      }
+    }
+
+    displayOneAspect(aspect){
+      return(<div><h3>{this.makeTitle(aspect.name)}</h3><p>{this.makeTitle(aspect.type)} : {this.makeTitle(aspect.trait)}</p><p>{aspect.desc}</p></div>);
+    }
+    displayOneAptitude(aptitude){
+      return(<div><h3>{this.makeTitle(aptitude.name)}</h3><p>Type: {this.makeTitle(aptitude.type)}</p><p>{aptitude.desc}</p></div>);
+    }
+
+
+    displayOneTableRow(row){
+      var name, armor, penalty, damage, ap, cost, desc = "";
+      if (row.name){name=this.makeTitle(row.name)}
+      if (row.armor){armor=row.armor}
+      if (row.penalty){penalty=row.penalty}
+      if (row.damage){damage=row.damage}
+      if (row.ap){ap=row.ap}
+      if (row.cost){cost=row.cost}
+      if (row.desc){desc=row.desc}
+      return(<div class="statDesc">
+              <h3>{name}</h3>
+              <div class="grid-container-4">
+                <div class="grid-child minor-border">
+                  Cost: {cost}
+                </div>
+                <div class="grid-child minor-border">
+                </div>
+                <div class="grid-child minor-border">
+                </div>
+                <div class="grid-child minor-border">
+                </div>
+              </div>
+              <p>{desc}</p>
+              <div class="grid-container-4">
+                <div class="grid-child minor-border">
+                  Armor: {armor}
+                </div>
+                <div class="grid-child minor-border">
+                  Penalty: {penalty}
+                </div>
+                <div class="grid-child minor-border">
+                  Damage: {damage}
+                </div>
+                <div class="grid-child minor-border">
+                  AP: {ap}
+                </div>
+              </div>
+            </div>);
     }
 
     render() {
