@@ -2,10 +2,16 @@ import React, { Component } from 'react';
 
 import corebook from '../json/corebook';
 
-import aspectsJSON from '../json/aspects';
 import aptitudesJSON from '../json/aptitudes';
-import rangesJSON from '../json/ranges';
+import armorJSON from '../json/armor';
+import aspectsJSON from '../json/aspects';
+import flawsJSON from '../json/flaws';
+import horseJSON from '../json/horse';
 import magickaJSON from '../json/magicka';
+import monstersJSON from '../json/monsters';
+import quirkJSON from '../json/quirk';
+import rangesJSON from '../json/ranges';
+import weaponJSON from '../json/weapon';
 
 
 export default class Corebook extends Component {
@@ -94,7 +100,7 @@ export default class Corebook extends Component {
       });
       return (
 
-        <section id={tab.id}>
+        <section style={{height: '1400em'}} id={tab.id}>
           <h2 style={mystyle}><a href={"#"+tab.id}>{tab.name}</a></h2>
           <div>{showTags}</div>
           
@@ -112,6 +118,7 @@ export default class Corebook extends Component {
       if(tag.b1){return(<ul><li>{tag.b1}</li></ul>);}
       if(tag.ab1){return(<ul><li><a href={tag.ab1.link}>{tag.ab1.text}</a></li></ul>);}
       if(tag.ah3){return(<h3><a href={tag.ah3.link}>{tag.ah3.text}</a></h3>);}
+      if(tag.ap){return(<p><a href={tag.ap.link}>{tag.ap.text}</a></p>);}
 
       if(tag.aspects){
         return aspectsJSON.map(function(aspect) {
@@ -126,8 +133,19 @@ export default class Corebook extends Component {
 
       if(tag.table){
         var theTable = tag.table;
-        if(theTable == "magicka"){
-          return magickaJSON.map(function(row) {
+        var theJSON = {};
+        if(theTable=="aptitudes"){theJSON=aptitudesJSON;}
+        if(theTable=="armor"){theJSON=armorJSON;}
+        if(theTable=="aspects"){theJSON=aspectsJSON;}
+        if(theTable=="flaws"){theJSON=flawsJSON;}
+        if(theTable=="horse"){theJSON=horseJSON;}
+        if(theTable=="magicka"){theJSON=magickaJSON;}
+        if(theTable=="monsters"){theJSON=monstersJSON;}
+        if(theTable=="quirk"){theJSON=quirkJSON;}
+        if(theTable=="ranges"){theJSON=rangesJSON;}
+        if(theTable=="weapon"){theJSON=weaponJSON;}
+        if(theJSON){
+          return theJSON.map(function(row) {
             return  scopedThis.displayOneTableRow(row) ;
           });
         }
@@ -151,6 +169,7 @@ export default class Corebook extends Component {
       if (row.ap){ap=row.ap}
       if (row.cost){cost=row.cost}
       if (row.desc){desc=row.desc}
+        console.log (row);
       return(<div class="statDesc">
               <h3>{name}</h3>
               <div class="grid-container-4">

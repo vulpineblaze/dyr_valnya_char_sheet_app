@@ -510,7 +510,7 @@ class App extends Component {
       <HttpsRedirect>
       <Router>
 
-        <p>This is the online character sheet for Dyr-Valnya, which can be found on  
+        <p>This is the online character sheet for Dyr-Valnya, formerly found on  
           <a href="https://coda.io/d/dyr-valnya_d55_RuUt6nh">  coda.io</a>
         </p>
 
